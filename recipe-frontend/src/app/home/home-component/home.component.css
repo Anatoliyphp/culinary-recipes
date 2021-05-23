@@ -1,0 +1,75 @@
+.home_container{
+    width: 1440px;
+    display: flex;
+    flex-direction: row;
+}
+
+.home_container_img{
+    margin-top: -119px;
+}
+
+.home_container_info{
+    margin-top: 140px;
+}
+
+.home_container_info_head{
+    width: 688px;
+    height: 176px;
+    font: bold 72px/88px Montserrat;
+    color: #25292D;
+}
+
+.home_container_info_desc{
+    width: 566.86px;
+    height: 56px;
+    font: normal 18px/28px Montserrat;
+    color: #4A525A;
+}
+
+.home_container_bottons{
+    display: flex;
+}
+
+.home_container_bottons_add{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    margin-right: 24px;
+}
+
+.home_container_bottons_add_info{
+    width: 167px;
+    height: 28px;
+    margin-left: 23px;
+    margin-top: 10px;
+    font: 600 18px/28px Montserrat;
+    color: #FFFFFF;
+}
+
+.home_container_bottons_add_info:hover{
+    color:whitesmoke;
+}
+
+.home_container_bottons_login{
+    width: 216px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    background-color: white;
+    color: #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    text-align: center;
+    cursor: pointer;
+}
+
+.home_container_bottons_login:hover{
+    background-color: whitesmoke;
+}

@@ -1,0 +1,14 @@
+<div class="sort_container">
+    <h2 class="sort_container_header">
+        Умная сортировка по тэгам
+    </h2>
+    <p class="sort_container_info">
+        Добавляй рецепты и указывай наиболее популярные теги. Это позволит быстро находить любые категории.
+    </p>
+    <div class="sort_container_categories">
+        <app-sort-categories
+        *ngFor="let category of categories"
+        [category]="category">
+        </app-sort-categories>
+    </div>
+</div>

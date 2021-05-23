@@ -1,0 +1,22 @@
+.sort_container_header{
+    width: 811px;
+    height: 62px;
+    font: bold 42px/62px Montserrat;
+    color: #25292D;
+}
+
+.sort_container_info{
+    width: 700px;
+    height: 68px;
+    font: normal 18px/32px Montserrat;
+    color: #4A525A;
+}
+
+.sort_container{
+    margin-top: 113px;
+}
+
+.sort_container_categories{
+    display: flex;
+    margin-top: 42px;
+}
