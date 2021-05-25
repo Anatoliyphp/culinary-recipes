@@ -1,0 +1,38 @@
+<div class="recipe">
+    <img class="recipe_img" src="{{recipe.img}}">
+    <div class="recipe_container">
+        <div class="recipe_stats">
+            <div class="recipe_stats_tags">
+                <p class="recipe_stats_tag">{{recipe.tags[0]}}</p>
+                <p class="recipe_stats_tag">{{recipe.tags[1]}}</p>
+                <p class="recipe_stats_tag">{{recipe.tags[2]}}</p>
+            </div>
+            <div class="recipe_stat" (click)="onFavouritesClick()">
+                <img class="recipe_stat_img" src="{{currStar}}">
+                <p class="recipe_stat_number">{{recipe.favourites}}</p>
+            </div>
+            <div class="recipe_stat" (click)="onLikeClick()">
+                <img class="recipe_stat_img" src="{{currLike}}">
+                <p class="recipe_stat_number">{{recipe.likes}}</p>
+            </div>
+        </div>
+        <div class="recipe_desc">
+            <h3 class="recipe_desc_header">{{recipe.name}}</h3>
+            <p class="recipe_desc_info">
+               {{recipe.desc}}
+            </p>
+        </div>
+        <div class="recipe_info">
+            <img width="80" class="recipe_info_block_img" src="/assets/images/timer.png">
+            <div class="recipe_info_block">
+                <p class="recipe_info_block_head">Время приготовления:</p>
+                <p class="recipe_info_block_info">{{recipe.time}} мин</p>
+            </div>
+            <img width="80" class="recipe_info_block_img" src="/assets/images/people_outline.png">
+            <div class="recipe_info_block">
+                <p class="recipe_info_block_head">Рецепт на:</p>
+                <p class="recipe_info_block_info">{{recipe.persons}} персон</p>
+            </div>
+        </div>
+    </div>
+</div>
