@@ -12,6 +12,7 @@ import { FavouritesComponent } from '../features/favourites/components/favourite
 import { RecipesComponent } from '../features/recipes/components/recipes-component/recipes.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SortCategoriesComponent } from '../features/home/components/sort-categories/sort-categories.component';
 
 const appRoutes: Routes =[
   { path: '', component: HomeComponent},
@@ -32,7 +33,11 @@ const appRoutes: Routes =[
     FavouritesModule,
     RouterModule.forRoot(appRoutes),
     CommonModule,
-    FormsModule
+    FormsModule,
+  ],
+  exports: [
+    HomeModule,
+    FavouritesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

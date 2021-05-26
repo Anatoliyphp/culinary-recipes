@@ -1,1 +1,26 @@
-<div class="container_content">recipes works!</div>
+<div class="recipes">
+    <div class="recipes_hat">
+        <h3 class="recipes_hat_header">Рецепты</h3>
+        <button class="recipes_hat_add">
+            <img clas="recipes_hat_add_img" src="/assets/images/plus.png"/>
+            <p class="recipes_hat_add_info">Добавить рецепт</p>
+        </button>
+    </div>
+    <div class="recipes_sorts">
+        <app-sort-categories
+        *ngFor="let category of categories"
+        [category]="category">
+        </app-sort-categories>
+    </div>
+    <div class="recipes_search">
+        <h3 class="recipes_search_head">Поиск рецепта</h3>
+        <app-search></app-search>
+    </div>
+    <div>
+        <app-recipe
+        *ngFor="let recipe of recipes"
+        [recipe]="recipe"
+        ></app-recipe>
+    </div>
+    <button class="recipes_load" (click)="onLoadMore()">Загрузить еще</button>
+</div>

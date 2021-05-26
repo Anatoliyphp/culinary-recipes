@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Recipe } from '../../models/recipe';
-import { Likes } from '../../constants/like';
-import { FavouritesStars } from '../../constants/favouritesStar';
+import { Recipe } from '../../../../core/models/recipe';
+import { Likes } from '../../../../core/constants/like';
+import { FavouritesStars } from '../../../../core/constants/favouritesStar';
 
 @Component({
   selector: 'app-recipe',
@@ -13,8 +13,8 @@ export class RecipeComponent{
   @Input()
   recipe!: Recipe;
 
-  currLike = "/assets/images/yellike.png";
-  currStar = "/assets/images/star.png";
+  currLike = Likes.dislike;
+  currStar = FavouritesStars.fullStar;
 
   onLikeClick(): void
   {

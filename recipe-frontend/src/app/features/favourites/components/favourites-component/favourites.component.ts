@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Recipe} from '../../models/recipe';
+import { Recipe } from '../../../../core/models/recipe';
 
 @Component({
   selector: 'app-favourites',
@@ -9,8 +9,6 @@ import {Recipe} from '../../models/recipe';
 export class FavouritesComponent {
 
   hasFavourites = true;
-  limit = 2;
-  i = 0;
   recipes: Recipe[] = [
     {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
       likes: 8, favourites: 10, name: "Клубничная панна-котта",

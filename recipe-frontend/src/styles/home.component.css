@@ -6,6 +6,7 @@
 
 .home_container_img{
     margin-top: -119px;
+    widows: 602px;
 }
 
 .home_container_info{
@@ -72,4 +73,29 @@
 
 .home_container_bottons_login:hover{
     background-color: whitesmoke;
+}
+
+.search{
+    margin-top: 150px;
+    width: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.search_head{
+    width: 372px;
+    height: 51px;
+    font: bold 42px/51px Montserrat;
+    color: #25292D;
+}
+
+.search_info{
+    width: 700px;
+    height: 32px;
+    font: normal 18px/32px Montserrat;
+    font-feature-settings: 'case' on;
+    margin-bottom: 64px;
+    margin-left: 80px;
 }

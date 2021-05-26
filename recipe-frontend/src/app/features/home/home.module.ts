@@ -7,6 +7,7 @@ import { SortComponent } from './components/sort/sort.component';
 import { SortCategoriesComponent } from './components/sort-categories/sort-categories.component';
 import { BestRecipeComponent } from './components/best_recipe/best_recipe.component';
 import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,12 @@ import { SearchComponent } from './components/search/search.component';
   imports: [
     CommonModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
+  ],
+  exports: [
+    SortCategoriesComponent,
+    SearchComponent
   ]
 })
 export class HomeModule { }

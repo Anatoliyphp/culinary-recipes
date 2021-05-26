@@ -6,8 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../../core/app-routing.module';
 
-
-
 @NgModule({
   declarations: [
     FavouritesComponent,
@@ -18,6 +16,9 @@ import { AppRoutingModule } from '../../core/app-routing.module';
     BrowserModule,
     FormsModule,
     AppRoutingModule
+  ],
+  exports: [
+    RecipeComponent
   ]
 })
 export class FavouritesModule { }

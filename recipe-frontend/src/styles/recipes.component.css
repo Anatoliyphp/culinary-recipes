@@ -1,3 +1,70 @@
-.recipes{
-    color:blanchedalmond;
+.recipes_sorts{
+    display: flex;
+}
+
+.recipes_hat{
+    display: flex;
+    align-items: center;
+    margin-top: 90px;
+    margin-bottom: 50px;
+}
+
+.recipes_hat_header{
+    height: 62px;
+    font: bold 42px/62px Montserrat;
+    color: #25292D;
+    margin-right: 730px;
+}
+
+.recipes_hat_add{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    font: 600 18px/28px Montserrat;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipes_hat_add_info{
+    margin-left: 23px;
+    margin-bottom: 0;
+}
+
+.recipes_search{
+    display: flex;
+    margin-top: 78px;
+    margin-bottom: 80px;
+    align-items: center;
+}
+
+.recipes_search_head{
+    margin-right: 56px;
+    width: 197px;
+    height: 30px;
+    font: bold 24px/30px Montserrat;
+    color: #25292D;
+    margin-bottom: 60px;
+}
+
+.recipes_load{
+    height: 60px;
+    width: 309px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: white;
+    font: 600 18px/22px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+    margin-top: 65px;
+    margin-left: 446px;
+}
+
+.recipes_load:hover{
+    background-color: whitesmoke;
 }
