@@ -14,6 +14,7 @@
     font: normal 18px/22px Montserrat;
     outline: none;
     cursor: pointer;
+    padding: 0 20px;
 }
 
 .search_form_button{

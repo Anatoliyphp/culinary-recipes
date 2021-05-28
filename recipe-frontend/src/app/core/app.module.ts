@@ -6,19 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeModule } from '../features/home/home.module';
 import { RecipesModule } from '../features/recipes/recipes.module';
 import { FavouritesModule } from '../features/favourites/favourites.module';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../features/home/components/home-component/home.component';
-import { FavouritesComponent } from '../features/favourites/components/favourites-component/favourites.component';
-import { RecipesComponent } from '../features/recipes/components/recipes-component/recipes.component';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SortCategoriesComponent } from '../features/home/components/sort-categories/sort-categories.component';
-
-const appRoutes: Routes =[
-  { path: '', component: HomeComponent},
-  { path: 'favourites', component: FavouritesComponent},
-  { path: 'recipes', component: RecipesComponent }
-];
+import { LoginationModule } from '../features/logination/logination.module';
+import { appRoutes } from './constants/routes';
+import { ProfileModule } from '../features/profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -34,10 +27,13 @@ const appRoutes: Routes =[
     RouterModule.forRoot(appRoutes),
     CommonModule,
     FormsModule,
+    LoginationModule,
+    ProfileModule
   ],
   exports: [
     HomeModule,
-    FavouritesModule
+    FavouritesModule,
+    LoginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

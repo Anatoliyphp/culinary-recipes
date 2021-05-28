@@ -3,11 +3,15 @@
         <h1 class="home_container_info_head">Готовь и делись рецептами</h1>
         <p class="home_container_info_desc">Никаких кулинарных книг и блокнотов! Храни все любимые рецепты в одном месте.</p>
         <div class="home_container_bottons">
-            <button class="home_container_bottons_add">
+            <button class="home_container_bottons_add"
+            [routerLink]="[{ outlets: { 'auth': ['authorize'] }}]">
                 <img clas="home_container_bottons_add_img" src="/assets/images/plus.png"/>
-                <p class="home_container_bottons_add_info">Добавить рецепт</p>
+                <p class="home_container_bottons_add_info"
+                >Добавить рецепт</p>
             </button>
-            <button class="home_container_bottons_login">Войти</button>
+            <button class="home_container_bottons_login"
+             [routerLink]="[{ outlets: { 'auth': ['login'] }}]"
+             >Войти</button>
         </div>
     </div>
     <img class="home_container_img" src="/assets/images/Rectangle 1.png">

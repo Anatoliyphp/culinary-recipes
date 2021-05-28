@@ -1,0 +1,88 @@
+.registration{
+    position: fixed;
+    box-shadow: 0px 16px 200px #4A525A;
+    margin-left: 270px;
+    margin-top: 30px;
+    width: 700px;
+    height: 563px;
+    border-radius: 24px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registration_form{
+    margin-left: 60px;
+    margin-bottom: 40px;
+}
+
+.registration_title{
+    width: 570px;
+    height: 30px;
+    font: bold 24px/30px Montserrat;
+    text-transform: capitalize;    
+    color: #25292D;
+    margin-bottom: 49px;
+}
+
+.registration_long{
+    width: 580px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    margin-bottom: 20px;
+    outline: none;
+    padding: 0 20px;
+}
+
+.registration_short{
+    width: 278px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    margin-bottom: 20px;
+    outline: none;
+    margin-right: 24px;
+    padding: 0 20px;
+}
+
+.registration_buttons_register{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    border: none;
+    color: white;
+    margin-right: 24px;
+    cursor: pointer;
+}
+
+.registration_buttons_cancel{
+    width: 278px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    background-color: white;
+    cursor: pointer;
+}
+
+.registration_to_login{
+    width: 242px;
+    height: 28px;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+    border-bottom: 1px dashed #FDB100;
+}

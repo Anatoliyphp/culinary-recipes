@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Recipe } from 'src/app/core/models/recipe';
 import { SortCategories } from 'src/app/features/home/constants/categouries';
 
@@ -8,6 +9,8 @@ import { SortCategories } from 'src/app/features/home/constants/categouries';
   styleUrls: ['../../../../../styles/recipes.component.css']
 })
 export class RecipesComponent {
+
+  constructor(private router: Router){}
   
   @Input()
   categories = SortCategories;
@@ -61,6 +64,10 @@ export class RecipesComponent {
     let currIndex = this.currNumberOfItems;
     this.pushRecipes(currIndex, currIndex + 3);
     this.currNumberOfItems += 4;
+  }
+
+  toAuth(): void{
+    this.router.navigate([{ outlets: { auth: 'authorize' }}]);
   }
 
 }

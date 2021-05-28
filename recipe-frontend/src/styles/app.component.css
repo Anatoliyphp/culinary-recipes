@@ -14,21 +14,27 @@
 }
 
 .container_header_login{
-    width: 112px;
+    width: 200px;
     height: 38px;
-    margin-left: 565px;
     margin-top: 5px;
     display: flex;
     align-items: center;
 }
 
+.container_header_login_line{
+    margin-left: 90px;
+    margin-right: 20px;
+}
+
 .container_header_login_link{
-    width: 60px;
+    width: 100px;
     height: 22px;
     font: 600 18px/22px Montserrat;
     color: #FDB100;
     cursor: pointer;
     margin-left: 14px;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 .container_header_title{
