@@ -1,0 +1,12 @@
+<div class="favourites">
+    <h2 class="favourites_header">Избранное</h2>
+    <div *ngIf="hasFavourites; else noFavourites">
+        <app-recipe
+        *ngFor="let recipe of recipes"
+        [recipe]="recipe"
+        ></app-recipe>
+    </div>
+    <ng-template #noFavourites>
+        <p class="empty">Ваш список пуст</p>
+      </ng-template>
+</div>

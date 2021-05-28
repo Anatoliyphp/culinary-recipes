@@ -1,0 +1,19 @@
+.favourites_header{
+    width: 811px;
+    height: 62px;
+    font: bold 42px/62px Montserrat;
+    color: #25292D;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.empty{
+    width: 556px;
+    height: 30px;
+    margin-left: 442px;
+    margin-top: 117px;
+    font: 600 24px/30px Montserrat;
+    color: #FDB100;
+    opacity: 0.5;
+    margin-bottom: 888px;
+}

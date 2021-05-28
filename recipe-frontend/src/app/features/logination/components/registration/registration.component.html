@@ -1,0 +1,14 @@
+<div class="registration">
+    <p class="registration_title">Регистрация</p>
+    <form class="registration_form">
+        <input class="registration_long" type="text" placeholder="Имя"/>
+        <input class="registration_long" type="text" placeholder="Логин"/>
+        <input class="registration_short" type="text" placeholder="Пароль"/>
+        <input class='registration_short' type="text" placeholder="Повторите пароль"/>
+        <div class="registration_buttons">
+            <button type="submit" class="registration_buttons_register">Зарегистрироваться</button>
+            <button class="registration_buttons_cancel" (click)="onClose()">Отмена</button>
+        </div>
+    </form>
+    <p class="registration_to_login" (click)="toLogIn()">У меня уже есть аккаунт</p>
+</div>

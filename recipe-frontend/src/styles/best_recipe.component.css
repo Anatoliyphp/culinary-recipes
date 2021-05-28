@@ -1,0 +1,91 @@
+.best_recipe{
+    display: flex;
+    flex-direction: row;
+    margin-top: 157px;
+}
+
+.best_recipe_desc{
+    margin-left: 72px;
+}
+
+.best_recipe_desc_stats{
+    display: flex;
+    margin-bottom: 32px;
+}
+
+.best_recipe_desc_stats_img{
+    width: 80px;
+    height: 80px;
+    background: #FDB100;
+    border-radius: 90px;
+    background-image: url(/assets/images/sun.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 42px;
+    margin-left: 8px;
+}
+
+.sun_eye{
+    width: 12.47px;
+    height: 7.29px;
+    margin-left: 2.25px;
+    margin-right: 2.25px;
+    margin-bottom: 15px;
+}
+
+.best_recipe_desc_stats_img_day{
+    position: absolute;
+    margin-top: 23px;
+}
+
+.best_recipe_desc_stats_likes{
+    margin-left: 250px;
+    display: flex;
+    flex-direction: row;
+    margin-right: 30px;
+}
+
+.best_recipe_desc_stats_time{
+    display: flex;
+    flex-direction: row;
+}
+
+.best_recipe_desc_stats_likes_info{
+    width: 28px;
+    height: 28px;
+    font: normal 16px/28px Montserrat;
+    color: #25292D;
+    margin-left: 10px;
+}
+
+.best_recipe_desc_stats_time_info{
+    width: 78px;
+    height: 28px;
+    font: normal 16px/28px Montserrat;
+    color: #25292D;
+    margin-left: 10px;
+}
+
+.best_recipe_desc_info{
+    display: flex;
+    flex-direction: column;
+    width: 513px;
+}
+
+.best_recipe_desc_info_header{
+    width: 513px;
+    height: 120px;
+    font: bold 42px/60px Montserrat;
+    text-transform: capitalize;
+    color: #25292D;
+}
+
+.best_recipe_desc_info_text{
+    width: 513px;
+    height: 128px;
+    font: normal 18px/32px Montserrat;
+    font-feature-settings: 'case' on;
+}

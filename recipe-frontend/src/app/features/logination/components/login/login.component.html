@@ -1,0 +1,12 @@
+<div class="login">
+    <p class="login_title">Войти</p>
+    <form class="login_form">
+        <input class="login_form_name" type="text" placeholder="Логин"/>
+        <input class="login_form_name" type="text" placeholder="Пароль"/>
+        <div class="login_buttons">
+            <button class='login_buttons_login'>Войти</button>
+            <button class="login_buttons_cancel" (click)="onClose()">Отмена</button>
+        </div>
+    </form>
+    <a class="login_to_register" (click)="toRegister()">У меня еще нет аккаунта</a>
+</div>

@@ -1,0 +1,51 @@
+.authorization{
+    position: fixed;
+    width: 700px;
+    height: 336px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 200px #4A525A;
+    border-radius: 24px;
+    margin-left: 270px;
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.authorization_title{
+    width: 515px;
+    height: 30px;
+    font: bold 24px/30px Montserrat;
+    color: #25292D;
+}
+
+.authorization_info{
+    width: 577px;
+    height: 56px;
+    font: normal 18px/28px Montserrat;
+    font-feature-settings: 'case' on;   
+    color: #4A525A;
+}
+
+.authorization_login{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    border: none;
+    color: white;
+    margin-right: 24px;
+}
+
+.authorization_register{
+    width: 278px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    background-color: white;
+}

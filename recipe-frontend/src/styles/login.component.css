@@ -1,0 +1,77 @@
+.login{
+    position: fixed;
+    box-shadow: 0px 16px 200px #4A525A;
+    background: #FFFFFF;
+    margin-left: 270px;
+    margin-top: 80px;
+    width: 700px;
+    height: 479px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_title{
+    width: 515px;
+    height: 30px;
+    font: bold 24px/30px Montserrat;
+    text-transform: capitalize;    
+    color: #25292D;
+    margin-bottom: 49px;
+}
+
+.login_form{
+    margin-left: 60px;
+}
+
+.login_form_name{
+    width: 580px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    margin-bottom: 20px;
+    outline: none;
+    padding: 0 20px;
+}
+
+.login_buttons{
+    margin-bottom: 40px;
+}
+
+.login_buttons_login{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    border: none;
+    color: white;
+    margin-right: 24px;
+    cursor: pointer;
+}
+
+.login_buttons_cancel{
+    width: 278px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    background-color: white;
+    cursor: pointer;
+}
+
+.login_to_register{
+    width: 242px;
+    height: 28px;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+    border-bottom: 1px dashed #FDB100;
+}
