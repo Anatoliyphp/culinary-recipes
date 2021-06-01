@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { onClose, toLogIn } from '../../services/logination_routing';
+import { onClose, toLogIn } from '../../../../core/services/logination_routing';
 
 @Component({
   selector: 'app-registration',

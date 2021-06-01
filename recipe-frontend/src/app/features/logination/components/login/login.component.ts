@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { onClose, toRegister } from '../../services/logination_routing';
+import { onClose, toRegister } from '../../../../core/services/logination_routing';
+import { NgForm} from '@angular/forms';
+import { AuthService } from '../../../../core/services/auth_service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,12 @@ import { onClose, toRegister } from '../../services/logination_routing';
 })
 export class LoginComponent {
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private auth: AuthService){}
+
+  loginForm: any = {
+    login: '',
+    password: ''
+  }
 
   onClose(): void{
     onClose(this.router);
@@ -19,5 +26,13 @@ export class LoginComponent {
     toRegister(this.router);
   }
 
-
+  login(form: NgForm)
+  {
+    this.auth.login(form.value.login, form.value.password)
+    .subscribe(res => {
+      alert("You are in!!!")
+    }, error => {
+      alert("Wrong login or password")
+    })
+  }
 }

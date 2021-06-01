@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --proxy-config proxy.config.json",
+    "build": "ng build --prod --output-path ../recipe-backend/recipe-api/wwwroot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -28,6 +28,7 @@
     "@angular-devkit/build-angular": "~12.0.1",
     "@angular/cli": "~12.0.1",
     "@angular/compiler-cli": "~12.0.1",
+    "@auth0/angular-jwt": "^5.0.2",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.7.0",

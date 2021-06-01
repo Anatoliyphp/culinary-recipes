@@ -12,6 +12,15 @@ import { FormsModule } from '@angular/forms';
 import { LoginationModule } from '../features/logination/logination.module';
 import { appRoutes } from './constants/routes';
 import { ProfileModule } from '../features/profile/profile.module';
+import { JwtModule} from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { ACCESS_TOKEN_KEY } from './services/auth_service';
+
+export function tokenGetter()
+{
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
 
 @NgModule({
   declarations: [
@@ -28,7 +37,14 @@ import { ProfileModule } from '../features/profile/profile.module';
     CommonModule,
     FormsModule,
     LoginationModule,
-    ProfileModule
+    ProfileModule,
+    HttpClientModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter
+      }
+    })
   ],
   exports: [
     HomeModule,
