@@ -20,8 +20,8 @@ namespace recipe_api.Controllers
     public class AccountController: Controller
     {
         private readonly IOptions<AuthOptions> authOptions;
-        private readonly IUserInterface userRepository;
-        public AccountController(IOptions<AuthOptions> auth, IUserInterface _userRepository)
+        private readonly IUserRepository userRepository;
+        public AccountController(IOptions<AuthOptions> auth, IUserRepository _userRepository)
         {
             authOptions = auth;
             userRepository = _userRepository;
@@ -29,9 +29,9 @@ namespace recipe_api.Controllers
 
         [Route("login")]
         [HttpPost]
-        public IActionResult Login([FromBody]LoginModel request)
+        public async Task<IActionResult> Login([FromBody]LoginModel request)
         {
-            var user = userRepository.AuthenticateUser(request.Login, request.Password);
+            var user = await userRepository.AuthenticateUser(request.Login, request.Password);
             if (user != null)
             {
                 var token = GenerateJWT(user);

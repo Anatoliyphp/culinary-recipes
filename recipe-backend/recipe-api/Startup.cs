@@ -31,13 +31,12 @@ namespace recipe_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            //string connection = Configuration.GetConnectionString("Defaultconnection");
-            //services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
+            string connection = Configuration.GetConnectionString("Defaultconnection");
+            services.AddDbContext<RecipesContext>(options => options.UseSqlServer(connection));
 
             services.AddControllers();//
 
-            services.AddScoped<IUserInterface, UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             var authOptionsConfiguration = Configuration.GetSection("Auth");//
             services.Configure<AuthOptions>(authOptionsConfiguration);//

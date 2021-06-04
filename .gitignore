@@ -12,3 +12,14 @@
 /.vs/slnx.sqlite
 /recipe-backend/recipe-api/wwwroot
 /recipe-backend/recipe-api/wwwroot/assets
+/recipe-backend/recipe-infrastucture-migrations/Class1.cs
+/recipe-backend/recipe-infrastucture-migrations/obj/Debug/netstandard2.0/.NETStandard,Version=v2.0.AssemblyAttributes.cs
+/recipe-backend/recipe-infrastucture-migrations/obj/Debug/netstandard2.0/recipe-infrastucture-migrations.AssemblyInfo.cs
+/recipe-backend/recipe-infrastucture-migrations/obj/Debug/netstandard2.0/recipe-infrastucture-migrations.AssemblyInfoInputs.cache
+/recipe-backend/recipe-infrastucture-migrations/obj/Debug/netstandard2.0/recipe-infrastucture-migrations.assets.cache
+/recipe-backend/recipe-infrastucture-migrations/obj/project.assets.json
+/recipe-backend/recipe-infrastucture-migrations/obj/project.nuget.cache
+/recipe-backend/recipe-infrastucture-migrations/obj/recipe-infrastucture-migrations.csproj.nuget.dgspec.json
+/recipe-backend/recipe-infrastucture-migrations/obj/recipe-infrastucture-migrations.csproj.nuget.g.props
+/recipe-backend/recipe-infrastucture-migrations/obj/recipe-infrastucture-migrations.csproj.nuget.g.targets
+/recipe-backend/recipe-infrastucture-migrations/recipe-infrastucture-migrations.csproj
