@@ -15,6 +15,10 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 			builder.Property(t => t.Name)
 				.HasMaxLength(20)
 				.IsRequired();
+
+			builder.HasMany(t => t.Recipes)
+				.WithMany(r => r.Tags)
+				.UsingEntity(rt => rt.ToTable("RecipeTag"));
 		}
 	}
 }

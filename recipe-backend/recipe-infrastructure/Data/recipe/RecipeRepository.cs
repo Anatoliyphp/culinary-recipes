@@ -29,9 +29,9 @@ namespace recipe_infrastructure
 			return await recipes.AsNoTracking().ToListAsync();
 		}
 
-		public async Task<List<Recipe>> GetAllUsersRecipes(User user)
+		public async Task<List<Recipe>> GetAllUsersRecipes(int userId)
 		{
-			IQueryable<Recipe> recipes = db.Recipes.Where(r => r.UserId == user.UserId);
+			IQueryable<Recipe> recipes = db.Recipes.Where(r => r.UserId == userId);
 			recipes = recipes.OrderBy(r => r.Likes);
 			return await recipes.AsNoTracking().ToListAsync();
 		}

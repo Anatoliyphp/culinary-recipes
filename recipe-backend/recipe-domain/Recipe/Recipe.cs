@@ -42,13 +42,13 @@ namespace recipe_domain
 
 		public User User { get; set; }
 
-		public List<User> Users { get; set; }
+		public List<UserFavourites> UserFavourites { get; set; }
 
-		private List<Step> Steps = new List<Step>();
+		public List<Step> Steps = new List<Step>();
 
-		private List<Tag> Tags = new List<Tag>();
+		public List<Tag> Tags = new List<Tag>();
 
-		private List<Ingridient> Ingridients = new List<Ingridient>();
+		public List<Ingridient> Ingridients = new List<Ingridient>();
 
 		public void AddStep(string name, string desc)
 		{

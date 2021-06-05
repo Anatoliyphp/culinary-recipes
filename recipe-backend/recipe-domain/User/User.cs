@@ -24,9 +24,9 @@ namespace recipe_domain
 
         public string About { get; set; }
 
-        private readonly List<Recipe> Recipes = new List<Recipe>();
+        public readonly List<Recipe> Recipes = new List<Recipe>();
 
-        public List<Recipe> Favourites { get; set; }
+        public List<UserFavourites> UserFavourites { get; set; }
 
         public List<Recipe> GetRecipes()
 		{

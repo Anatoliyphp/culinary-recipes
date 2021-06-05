@@ -26,6 +26,10 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 			builder.Property(r => r.Time).IsRequired();
 
 			builder.Property(r => r.Persons).IsRequired();
+
+			builder.HasOne(r => r.User)
+				.WithMany(u => u.Recipes)
+				.HasForeignKey(r => r.UserId);
 		}
 	}
 }

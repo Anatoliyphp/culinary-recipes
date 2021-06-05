@@ -11,7 +11,7 @@ namespace recipe_domain
 
 		List<Recipe> GetAllFavouritesRecipes(User user);
 
-		Task<List<Recipe>> GetAllUsersRecipes(User user);
+		Task<List<Recipe>> GetAllUsersRecipes(int userId);
 
 		Recipe[] GetAllRecipesByName(string name);
 

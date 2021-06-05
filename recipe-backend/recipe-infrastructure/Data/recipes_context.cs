@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using recipe_domain;
 using recipe_infrastructure.Data.EntityConfigurations;
+using recipe_infrastructure.Data.user.EntityConfigurations;
 
 namespace recipe_infrastructure
 {
@@ -25,6 +26,7 @@ namespace recipe_infrastructure
             modelBuilder.ApplyConfiguration(new TagMap());
             modelBuilder.ApplyConfiguration(new IngridientMap());
             modelBuilder.ApplyConfiguration(new StepMap());
+            modelBuilder.ApplyConfiguration(new UserFavouriteMap());
         }
     }
 }

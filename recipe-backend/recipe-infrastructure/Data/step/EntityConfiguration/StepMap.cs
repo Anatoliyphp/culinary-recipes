@@ -19,6 +19,10 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 			builder.Property(s => s.Desc)
 				.HasMaxLength(200)
 				.IsRequired();
+
+			builder.HasOne(s => s.Recipe)
+				.WithMany(r => r.Steps)
+				.HasForeignKey(s => s.RecipeId);
 		}
 	}
 }
