@@ -13,11 +13,6 @@ export class LoginComponent {
 
   constructor(private router: Router, private auth: AuthService){}
 
-  loginForm: any = {
-    login: '',
-    password: ''
-  }
-
   onClose(): void{
     onClose(this.router);
   }
@@ -30,7 +25,8 @@ export class LoginComponent {
   {
     this.auth.login(form.value.login, form.value.password)
     .subscribe(res => {
-      alert("You are in!!!")
+      this.onClose()
+      location.reload()
     }, error => {
       alert("Wrong login or password")
     })

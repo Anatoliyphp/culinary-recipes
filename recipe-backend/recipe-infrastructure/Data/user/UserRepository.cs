@@ -21,12 +21,13 @@ namespace recipe_infrastructure
 
 		public async Task<bool> RegisterUser(string login, string name, string password)
 		{
-			User user = new User(login, name, password);
+			User user = new User(login, password, name);
 			if (db.Users.Any(u => u.Login == login))
 			{
 				return false;
 			}
 			await db.Users.AddAsync(user);
+			await db.SaveChangesAsync();
 			return true;
 		}
 	}

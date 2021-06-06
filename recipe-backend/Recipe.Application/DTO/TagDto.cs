@@ -1,9 +1,11 @@
-﻿namespace Recipe.Application.DTO
+﻿using System.Runtime.Serialization;
+
+namespace Recipe.Application.DTO
 {
+	[DataContract]
 	public class TagDto
 	{
-		public int TagId { get; set; }
-
+		[DataMember(Name = "name")]
 		public string Name { get; set; }
 	}
 }

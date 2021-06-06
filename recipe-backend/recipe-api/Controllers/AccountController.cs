@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System;
 using recipe_domain;
+using Recipe.Application.DTO;
 
 namespace recipe_api.Controllers
 {
@@ -39,6 +39,31 @@ namespace recipe_api.Controllers
                     new
                     {
                         access_token = token,
+                        name = user.Name
+                    }
+                );
+            }
+            return Unauthorized();
+        }
+
+        [Route("register")]
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody]UserDto user)
+		{
+            bool r = await userRepository.RegisterUser(user.Login, user.Name, user.Password);
+            if (!r)
+			{
+                return Ok();
+			}
+            var authUser = await userRepository.AuthenticateUser(user.Login, user.Password);
+            if (authUser != null)
+            {
+                var token = GenerateJWT(authUser);
+                return Ok(
+                    new
+                    {
+                        access_token = token,
+                        name = authUser.Name
                     }
                 );
             }

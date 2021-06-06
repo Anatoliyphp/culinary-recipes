@@ -23,3 +23,10 @@
 /recipe-backend/recipe-infrastucture-migrations/obj/recipe-infrastucture-migrations.csproj.nuget.g.props
 /recipe-backend/recipe-infrastucture-migrations/obj/recipe-infrastucture-migrations.csproj.nuget.g.targets
 /recipe-backend/recipe-infrastucture-migrations/recipe-infrastucture-migrations.csproj
+/recipe-backend/Recipe.Application/bin/Debug/netstandard2.0/Recipe.Application.deps.json
+/recipe-backend/Recipe.Application/bin/Debug/netstandard2.0/Recipe.Application.dll
+/recipe-backend/Recipe.Application/bin/Debug/netstandard2.0/Recipe.Application.pdb
+/recipe-backend/Recipe.Application/obj/Debug/netstandard2.0/Recipe.Application.csproj.CoreCompileInputs.cache
+/recipe-backend/Recipe.Application/obj/Debug/netstandard2.0/Recipe.Application.csproj.FileListAbsolute.txt
+/recipe-backend/Recipe.Application/obj/Debug/netstandard2.0/Recipe.Application.dll
+/recipe-backend/Recipe.Application/obj/Debug/netstandard2.0/Recipe.Application.pdb

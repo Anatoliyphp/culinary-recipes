@@ -7,6 +7,7 @@ import { Token } from "src/app/core/models/token";
 import { tap } from 'rxjs/operators';
 
 export const ACCESS_TOKEN_KEY = "recipe_access_token";
+export const USER_NAME = "user_name";
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +27,19 @@ export class AuthService {
         }).pipe(
             tap(token => {
                 localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
+                localStorage.setItem(USER_NAME, token.name);
+            })
+        )
+    }
+
+    register(login: string, name: string, password: string): Observable<Token>
+    {
+        return this.http.post<Token>("/api/account/register",{
+            login, name, password
+        }).pipe(
+            tap(token => {
+                localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
+                localStorage.setItem(USER_NAME, token.name);
             })
         )
     }
@@ -39,6 +53,7 @@ export class AuthService {
     logout(): void
     {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(USER_NAME);
         this.router.navigate(['']);
     }
 }

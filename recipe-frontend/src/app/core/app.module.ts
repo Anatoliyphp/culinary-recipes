@@ -15,11 +15,16 @@ import { ProfileModule } from '../features/profile/profile.module';
 import { JwtModule} from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
-import { ACCESS_TOKEN_KEY } from './services/auth_service';
+import { ACCESS_TOKEN_KEY, USER_NAME } from './services/auth_service';
 
 export function tokenGetter()
 {
   return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
+
+export function nameGetter()
+{
+  return localStorage.getItem(USER_NAME);
 }
 
 @NgModule({

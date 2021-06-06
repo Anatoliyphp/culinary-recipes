@@ -1,9 +1,9 @@
 <div class="registration">
     <p class="registration_title">Регистрация</p>
-    <form class="registration_form">
-        <input class="registration_long" type="text" placeholder="Имя"/>
-        <input class="registration_long" type="text" placeholder="Логин"/>
-        <input class="registration_short" type="text" placeholder="Пароль"/>
+    <form class="registration_form" #myForm="ngForm" (ngSubmit)="registration(myForm)">
+        <input class="registration_long" name="name" ngModel required type="text" placeholder="Имя"/>
+        <input class="registration_long" name="login" ngModel required type="text" placeholder="Логин"/>
+        <input class="registration_short" name="password" ngModel required type="text" placeholder="Пароль"/>
         <input class='registration_short' type="text" placeholder="Повторите пароль"/>
         <div class="registration_buttons">
             <button type="submit" class="registration_buttons_register">Зарегистрироваться</button>
