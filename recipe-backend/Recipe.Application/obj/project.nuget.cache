@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "giCa16ZBH8+xCWvo1KGPn1VBk2fZk0VrqjtveKxCXoKll62forbBAMvFSvw6kiBW4yFpiTqvxyoBnJYD5FIM7A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Анатолий\\Documents\\GitHub\\culinary-recipes\\recipe-backend\\Recipe.Application\\Recipe.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Анатолий\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Анатолий\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

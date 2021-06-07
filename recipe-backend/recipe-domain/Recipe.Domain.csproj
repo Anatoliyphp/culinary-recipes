@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>recipe_infrastructure</RootNamespace>
+    <RootNamespace>recipe_domain</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\recipe-domain\recipe-domain.csproj" />
+    <PackageReference Include="Abp" Version="6.3.1" />
   </ItemGroup>
 
 </Project>
