@@ -8,9 +8,9 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 	{
 		public void Configure(EntityTypeBuilder<Ingridient> builder)
 		{
-			builder.HasKey(i => i.IngridientId);
+			builder.HasKey(i => i.Id);
 
-			builder.Property(i => i.IngridientId).UseHiLo("DbSequenceHiLo");
+			builder.Property(i => i.Id).UseHiLo("DbSequenceHiLo");
 
 			builder.Property(i => i.Name)
 				.HasMaxLength(30)

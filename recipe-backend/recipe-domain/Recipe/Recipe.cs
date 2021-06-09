@@ -24,7 +24,6 @@ namespace recipe_domain
 			Likes = 0;
 			UserId = userId;
 		}
-		public int RecipeId { get; set; }
 
 		public byte[] Img { get; set; }
 
@@ -54,7 +53,7 @@ namespace recipe_domain
 		{
 			if (!Steps.Any(s => s.Name == name))
 			{
-				Steps.Add(new Step(name, desc, RecipeId));
+				Steps.Add(new Step(name, desc, Id));
 			}
 		}
 
@@ -70,7 +69,7 @@ namespace recipe_domain
 		{
 			if (!Ingridients.Any(i => i.Name == Name))
 			{
-				Ingridients.Add(new Ingridient(name, list, RecipeId));
+				Ingridients.Add(new Ingridient(name, list, Id));
 			}
 		}
 

@@ -15,7 +15,7 @@ export class AppComponent {
 
   logged = true;
 
-  onFavourites = false;
+  onFavourites = true;
 
   onActivate($event: any): void
   {

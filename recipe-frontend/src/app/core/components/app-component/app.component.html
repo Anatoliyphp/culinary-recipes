@@ -11,7 +11,7 @@
       [routerLinkActiveOptions]="{exact:true}" (click)="onFavourites=false">Рецепты</a>
     <a class="container_header_title_link" routerLink="/favourites" routerLinkActive="active" 
       [routerLinkActiveOptions]="{exact:true}" (click)="onFavourites=true">Избранное</a>
-    <div [ngStyle]="{'margin-left': (logged) ? '398px' : '565px'}" class="container_header_login">
+    <div [ngStyle]="{'margin-left': (auth.isAuthenticated()) ? '398px' : '565px'}" class="container_header_login">
       <img class="container_header_login_image" src="/assets/images/login.png">
       <a *ngIf="!auth.isAuthenticated(); else greet" class="container_header_login_link"
       [routerLink]="[{ outlets: { 'auth': ['login'] }}]"
@@ -19,6 +19,7 @@
       <ng-template #greet>
         <a class="container_header_login_link"
         routerLink="/profile"
+        (click)="onFavourites=true"
         >Привет, {{name}}</a>
         <img class="container_header_login_line" src="../../../../assets/images/line.png"/>
         <img routerLink="/" (click)="auth.logout()" class="container_header_logout" src="../../../../assets/images/exit.png"/>

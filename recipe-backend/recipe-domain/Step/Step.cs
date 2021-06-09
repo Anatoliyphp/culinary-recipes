@@ -11,8 +11,6 @@ namespace recipe_domain
 			RecipeId = recipeId;
 		}
 
-		public int StepId { get; set; }
-
 		public string Name { get; set; }
 
 		public string Desc { get; set; }

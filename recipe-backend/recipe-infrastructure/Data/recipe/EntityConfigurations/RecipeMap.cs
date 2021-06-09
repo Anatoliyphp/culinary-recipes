@@ -8,9 +8,9 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 	{
 		public void Configure(EntityTypeBuilder<Recipe> builder)
 		{
-			builder.HasKey(r => r.RecipeId);
+			builder.HasKey(r => r.Id);
 
-			builder.Property(r => r.RecipeId)
+			builder.Property(r => r.Id)
 				.UseHiLo("DbSequenceHiLo");
 
 			builder.Property(r => r.Name)

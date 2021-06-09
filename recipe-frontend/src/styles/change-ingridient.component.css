@@ -1,0 +1,17 @@
+.ingr{
+    width: 250px;
+    height: 184px;
+    margin-right: 134px;
+}
+
+.ingr_desc{
+    font: normal 18px/30px Montserrat;
+    color: #4A525A;
+}
+
+.ingr_head{
+    width: 396px;
+    height: 23px;
+    font: 600 18px/30px Montserrat;    
+    color: #4A525A;
+}

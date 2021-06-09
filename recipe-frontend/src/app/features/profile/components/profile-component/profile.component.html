@@ -1,22 +1,34 @@
 <div class="profile">
     <img src="assets/images/arrow.png">
-    <a class="back">Назад</a>
+    <a class="back" routerLink="/">Назад</a>
     <div class="profile_info">
         <h2 class="profile_info_head">Мой профиль</h2>
         <form class="profile_form">
             <div class="profile_form_info">
-                <input class="profile_form_info_field" type="text">
-                <input class="profile_form_info_field"  type="text">
-                <input class="profile_form_info_field"  type="text">
+                <p class="name">имя</p>
+                <p class="login">логин</p>
+                <input class="profile_form_info_field" type="text" value="Анатолий">
+                <input class="profile_form_info_field" type="text" value="tolian">
+                <input class="profile_form_info_password" type={{type}} value="12345678">
+                <img class="show_password" (click)="onShowPass()" src="assets/images/show.png"/>
             </div>
-            <input class="profile_form_info_about" type="text">
+            <textarea rows="8" cols="5" class="profile_form_info_about" type="textarea" placeholder="Напишите немного о себе"></textarea>
             <img class="change" src="assets/images/karandash.png">
         </form>
         <div class="profile_stat">
-
-        </div>
-        <div class="profile_recipes">
-            <h3>Мои рецепты</h3>
+            <app-stat
+            *ngFor="let stat of stats"
+            [stat]="stat"
+            ></app-stat>
+        </div>`
+        <div>
+            <h3 class="profile_recipes">Мои рецепты</h3>
+            <div>
+                <app-recipe
+                *ngFor="let recipe of recipes"
+                [recipe]="recipe"
+                ></app-recipe>
+            </div>
         </div>
     </div>
 </div>

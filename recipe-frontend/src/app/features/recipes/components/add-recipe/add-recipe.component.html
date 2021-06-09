@@ -1,0 +1,48 @@
+<form class="add_recipe">
+    <div class="back_container">
+        <img class="arrow" src="assets/images/arrow.png"/>
+        <p class="back" routerLink="/">Назад</p>
+    </div>
+    <div class="add_recipe_top">
+        <h2 class="add_recipe_head">Добавить новый рецепт</h2>
+        <button class="publish">Опубликовать</button>
+    </div>
+    <div class="add_recipe_form">
+        <input  class="up_img" id="upload_img" type="file"/>
+        <label class="up_img_label" for="upload_img"><img src="assets/images/section03.png"/></label>
+        <div class="form_data">
+            <input class="add_recipe_form_name" type="text" placeholder="Название рецепта"/>
+            <textarea class="add_recipe_form_desc" type="text" placeholder="Краткое описание рецепта(150 символов)"></textarea>
+            <input class="add_recipe_form_name" type="text" placeholder="Добавить тэги"/>
+            <div class="minutes_and_persons">
+                <div class="minutes">
+                    <input class="choose" type="number" placeholder="Время готовки" min="1" max="60"/>
+                    <p class="stat_type">Минут</p>
+                </div>
+                <div class="persons">
+                    <input class="choose" type="number" placeholder="Порций в блюде" min="1" max="10"/>
+                    <p class="stat_type">Персон</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="steps_and_ingr">
+        <div class="ingridients">
+            <p class="ingridients_title">Ингридиенты</p>
+            <app-ingridient
+            *ngFor="let ingr of addRecipeServ.ingrs"
+            [ingr]="ingr"
+            >
+            </app-ingridient>
+            <button (click)="addRecipeServ.AddIngr()" class="add_info"><img class="y_plus" src="assets/images/yellow_plus.png"/>Добавить ингридиент</button>
+        </div>
+        <div class="steps">
+            <app-step
+            *ngFor="let step of addRecipeServ.steps"
+            [step]="step"
+            >
+            </app-step>
+            <button (click)="addRecipeServ.AddStep()" class="add_step"><img class="y_plus" src="assets/images/yellow_plus.png"/>Добавить шаг</button>
+        </div>
+    </div>
+</form>

@@ -13,8 +13,6 @@ namespace recipe_domain
             Name = name;
 		}
 
-        public int UserId { get; set; }
-
         public string Login { get; set; }
 
         public string Password { get; set; }
@@ -40,7 +38,7 @@ namespace recipe_domain
             int persons
             )
 		{
-            Recipes.Add(new Recipe(img, name, desc, time, persons, UserId));
+            Recipes.Add(new Recipe(img, name, desc, time, persons, Id));
 		}
 
 		public ICollection<IEventData> DomainEvents => throw new System.NotImplementedException();

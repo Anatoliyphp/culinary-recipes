@@ -8,9 +8,9 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 	{
 		public void Configure(EntityTypeBuilder<Step> builder)
 		{
-			builder.HasKey(s => s.StepId);
+			builder.HasKey(s => s.Id);
 
-			builder.Property(s => s.StepId).UseHiLo("DbSequenceHiLo");
+			builder.Property(s => s.Id).UseHiLo("DbSequenceHiLo");
 
 			builder.Property(s => s.Name)
 				.HasMaxLength(20)

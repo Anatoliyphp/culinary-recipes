@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Recipe } from 'src/app/core/models/recipe';
+import { AuthService } from 'src/app/core/services/auth_service';
+import { toAddRecipe, toRegister } from 'src/app/core/services/logination_routing';
 import { SortCategories } from 'src/app/features/home/constants/categouries';
 
 @Component({
@@ -10,7 +12,7 @@ import { SortCategories } from 'src/app/features/home/constants/categouries';
 })
 export class RecipesComponent {
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private auth: AuthService){}
   
   @Input()
   categories = SortCategories;
@@ -66,8 +68,16 @@ export class RecipesComponent {
     this.currNumberOfItems += 4;
   }
 
-  toAuth(): void{
-    this.router.navigate([{ outlets: { auth: 'authorize' }}]);
+  onAddRecipe()
+  {
+    if (this.auth.isAuthenticated())
+    {
+      toAddRecipe(this.router);
+    }
+    else
+    {
+      toRegister(this.router);
+    }
   }
 
 }

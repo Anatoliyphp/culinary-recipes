@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth_service';
-import { onClose, toRegister } from 'src/app/core/services/logination_routing';
+import { onClose, toAddRecipe, toRegister } from 'src/app/core/services/logination_routing';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +16,7 @@ export class HomeComponent {
   {
     if (this.auth.isAuthenticated())
     {
-      onClose(this.router);
+      toAddRecipe(this.router);
     }
     else
     {

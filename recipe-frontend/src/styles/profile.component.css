@@ -3,6 +3,8 @@
     height: 62px;
     font: bold 42px/62px Montserrat;
     color: #25292D;
+    margin-bottom: 50px;
+    margin-top: 11px;
 }
 
 .change{
@@ -18,6 +20,8 @@
     font: 500 18px/22px Montserrat;
     color: #FDB100;
     margin-left: 13px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .profile_form{
@@ -46,6 +50,27 @@
     border-radius: 16px;
     margin-bottom: 20px;
     margin-right: 40px;
+    outline: none;
+    font: normal 16px/28px Montserrat;
+    color: #4A525A;
+    resize: none;
+    padding-left: 26px;
+    padding-top: 10px;
+}
+
+.profile_form_info_password{
+    width: 542px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    outline: none;
+    font: normal 20px/30px Montserrat;
+    color: #4A525A;
+    resize: none;
+    padding-left: 26px;
 }
 
 .profile_form_info_about{
@@ -55,4 +80,45 @@
     box-sizing: border-box;
     border-radius: 16px;
     margin-right: 32px;
+    outline: none;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    resize: none;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.name{
+    position: absolute;
+    margin-left: 26px;
+    font: normal 12px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+}
+
+.login{
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 26px;
+    font: normal 12px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+}
+
+.show_password{
+    position: absolute;
+    margin-left: 500px;
+    margin-top: 156px;
+    cursor: pointer;
+}
+
+.profile_stat{
+    display: flex;
+}
+
+.profile_recipes{
+    width: 177px;
+    height: 30px;
+    font: bold 24px/30px Montserrat;
+    color: #25292D;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }

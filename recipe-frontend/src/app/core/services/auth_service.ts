@@ -25,7 +25,7 @@ export class AuthService {
         return this.http.post<Token>("/api/account/login",{
             login, password
         }).pipe(
-            tap(token => {
+            tap(token => {  
                 localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
                 localStorage.setItem(USER_NAME, token.name);
             })

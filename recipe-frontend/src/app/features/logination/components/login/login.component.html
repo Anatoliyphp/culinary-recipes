@@ -2,7 +2,7 @@
     <p class="login_title">Войти</p>
     <form class="login_form" #myForm="ngForm" (ngSubmit)="login(myForm)">
         <input class="login_form_name" name="login" ngModel required type="text" placeholder="Логин"/>
-        <input class="login_form_name" name="password" ngModel required type="text" placeholder="Пароль"/>
+        <input class="login_form_name" name="password" ngModel required type="password" placeholder="Пароль"/>
         <div class="login_buttons">
             <button type="submit" class='login_buttons_login'>Войти</button>
             <button class="login_buttons_cancel" (click)="onClose()">Отмена</button>

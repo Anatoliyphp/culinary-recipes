@@ -16,6 +16,9 @@ import { JwtModule} from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ACCESS_TOKEN_KEY, USER_NAME } from './services/auth_service';
+import { ChangeRecipeComponent } from './components/change-recipe/change-recipe.component';
+import { ChangeStepComponent } from './components/change-step/change-step.component';
+import { ChangeIngridientComponent } from './components/change-ingridient/change-ingridient.component';
 
 export function tokenGetter()
 {
@@ -29,7 +32,10 @@ export function nameGetter()
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChangeRecipeComponent,
+    ChangeStepComponent,
+    ChangeIngridientComponent
   ],
   imports: [
     BrowserModule,

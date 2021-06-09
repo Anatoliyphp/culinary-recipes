@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Recipe } from '../../../../core/models/recipe';
 import { Likes } from '../../../../core/constants/like';
 import { FavouritesStars } from '../../../../core/constants/favouritesStar';
+import { Router } from '@angular/router';
+import { toChangeRecipe } from 'src/app/core/services/logination_routing';
 
 @Component({
   selector: 'app-recipe',
@@ -9,6 +11,12 @@ import { FavouritesStars } from '../../../../core/constants/favouritesStar';
   styleUrls: ['../../../../../styles/recipe.component.css']
 })
 export class RecipeComponent{
+
+  constructor(private router: Router){}
+
+  onClick(){
+    toChangeRecipe(this.router);
+  }
 
   @Input()
   recipe!: Recipe;

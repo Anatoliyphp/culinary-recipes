@@ -6,6 +6,8 @@ import { LoginComponent } from '../../features/logination/components/login/login
 import { RegistrationComponent } from '../../features/logination/components/registration/registration.component';
 import { AuthorizationComponent } from '../../features/logination/components/authorization/authorization.component';
 import { ProfileComponent } from 'src/app/features/profile/components/profile-component/profile.component';
+import { AddRecipeComponent } from 'src/app/features/recipes/components/add-recipe/add-recipe.component';
+import { ChangeRecipeComponent } from '../components/change-recipe/change-recipe.component';
 
 export const appRoutes: Routes =[
     { path: '', component: HomeComponent},
@@ -14,5 +16,7 @@ export const appRoutes: Routes =[
     { path: 'login', component: LoginComponent, outlet: 'auth'},
     { path: 'registration', component: RegistrationComponent, outlet: 'auth'},
     { path: 'authorize', component: AuthorizationComponent, outlet: 'auth'},
-    { path: 'profile', component: ProfileComponent}
+    { path: 'profile', component: ProfileComponent},
+    {path: 'add', component: AddRecipeComponent},
+    {path: 'recipe/:id', component: ChangeRecipeComponent}
   ];

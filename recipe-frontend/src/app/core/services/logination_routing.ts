@@ -11,3 +11,11 @@ export function toRegister(router: Router): void {
 export function toLogIn(router: Router): void {
     router.navigate([{ outlets: { auth: 'login' }}]);
 }
+
+export function toAddRecipe(router: Router): void{
+    router.navigate(["add"]);
+}
+
+export function toChangeRecipe(router: Router): void{
+    router.navigate(["recipe/:id"]);
+}
