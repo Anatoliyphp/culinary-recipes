@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Recipe } from 'src/app/core/models/recipe';
 import { AuthService } from 'src/app/core/services/auth_service';
-import { toAddRecipe, toRegister } from 'src/app/core/services/logination_routing';
+import { toAddRecipe, toAuthorize, toRegister } from 'src/app/core/services/logination_routing';
 import { SortCategories } from 'src/app/features/home/constants/categouries';
 
 @Component({
@@ -76,7 +76,7 @@ export class RecipesComponent {
     }
     else
     {
-      toRegister(this.router);
+      toAuthorize(this.router);
     }
   }
 

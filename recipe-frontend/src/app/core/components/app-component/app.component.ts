@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ACCESS_TOKEN_KEY, AuthService } from '../../../core/services/auth_service';
+import { Component } from '@angular/core';
+import { AuthService } from '../../../core/services/auth_service';
 import { nameGetter } from '../../app.module';
 
 @Component({

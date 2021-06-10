@@ -20,10 +20,17 @@
     text-transform: capitalize;    
     color: #25292D;
     margin-bottom: 49px;
+    margin-right: 40px;
 }
 
 .login_form{
     margin-left: 60px;
+}
+
+.back{
+    margin-left: 600px;
+    margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .login_form_name{

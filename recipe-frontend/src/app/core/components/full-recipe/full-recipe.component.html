@@ -6,7 +6,10 @@
     <div class="full_recipe_top">
         <h2 class="full_recipe_head">{{recipe.name}}</h2>
         <img src="assets/images/bin.png" class="delete">
-        <button (click)="onEdit()" class="change"><img src="assets/images/edit.png" class="edit_img">Редактировать</button>
+        <button (click)="onEdit()" class="change">
+            <img src="assets/images/edit.png"class="edit_img">
+             Редактировать
+        </button>
     </div>
     <app-recipe [recipe]="recipe"></app-recipe>
     <div class="ingrs_and_steps">

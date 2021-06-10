@@ -1,22 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { RIngridient } from '../../models/ingridient';
-import { Recipe } from '../../models/recipe';
-import { RStep } from '../../models/step';
-import { toAddRecipe } from '../../services/logination_routing';
+import { Component } from '@angular/core';
+import { RIngridient } from 'src/app/core/models/ingridient';
+import { Recipe } from 'src/app/core/models/recipe';
+import { RStep } from 'src/app/core/models/step';
 
 @Component({
-  selector: 'app-change-recipe',
-  templateUrl: './change-recipe.component.html',
-  styleUrls: ['../../../../styles/change-recipe.component.css']
+  selector: 'app-edit-recipe',
+  templateUrl: './edit-recipe.component.html',
+  styleUrls: ['../../../../../styles/edit-recipe.component.css']
 })
-export class ChangeRecipeComponent {
 
-  constructor(private router: Router) { }
-
-  onEdit(){
-    toAddRecipe(this.router);
-  }
+export class EditRecipeComponent {
 
   recipe: Recipe =
     {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
@@ -26,25 +19,25 @@ export class ChangeRecipeComponent {
     }
 
   ingrs: RIngridient[] = [
-    {header: "Для панна котты",
+    {id: 1, header: "Для панна котты",
       desc: "Сливки-20-30% - 500мл. Молоко - 100мл. Желатин - 2ч.л. Сахар - 3ст.л. Ванильный сахар - 2 ч.л."
     },
-    {header: "Для панна котты",
+    {id: 2, header: "Для панна котты",
       desc: "Сливки-20-30% - 500мл. Молоко - 100мл. Желатин - 2ч.л. Сахар - 3ст.л. Ванильный сахар - 2 ч.л."
     }
   ]
 
   steps: RStep[] = [
-    {header: "Шаг 1", 
+    {number: 1, header: "Шаг 1", 
       desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
     },
-    {header: "Шаг 1", 
+    {number: 1, header: "Шаг 1", 
       desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
     },
-    {header: "Шаг 1", 
+    {number: 1, header: "Шаг 1", 
       desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
     },
-    {header: "Шаг 1", 
+    {number: 1, header: "Шаг 1", 
       desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
     },
   ]

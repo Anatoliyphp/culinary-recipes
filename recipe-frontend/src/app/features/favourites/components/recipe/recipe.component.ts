@@ -4,6 +4,7 @@ import { Likes } from '../../../../core/constants/like';
 import { FavouritesStars } from '../../../../core/constants/favouritesStar';
 import { Router } from '@angular/router';
 import { toChangeRecipe } from 'src/app/core/services/logination_routing';
+import { AuthService } from 'src/app/core/services/auth_service';
 
 @Component({
   selector: 'app-recipe',
@@ -12,10 +13,13 @@ import { toChangeRecipe } from 'src/app/core/services/logination_routing';
 })
 export class RecipeComponent{
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private auth: AuthService){}
 
   onClick(){
-    toChangeRecipe(this.router);
+    if (this.auth.isAuthenticated())
+    {
+      toChangeRecipe(this.router);
+    }
   }
 
   @Input()

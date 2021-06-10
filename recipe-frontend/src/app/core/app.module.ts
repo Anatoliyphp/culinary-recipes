@@ -13,12 +13,11 @@ import { LoginationModule } from '../features/logination/logination.module';
 import { appRoutes } from './constants/routes';
 import { ProfileModule } from '../features/profile/profile.module';
 import { JwtModule} from '@auth0/angular-jwt';
-import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ACCESS_TOKEN_KEY, USER_NAME } from './services/auth_service';
-import { ChangeRecipeComponent } from './components/change-recipe/change-recipe.component';
-import { ChangeStepComponent } from './components/change-step/change-step.component';
-import { ChangeIngridientComponent } from './components/change-ingridient/change-ingridient.component';
+import { FullRecipeComponent } from './components/full-recipe/full-recipe.component';
+import { FullStepComponent } from './components/full-step/full-step.component';
+import { FullIngridientComponent } from './components/full-ingridient/full-ingridient.component';
 
 export function tokenGetter()
 {
@@ -33,9 +32,9 @@ export function nameGetter()
 @NgModule({
   declarations: [
     AppComponent,
-    ChangeRecipeComponent,
-    ChangeStepComponent,
-    ChangeIngridientComponent
+    FullRecipeComponent,
+    FullStepComponent,
+    FullIngridientComponent
   ],
   imports: [
     BrowserModule,

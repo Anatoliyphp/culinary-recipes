@@ -27,6 +27,13 @@
     margin-bottom: 49px;
 }
 
+.back{
+    margin-left: 600px;
+    margin-bottom: 20px;
+    margin-top: -20px;
+    cursor: pointer;
+}
+
 .registration_long{
     width: 580px;
     height: 50px;

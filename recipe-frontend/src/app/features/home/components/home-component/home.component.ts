@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth_service';
-import { onClose, toAddRecipe, toRegister } from 'src/app/core/services/logination_routing';
+import { onClose, toAddRecipe, toAuthorize, toRegister } from 'src/app/core/services/logination_routing';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,7 @@ export class HomeComponent {
     }
     else
     {
-      toRegister(this.router);
+      toAuthorize(this.router);
     }
   }
 

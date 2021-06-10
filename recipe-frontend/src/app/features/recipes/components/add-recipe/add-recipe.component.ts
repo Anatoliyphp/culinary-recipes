@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { onClose } from 'src/app/core/services/logination_routing';
 import { AddRecipeService } from '../../services/addRecipeService';
 
 @Component({
