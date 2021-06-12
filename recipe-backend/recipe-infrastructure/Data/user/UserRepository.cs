@@ -19,6 +19,11 @@ namespace recipe_infrastructure
 			return await db.Users.SingleOrDefaultAsync (u => u.Login == login && u.Password == password);
 		}
 
+		public async Task<User> GetUser(int userId)
+		{
+			return await db.Users.SingleOrDefaultAsync(u => u.Id == userId);
+		}
+
 		public async Task<bool> RegisterUser(string login, string name, string password)
 		{
 			User user = new User(login, password, name);
@@ -29,6 +34,12 @@ namespace recipe_infrastructure
 			await db.Users.AddAsync(user);
 			await db.SaveChangesAsync();
 			return true;
+		}
+
+		public async Task EditUser(User user)
+		{
+			db.Users.Update(user);
+			await db.SaveChangesAsync();
 		}
 	}
 }

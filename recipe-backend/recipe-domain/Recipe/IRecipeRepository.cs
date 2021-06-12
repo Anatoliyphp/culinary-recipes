@@ -5,29 +5,25 @@ namespace recipe_domain
 {
 	public interface IRecipeRepository
 	{
-		Recipe GetBestRecipe();
+		Task<Recipe> GetBestRecipe();
 
 		Task<List<Recipe>> GetAllRecipes();
 
-		List<Recipe> GetAllFavouritesRecipes(User user);
+		Task<List<Recipe>> GetAllFavouritesRecipes(int userId);
 
 		Task<List<Recipe>> GetAllUsersRecipes(int userId);
 
+		Task<Recipe> GetRecipeById(int recipeId);
+
 		Recipe[] GetAllRecipesByName(string name);
 
-		void AddRecipe(Recipe recipe);
+		Task AddRecipe(Recipe recipe);
 
-		void DeleteRecipe(Recipe recipe);
+		Task<bool> DeleteRecipe(int id);
 
-		void ChangeRecipe(Recipe recipe);
+		Task ChangeRecipe(Recipe recipe);
 
 		void Like(Recipe recipe);
-
-		void AddStep(int recipeId, Step step);//change | delete
-
-		void AddTag(int recipeId, Tag tag);//change | delete
-
-		void AddIngridient(int recipeId, Ingridient ingridient);//change | delete
 
 	}
 }

@@ -35,10 +35,11 @@ namespace recipe_domain
             string name,
             string desc,
             int time,
+            int likes,
             int persons
             )
 		{
-            Recipes.Add(new Recipe(img, name, desc, time, persons, Id));
+            Recipes.Add(new Recipe(img, name, desc, time, persons, likes, Id));
 		}
 
 		public ICollection<IEventData> DomainEvents => throw new System.NotImplementedException();

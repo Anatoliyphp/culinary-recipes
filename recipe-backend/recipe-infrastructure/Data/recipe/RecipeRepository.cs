@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +16,10 @@ namespace recipe_infrastructure
 			db = context;
 		}
 
-		public Recipe GetBestRecipe()
+		public async Task<Recipe> GetBestRecipe()
 		{
-			IQueryable<Recipe> recipes = db.Recipes;
-			recipes = recipes.OrderBy(r => r.Likes);
-			return recipes.First();
+			IQueryable<Recipe> recipes = db.Recipes.OrderBy(r => r.Likes);
+			return await recipes.FirstAsync();
 		}
 
 		public async Task<List<Recipe>> GetAllRecipes()
@@ -36,10 +36,17 @@ namespace recipe_infrastructure
 			return await recipes.AsNoTracking().ToListAsync();
 		}
 
-		public List<Recipe> GetAllFavouritesRecipes(User user)
+		public async Task<List<Recipe>> GetAllFavouritesRecipes(int userId)
 		{
-			List<Recipe> recipes = user.GetRecipes();
-			return (List<Recipe>)recipes.OrderBy(r => r.Likes);
+			User user = await db.Users
+				.Where(u => u.Id == userId)
+				.Include(u => u.UserFavourites)
+				.SingleOrDefaultAsync();
+			//if (user != null)
+			//{
+			//	return user.UserFavourites.ToList();
+			//}
+			return null;
 		}
 
 		public Recipe[] GetAllRecipesByName(string name)//TODO
@@ -47,19 +54,25 @@ namespace recipe_infrastructure
 			return new Recipe[0];
 		}
 
-		public async void AddRecipe(Recipe recipe)//TODO
+		public async Task AddRecipe(Recipe recipe)
 		{
 			db.Recipes.Add(recipe);
 			await db.SaveChangesAsync();
 		}
 
-		public async void DeleteRecipe(Recipe recipe)//TODO
+		public async Task<bool> DeleteRecipe(int id)
 		{
-			db.Recipes.Remove(recipe);
-			await db.SaveChangesAsync();
+			Recipe recipe = await db.Recipes.SingleOrDefaultAsync(r => r.Id == id);
+			if (recipe != null)
+			{
+				db.Recipes.Remove(recipe);
+				await db.SaveChangesAsync();
+				return true;
+			}
+			return false;
 		}
 
-		public async void ChangeRecipe(Recipe recipe)//TODO
+		public async Task ChangeRecipe(Recipe recipe)
 		{
 			db.Recipes.Update(recipe);
 			await db.SaveChangesAsync();
@@ -69,16 +82,9 @@ namespace recipe_infrastructure
 		{
 		}
 
-		public void AddStep(int recipeId, Step step)
+		public async Task<Recipe> GetRecipeById(int recipeId)
 		{
-		}
-
-		public void AddTag(int recipeId, Tag tag)
-		{
-		}
-
-		public void AddIngridient(int recipeId, Ingridient ingridient)
-		{
+			return await db.Recipes.SingleOrDefaultAsync(r => r.Id == recipeId);
 		}
 	}
 }

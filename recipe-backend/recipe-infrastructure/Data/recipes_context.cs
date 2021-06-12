@@ -12,6 +12,7 @@ namespace recipe_infrastructure
         public DbSet<Step> Steps { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Ingridient> Ingridients { get; set; }
+        public DbSet<UserFavourites> UserFavourites { get; set; }
 
         public RecipesContext(DbContextOptions<RecipesContext> options)
            : base(options)

@@ -13,6 +13,7 @@ namespace recipe_domain
 			string desc,
 			int time,
 			int persons,
+			int likes,
 			int userId
 			)
 		{
@@ -21,6 +22,7 @@ namespace recipe_domain
 			Desc = desc;
 			Time = time;
 			Persons = persons;
+			Likes = likes;
 			Likes = 0;
 			UserId = userId;
 		}

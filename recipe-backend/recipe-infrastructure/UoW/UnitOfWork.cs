@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace recipe_infrastructure.UoW
 {
-	class UnitOfWork : IDisposable
+	public class UnitOfWork : IDisposable
 	{
 		private RecipesContext db;
 		private RecipeRepository recipeRepository;
 		private UserRepository userRepository;
 		private bool disposed = false;
+
+		public UnitOfWork(RecipesContext context)
+		{
+			db = context;
+		}
 
 		public RecipeRepository Recipes
 		{
@@ -33,9 +39,9 @@ namespace recipe_infrastructure.UoW
 			}
 		}
 
-		public void Save()
+		public async Task Save()
 		{
-			db.SaveChanges();
+			await db.SaveChangesAsync();
 		}
 
 		public virtual void Dispose(bool disposing)
