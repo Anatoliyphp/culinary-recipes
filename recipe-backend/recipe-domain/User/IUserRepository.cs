@@ -10,6 +10,6 @@ namespace recipe_domain
 
 		Task<User> GetUser(int userId);
 
-		Task EditUser(User user);
+		void EditUser(User user);
 	}
 }

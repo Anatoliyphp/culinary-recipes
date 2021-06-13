@@ -32,14 +32,12 @@ namespace recipe_infrastructure
 				return false;
 			}
 			await db.Users.AddAsync(user);
-			await db.SaveChangesAsync();
 			return true;
 		}
 
-		public async Task EditUser(User user)
+		public void EditUser(User user)
 		{
 			db.Users.Update(user);
-			await db.SaveChangesAsync();
 		}
 	}
 }

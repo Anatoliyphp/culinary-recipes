@@ -15,6 +15,8 @@ namespace Application
 			int time,
 			int persons,
 			int likes,
+			int favourites,
+			bool isFavourite,
 			int userId,
 			IEnumerable<TagDto> tags
 			)
@@ -26,6 +28,8 @@ namespace Application
 			Time = time;
 			Persons = persons;
 			Likes = likes;
+			Favourites = favourites;
+			IsFavourite = isFavourite;
 			UserId = userId;
 			Tags = tags.ToList();
 		}
@@ -50,6 +54,12 @@ namespace Application
 
 		[DataMember(Name = "likes")]
 		public int Likes { get; set; }
+
+		[DataMember(Name = "favourites")]
+		public int Favourites { get; set; }
+
+		[DataMember(Name = "IsFavourite")]
+		public bool IsFavourite { get; set; }
 
 		[DataMember(Name = "user_id")]
 		public int UserId { get; set; }

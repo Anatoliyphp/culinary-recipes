@@ -15,7 +15,7 @@ namespace recipe_api
 			_recipeRepository = recipeRepository;
 		}
 
-		public async Task<FullRecipeDto> CreateFullRecipeDto(int recipeId)
+		public async Task<FullRecipeDto> CreateFullRecipeDto(int recipeId, int userId)
 		{
 			Recipe recipe = await _recipeRepository.GetRecipeById(recipeId);
 			if (recipe != null)
@@ -28,6 +28,8 @@ namespace recipe_api
 					recipe.Time,
 					recipe.Persons,
 					recipe.Likes,
+					await _recipeRepository.GetFavouritesNumber(recipeId),
+					await _recipeRepository.IsFavourite(userId, recipeId),
 					recipe.UserId,
 					recipe.Tags.ConvertAll(
 						t => new TagDto(t.Id, t.Name)),
@@ -35,12 +37,12 @@ namespace recipe_api
 						i => new IngridientDto(i.Name, i.List)),
 					recipe.Steps.ConvertAll(
 						s => new StepDto(s.Name, s.Desc))
-				);
+				); ;
 			}
 			return null;
 		}
 
-		public RecipeDto CreateRecipeDto(Recipe recipe)
+		public async Task<RecipeDto> CreateRecipeDto(Recipe recipe, int userId)
 		{
 			if (recipe != null)
 			{
@@ -53,6 +55,8 @@ namespace recipe_api
 					recipe.Time,
 					recipe.Persons,
 					recipe.Likes,
+					await _recipeRepository.GetFavouritesNumber(recipe.Id),
+					await _recipeRepository.IsFavourite(userId, recipe.Id),
 					recipe.UserId,
 					recipe.Tags.ConvertAll(
 						t => new TagDto(t.Id, t.Name))

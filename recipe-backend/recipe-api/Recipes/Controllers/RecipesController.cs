@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using recipe_domain;
 using Application;
 using System.Collections.Generic;
+using recipe_infrastructure.UoW;
 
 namespace recipe_api.Recipes.Controllers
 {
@@ -13,15 +14,18 @@ namespace recipe_api.Recipes.Controllers
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IRecipeDomainBuilder _recipeDomainBuilder;
 		private readonly IRecipesDtoBuilder _recipesDtoBuilder;
+		private readonly UnitOfWork _unitOfWork;
 		public RecipesController(
 			IRecipeRepository recipeRepository,
 			IRecipesDtoBuilder recipesDtoBuilder,
-			IRecipeDomainBuilder recipeDomainBuilder
+			IRecipeDomainBuilder recipeDomainBuilder,
+			UnitOfWork unitOfWork
 			)
 		{
 			_recipeRepository = recipeRepository;
 			_recipeDomainBuilder = recipeDomainBuilder;
 			_recipesDtoBuilder = recipesDtoBuilder;
+			_unitOfWork = unitOfWork;
 		}
 
 		[Route("add")]
@@ -32,7 +36,23 @@ namespace recipe_api.Recipes.Controllers
 			if (recipe != null)
 			{
 				await _recipeRepository.AddRecipe(recipe);
+				await _unitOfWork.Save();
 				return Ok();
+			}
+
+			return BadRequest();
+		}
+
+		[Route("fullrecipe/{userId:int}/{recipeId:int}")]
+		[HttpPost]
+		public async Task<IActionResult> GetFullRecipe(int userId, int recipeId)
+		{
+			FullRecipeDto fullRecipeDto = await _recipesDtoBuilder
+				.CreateFullRecipeDto(recipeId, userId);
+
+			if (fullRecipeDto != null)
+			{
+				return Ok(fullRecipeDto);
 			}
 
 			return BadRequest();
@@ -45,7 +65,8 @@ namespace recipe_api.Recipes.Controllers
 			Recipe recipe = _recipeDomainBuilder.CreateRecipe(request);
 			if (recipe != null)
 			{
-				await _recipeRepository.ChangeRecipe(recipe);
+				_recipeRepository.ChangeRecipe(recipe);
+				await _unitOfWork.Save();
 				return Ok();
 			}
 
@@ -57,6 +78,7 @@ namespace recipe_api.Recipes.Controllers
 		public async Task<IActionResult> DeleteRecipe(int id)
 		{
 			bool isDeleted = await _recipeRepository.DeleteRecipe(id);
+			await _unitOfWork.Save();
 			if (isDeleted)
 			{
 				return Ok();
@@ -65,15 +87,15 @@ namespace recipe_api.Recipes.Controllers
 			return BadRequest();
 		}
 
-		[Route("allRecipes")]
-		[HttpPost]
-		public async Task<IActionResult> GetAllRecipes()
+		[Route("allRecipes/{id:int}")]
+		[HttpGet]
+		public async Task<IActionResult> GetAllRecipes(int id)
 		{
 			List<Recipe> recipes = await _recipeRepository.GetAllRecipes();
 			if (recipes != null)
 			{
-				List<RecipeDto> recipeDtos = recipes
-					.ConvertAll(r => _recipesDtoBuilder.CreateRecipeDto(r));
+				List<Task<RecipeDto>> recipeDtos = recipes
+					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
 
 				return Ok(recipeDtos);
 			}
@@ -87,10 +109,36 @@ namespace recipe_api.Recipes.Controllers
 			List<Recipe> recipes = await _recipeRepository.GetAllFavouritesRecipes(id);
 			if (recipes != null)
 			{
-				List<RecipeDto> recipeDtos = recipes
-					.ConvertAll(r => _recipesDtoBuilder.CreateRecipeDto(r));
+				List<Task<RecipeDto>> recipeDtos = recipes
+					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
 
 				return Ok(recipeDtos);
+			}
+			return BadRequest();
+		}
+
+		[Route("addFavourites/{userId:int}/{recipeId:int}")]
+		[HttpGet]
+		public async Task<IActionResult> AddToFavourites(int userId, int recipeId)
+		{
+			bool IsAdded = await _recipeRepository.AddToFavourites(userId, recipeId);
+			if (IsAdded)
+			{
+				await _unitOfWork.Save();
+				return Ok();
+			}
+			return BadRequest();
+		}
+
+		[Route("deleteFavourites/{userId:int}/{recipeId:int}")]
+		[HttpGet]
+		public async Task<IActionResult> DeleteFromFavourites(int userId, int recipeId)
+		{
+			bool IsDeleted = await _recipeRepository.DeleteFromFavourites(userId, recipeId);
+			if (IsDeleted)
+			{
+				await _unitOfWork.Save();
+				return Ok();
 			}
 			return BadRequest();
 		}
@@ -102,8 +150,8 @@ namespace recipe_api.Recipes.Controllers
 			List<Recipe> recipes = await _recipeRepository.GetAllUsersRecipes(id);
 			if (recipes != null)
 			{
-				List<RecipeDto> recipeDtos = recipes
-					.ConvertAll(r => _recipesDtoBuilder.CreateRecipeDto(r));
+				List<Task<RecipeDto>> recipeDtos = recipes
+					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
 
 				return Ok(recipeDtos);
 			}
@@ -115,13 +163,32 @@ namespace recipe_api.Recipes.Controllers
 		public async Task<IActionResult> GetBestRecipe()
 		{
 			Recipe recipe = await _recipeRepository.GetBestRecipe();
+			RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, 0);
 
-			if (recipe != null)
+			if (recipeDto != null)
 			{
-				return Ok(recipe);
+				return Ok(recipeDto);
 			}
 
 			return BadRequest();
 		}
+
+		[Route("search/{id:int}/{name:string}")]
+		[HttpGet]
+		public async Task<IActionResult> SearchRecipe(int id, string name)
+		{
+			List<Recipe> recipes = await _recipeRepository.GetAllRecipesByName(name);
+
+			if (recipes != null)
+			{
+				List<Task<RecipeDto>> recipeDtos = recipes
+					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
+
+				return Ok(recipeDtos);
+			}
+
+			return BadRequest();
+		}
+
 	}
 }

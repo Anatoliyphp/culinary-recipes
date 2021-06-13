@@ -6,8 +6,8 @@ namespace recipe_api
 {
 	public interface IRecipesDtoBuilder
 	{
-		RecipeDto CreateRecipeDto(Recipe recipe);
+		Task<RecipeDto> CreateRecipeDto(Recipe recipe, int userId);
 
-		Task<FullRecipeDto> CreateFullRecipeDto(int recipeId);
+		Task<FullRecipeDto> CreateFullRecipeDto(int recipeId, int userId);
 	}
 }

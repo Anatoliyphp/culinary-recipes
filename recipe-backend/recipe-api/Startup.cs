@@ -29,6 +29,8 @@ namespace recipe_api
 
             services.AddApplication();
 
+            services.AddInfrastructure();
+
             services.AddApi();
 
             var authOptionsConfiguration = Configuration.GetSection("Auth");

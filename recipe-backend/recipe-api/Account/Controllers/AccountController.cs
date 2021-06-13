@@ -10,7 +10,7 @@ using System;
 using recipe_domain;
 using recipe_api.Account.Builders;
 using Application;
-//UNITOFWORK
+using recipe_infrastructure.UoW;
 //include
 namespace recipe_api.Controllers
 {
@@ -23,17 +23,20 @@ namespace recipe_api.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IUserDtoBuilder _userDtoBuilder;
         private readonly IUserDomainBuilder _userDomainBuilder;
+        private readonly UnitOfWork _unitOfWork;
         public AccountController(
             IOptions<AuthOptions> auth,
             IUserRepository userRepository,
             IUserDtoBuilder userDtoBuilder,
-            IUserDomainBuilder userDomainBuilder
+            IUserDomainBuilder userDomainBuilder,
+            UnitOfWork unitOfWork
             )
         {
             _authOptions = auth;
             _userRepository = userRepository;
             _userDtoBuilder = userDtoBuilder;
             _userDomainBuilder = userDomainBuilder;
+            _unitOfWork = unitOfWork;
         }
 
         [Route("login")]
@@ -64,6 +67,7 @@ namespace recipe_api.Controllers
             {
                 return BadRequest();
             }
+            await _unitOfWork.Save();
             var authUser = await _userRepository.AuthenticateUser(user.Login, user.Password);
             if (authUser != null)
             {
@@ -100,7 +104,8 @@ namespace recipe_api.Controllers
             User user = _userDomainBuilder.CreateUser(userDto);
             if (user != null)
             {
-                await _userRepository.EditUser(user);
+                _userRepository.EditUser(user);
+                await _unitOfWork.Save();
                 return Ok();
             }
 
