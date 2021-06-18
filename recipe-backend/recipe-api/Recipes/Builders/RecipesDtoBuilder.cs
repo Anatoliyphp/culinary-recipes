@@ -1,18 +1,46 @@
 ﻿using Application;
-using Microsoft.AspNetCore.Http;
 using recipe_domain;
-using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using recipe_api.Recipes.Mappers;
+using recipe_api.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace recipe_api
 {
 	public class RecipesDtoBuilder : IRecipesDtoBuilder
 	{
 		private readonly IRecipeRepository _recipeRepository;
+		private readonly IImageService _imageService;
 
-		public RecipesDtoBuilder(IRecipeRepository recipeRepository)
+		public RecipesDtoBuilder(
+			IRecipeRepository recipeRepository,
+			IImageService imageService
+			)
 		{
 			_recipeRepository = recipeRepository;
+			_imageService = imageService;
+		}
+
+		public async Task<BestRecipeDto> CreateBestRecipe(Recipe recipe)
+		{
+			int likes = await _recipeRepository.GetLikesNumber(recipe.Id);
+			if (recipe != null)
+			{
+				string img = await _imageService.GetImage(recipe.Img);
+				return new BestRecipeDto
+				(
+					recipe.Id,
+					img,
+					recipe.Name,
+					recipe.Description,
+					recipe.Time,
+					likes,
+					recipe.UserId
+				);
+			}
+
+			return null;
 		}
 
 		public async Task<FullRecipeDto> CreateFullRecipeDto(int recipeId, int userId)
@@ -20,24 +48,30 @@ namespace recipe_api
 			Recipe recipe = await _recipeRepository.GetRecipeById(recipeId);
 			if (recipe != null)
 			{
+				IFormFile img = null; //= await _imageService.GetImage(recipe.Img);
+				int favouritesNumber = await _recipeRepository.GetFavouritesNumber(recipeId);
+				bool isFavourite = await _recipeRepository.IsFavouriteForCurrentUser(userId, recipeId);
+				int likes = await _recipeRepository.GetLikesNumber(recipeId);
+				bool isLike = await _recipeRepository.IsLikedForCurrentUser(userId, recipeId);
 				return new FullRecipeDto
 				(
-					ConvertByteArrayToImage(recipe.Img),
+					img,
 					recipe.Name,
-					recipe.Desc,
+					recipe.Description,
 					recipe.Time,
 					recipe.Persons,
-					recipe.Likes,
-					await _recipeRepository.GetFavouritesNumber(recipeId),
-					await _recipeRepository.IsFavourite(userId, recipeId),
+					likes,
+					isLike,
+					favouritesNumber,
+					isFavourite,
 					recipe.UserId,
-					recipe.Tags.ConvertAll(
-						t => new TagDto(t.Id, t.Name)),
-					recipe.Ingridients.ConvertAll(
-						i => new IngridientDto(i.Name, i.List)),
-					recipe.Steps.ConvertAll(
-						s => new StepDto(s.Name, s.Desc))
-				); ;
+					recipe.Tags.Select(
+						t => TagMapper.Map(t)).ToList(),
+					recipe.Ingridients.Select(
+						i => IngridientMapper.Map(i)).ToList(),
+					recipe.Steps.Select(
+						s => StepMapper.Map(s)).ToList()
+				);
 			}
 			return null;
 		}
@@ -46,33 +80,27 @@ namespace recipe_api
 		{
 			if (recipe != null)
 			{
+				int favouritesNumber = await _recipeRepository.GetFavouritesNumber(recipe.Id);
+				bool isFavourite = await _recipeRepository.IsFavouriteForCurrentUser(userId, recipe.Id);
+				int likes = await _recipeRepository.GetLikesNumber(recipe.Id);
+				bool isLike = await _recipeRepository.IsLikedForCurrentUser(userId, recipe.Id);
+				string img = await _imageService.GetImage(recipe.Img);
 				return new RecipeDto
 				(
 					recipe.Id,
-					recipe.Img,
+					img,
 					recipe.Name,
-					recipe.Desc,
+					recipe.Description,
 					recipe.Time,
 					recipe.Persons,
-					recipe.Likes,
-					await _recipeRepository.GetFavouritesNumber(recipe.Id),
-					await _recipeRepository.IsFavourite(userId, recipe.Id),
+					likes,
+					isLike,
+					favouritesNumber,
+					isFavourite,
 					recipe.UserId,
-					recipe.Tags.ConvertAll(
-						t => new TagDto(t.Id, t.Name))
+					recipe.Tags.Select(
+						t => TagMapper.Map(t)).ToList()
 				);
-			}
-			return null;
-		}
-
-		private IFormFile ConvertByteArrayToImage(byte[] img)
-		{
-			if (img.Length > 0)
-			{
-				using (var ms = new MemoryStream(img))
-				{
-					return new FormFile(ms, 0, img.Length, "name", "filename");
-				}
 			}
 			return null;
 		}

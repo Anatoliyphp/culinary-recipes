@@ -1,10 +1,14 @@
 export interface Recipe{
-    img: string,
-    tags:  string[],
-    likes: number,
-    favourites: number,
-    name: string,
-    desc: string,
-    time: number,
-    persons: number
+  id: number,
+  img: string,
+  name: string,
+  description: string,
+  time: number,
+  persons: number,
+  likes: number,
+  isLike: boolean,
+  favourites: number,
+  isFavourite: boolean,
+  userId: number,
+  tags: string[]
   }

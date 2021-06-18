@@ -22,6 +22,7 @@
     <ProjectReference Include="..\recipe-domain\Recipe.Domain.csproj" />
     <ProjectReference Include="..\recipe-infrastructure\Recipe.Infrastucture.csproj" />
     <ProjectReference Include="..\Recipe.Application\Recipe.Application.csproj" />
+    <ProjectReference Include="..\Recipe.Infrastructure.Migrations\Recipe.Infrastructure.Migrations.csproj" />
   </ItemGroup>
 
 </Project>

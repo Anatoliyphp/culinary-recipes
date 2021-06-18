@@ -1,11 +1,9 @@
-<div class="recipe" (click)="onClick()">
-    <img class="recipe_img" src="{{recipe.img}}">
+<div class="recipe">
+    <img (click)="onClick()" class="recipe_img" [src]="'data:image/jpg;base64,' + recipe.img">
     <div class="recipe_container">
         <div class="recipe_stats">
             <div class="recipe_stats_tags">
-                <p class="recipe_stats_tag">{{recipe.tags[0]}}</p>
-                <p class="recipe_stats_tag">{{recipe.tags[1]}}</p>
-                <p class="recipe_stats_tag">{{recipe.tags[2]}}</p>
+                <p class="recipe_stats_tag" *ngFor="let tag of recipe.tags">{{tag}}</p>
             </div>
             <div class="recipe_stat" (click)="onFavouritesClick()">
                 <img class="recipe_stat_img" src="{{currStar}}">
@@ -19,7 +17,7 @@
         <div class="recipe_desc">
             <h3 class="recipe_desc_header">{{recipe.name}}</h3>
             <p class="recipe_desc_info">
-               {{recipe.desc}}
+               {{recipe.description}}
             </p>
         </div>
         <div class="recipe_info">

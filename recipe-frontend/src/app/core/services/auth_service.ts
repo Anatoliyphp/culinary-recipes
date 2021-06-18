@@ -5,9 +5,12 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from "rxjs";
 import { Token } from "src/app/core/models/token";
 import { tap } from 'rxjs/operators';
+import { idGetter } from "../app.module";
+import { User } from "src/app/features/profile/models/user";
 
 export const ACCESS_TOKEN_KEY = "recipe_access_token";
 export const USER_NAME = "user_name";
+export const USER_ID = "userId";
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +31,7 @@ export class AuthService {
             tap(token => {  
                 localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
                 localStorage.setItem(USER_NAME, token.name);
+                localStorage.setItem(USER_ID, token.id.toString());
             })
         )
     }
@@ -40,6 +44,7 @@ export class AuthService {
             tap(token => {
                 localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
                 localStorage.setItem(USER_NAME, token.name);
+                localStorage.setItem(USER_ID, token.id.toString());
             })
         )
     }
@@ -54,6 +59,11 @@ export class AuthService {
     {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         localStorage.removeItem(USER_NAME);
+        localStorage.removeItem(USER_ID);
         this.router.navigate(['']);
     }
+
+    getUser(): Observable<User> {
+        return this.http.get<User>('api/account/getUser/' + idGetter());
+      }
 }

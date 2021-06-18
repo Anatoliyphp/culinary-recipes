@@ -19,6 +19,13 @@ namespace recipe_infrastructure.Data.user.EntityConfigurations
 				.WithMany(r => r.UserFavourites)
 				.HasForeignKey(uf => uf.RecipeId)
 				.OnDelete(DeleteBehavior.NoAction);
+
+			builder.HasData(
+				new UserFavourites(2, 2),
+				new UserFavourites(2, 4),
+				new UserFavourites(3, 1),
+				new UserFavourites(3, 3)
+				);
 		}
 	}
 }

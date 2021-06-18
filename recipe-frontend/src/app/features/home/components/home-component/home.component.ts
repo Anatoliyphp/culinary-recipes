@@ -14,14 +14,14 @@ export class HomeComponent {
 
   onAddRecipe()
   {
-    if (this.auth.isAuthenticated())
-    {
+    //if (this.auth.isAuthenticated())
+   // {
       toAddRecipe(this.router);
-    }
-    else
-    {
-      toAuthorize(this.router);
-    }
+    //}
+    //else
+    //{
+    //  toAuthorize(this.router);
+    //}
   }
 
 }

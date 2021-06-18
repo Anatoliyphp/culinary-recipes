@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Recipe } from 'src/app/core/models/recipe';
 import { AuthService } from 'src/app/core/services/auth_service';
 import { toAddRecipe, toAuthorize, toRegister } from 'src/app/core/services/logination_routing';
+import { RecipeService } from 'src/app/core/services/recipe_service';
 import { SortCategories } from 'src/app/features/home/constants/categouries';
 
 @Component({
@@ -10,44 +11,23 @@ import { SortCategories } from 'src/app/features/home/constants/categouries';
   templateUrl: './recipes.component.html',
   styleUrls: ['../../../../../styles/recipes.component.css']
 })
-export class RecipesComponent {
+export class RecipesComponent implements OnInit {
 
-  constructor(private router: Router, private auth: AuthService){}
+  constructor(private router: Router, private auth: AuthService, private rec: RecipeService){}
+
+  ngOnInit(): void {
+    this.rec.getAllRecipes()
+      .subscribe(value => {this.recipes = value})
+  }
   
   @Input()
   categories = SortCategories;
 
   currNumberOfItems = 4;
 
-  allRecipes: Recipe[] = [
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    },
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    },
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    },
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    },
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    },
-  ]
+  allRecipes!: Recipe[];
 
-  recipes: Recipe[] = [this.allRecipes[0], this.allRecipes[1], this.allRecipes[2], this.allRecipes[3]];
+  recipes!: Recipe[];
 
   pushRecipes(start: number, end: number): void
   {

@@ -17,6 +17,7 @@ namespace Application
 			int time,
 			int persons,
 			int likes,
+			bool isLike,
 			int favourites,
 			bool isFavourite,
 			int userId,
@@ -27,10 +28,11 @@ namespace Application
 		{
 			Img = img;
 			Name = name;
-			Desc = desc;
+			Description = desc;
 			Time = time;
 			Persons = persons;
 			Likes = likes;
+			IsLike = isLike;
 			Favourites = favourites;
 			IsFavourite = isFavourite;
 			UserId = userId;
@@ -49,7 +51,7 @@ namespace Application
 		public string Name { get; set; }
 
 		[DataMember(Name = "desc")]
-		public string Desc { get; set; }
+		public string Description { get; set; }
 
 		[DataMember(Name = "time")]
 		public int Time { get; set; }
@@ -59,6 +61,9 @@ namespace Application
 
 		[DataMember(Name = "likes")]
 		public int Likes { get; set; }
+
+		[DataMember(Name = "isLike")]
+		public bool IsLike { get; set; }
 
 		[DataMember(Name = "favourites")]
 		public int Favourites { get; set; }

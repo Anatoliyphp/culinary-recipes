@@ -13,5 +13,6 @@ namespace recipe_domain
 		public string Name { get; set; }
 
 		public List<Recipe> Recipes { get; set; }
+
 	}
 }

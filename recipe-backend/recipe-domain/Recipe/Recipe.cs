@@ -8,40 +8,37 @@ namespace recipe_domain
 	public class Recipe: Entity, IAggregateRoot
 	{
 		public Recipe(
-			byte[] img,
+			string img,
 			string name,
-			string desc,
+			string description,
 			int time,
 			int persons,
-			int likes,
 			int userId
 			)
 		{
 			Img = img;
 			Name = name;
-			Desc = desc;
+			Description = description;
 			Time = time;
 			Persons = persons;
-			Likes = likes;
-			Likes = 0;
 			UserId = userId;
 		}
 
-		public byte[] Img { get; set; }
+		public string Img { get; set; }
 
 		public string Name { get; set; }
 
-		public string Desc { get; set; }
+		public string Description { get; set; }
 
 		public int Time { get; set; }
 
 		public int Persons { get; set; }
 
-		public int Likes { get; set; }
-
 		public int UserId { get; set; }
 
 		public User User { get; set; }
+
+		public List<RecipeLike> RecipeLikes { get; set; }
 
 		public List<UserFavourites> UserFavourites { get; set; }
 

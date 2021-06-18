@@ -7,13 +7,13 @@
             <div class="profile_form_info">
                 <p class="name">имя</p>
                 <p class="login">логин</p>
-                <input class="profile_form_info_field" type="text" value="Анатолий">
-                <input class="profile_form_info_field" type="text" value="tolian">
-                <input class="profile_form_info_password" type={{type}} value="12345678">
+                <input class="profile_form_info_field" type="text" value="{{user.name}}">
+                <input class="profile_form_info_field" type="text" value="{{user.login}}">
+                <input class="profile_form_info_password" type={{type}} value="{{user.password}}">
                 <img class="show_password" (click)="onShowPass()" src="assets/images/show.png"/>
             </div>
             <textarea rows="8" cols="5" class="profile_form_info_about" type="textarea"
-             placeholder="Напишите немного о себе"></textarea>
+             placeholder="Напишите немного о себе" value="{{user.about}}"></textarea>
             <img class="change" src="assets/images/karandash.png">
         </form>
         <div class="profile_stat">

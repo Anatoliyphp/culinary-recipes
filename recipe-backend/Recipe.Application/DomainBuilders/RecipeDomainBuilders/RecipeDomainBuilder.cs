@@ -1,22 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using recipe_domain;
-using System.IO;
+﻿using recipe_domain;
 
 namespace Application
 {
 	class RecipeDomainBuilder : IRecipeDomainBuilder
 	{
-		public Recipe CreateRecipe(FullRecipeDto recipeDto)
+
+		public Recipe CreateRecipe(FullRecipeDto recipeDto, string img)
 		{
 			if (recipeDto != null)
 			{
 				Recipe recipe = new Recipe (
-					ConvertImageToByteArray(recipeDto.Img),
+					img,
 					recipeDto.Name,
-					recipeDto.Desc,
+					recipeDto.Description,
 					recipeDto.Time,
 					recipeDto.Persons,
-					recipeDto.Likes,
 					recipeDto.UserId
 				);
 				recipe.Steps = recipeDto.Steps
@@ -27,19 +25,6 @@ namespace Application
 					.ConvertAll(t => new Tag(t.Name));
 
 				return recipe;
-			}
-			return null;
-		}
-
-		private byte[] ConvertImageToByteArray(IFormFile img)
-		{
-			if (img.Length > 0)
-			{
-				using (var ms = new MemoryStream())
-				{
-					img.CopyTo(ms);
-					return ms.ToArray();
-				}
 			}
 			return null;
 		}

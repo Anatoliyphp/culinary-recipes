@@ -11,12 +11,7 @@ import { RStep } from 'src/app/core/models/step';
 
 export class EditRecipeComponent {
 
-  recipe: Recipe =
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    }
+  recipe!: Recipe;
 
   ingrs: RIngridient[] = [
     {id: 1, header: "Для панна котты",

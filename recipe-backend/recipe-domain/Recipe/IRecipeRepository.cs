@@ -23,17 +23,25 @@ namespace recipe_domain
 
 		void ChangeRecipe(Recipe recipe);
 
-		void Like(Recipe recipe);
+		Task<bool> Like(int userId, int recipreId);
 
-		Task<bool> IsFavourite(int userId, int recipeId);
+		Task<bool> IsLikedForCurrentUser(int userID, int recipeId);
+
+		Task<bool> IsFavouriteForCurrentUser(int userId, int recipeId);
 
 		Task<bool> DeleteFromFavourites(int userID, int recipeId);
 
 		Task<int> GetFavouritesNumber(int recipeId);
 
+		Task<int> GetLikesNumber(int recipeId);
+
+		Task<bool> RemoveLike(int userId, int recipeId);
+
 		Task<List<Recipe>> GetAllByTags(string[] tagNames);
 
 		Task<bool> AddToFavourites(int userId, int recipeId);
+
+		Task<bool> IsRepeatingImage(string path);
 
 	}
 }

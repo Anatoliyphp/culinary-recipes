@@ -25,13 +25,15 @@ namespace recipe_domain
 
         public List<UserFavourites> UserFavourites { get; set; }
 
+        public List<RecipeLike> RecipeLikes { get; set; }
+
         public List<Recipe> GetRecipes()
 		{
             return Recipes;
 		}
 
         public void AddRecipe(
-            byte[] img,
+            string img,
             string name,
             string desc,
             int time,
@@ -39,7 +41,7 @@ namespace recipe_domain
             int persons
             )
 		{
-            Recipes.Add(new Recipe(img, name, desc, time, persons, likes, Id));
+            Recipes.Add(new Recipe(img, name, desc, time, persons, Id));
 		}
 
 		public ICollection<IEventData> DomainEvents => throw new System.NotImplementedException();

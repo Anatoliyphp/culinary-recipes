@@ -4,6 +4,9 @@ using recipe_domain;
 using Application;
 using System.Collections.Generic;
 using recipe_infrastructure.UoW;
+using Microsoft.AspNetCore.Http;
+using recipe_api.Services;
+using Microsoft.Extensions.Logging;
 
 namespace recipe_api.Recipes.Controllers
 {
@@ -11,183 +14,323 @@ namespace recipe_api.Recipes.Controllers
 	[ApiController]
 	public class RecipesController : ControllerBase
 	{
+		private readonly ILogger _logger;
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IRecipeDomainBuilder _recipeDomainBuilder;
 		private readonly IRecipesDtoBuilder _recipesDtoBuilder;
 		private readonly UnitOfWork _unitOfWork;
+		private readonly IImageService _imageService;
 		public RecipesController(
 			IRecipeRepository recipeRepository,
 			IRecipesDtoBuilder recipesDtoBuilder,
 			IRecipeDomainBuilder recipeDomainBuilder,
-			UnitOfWork unitOfWork
+			UnitOfWork unitOfWork,
+			IImageService imageService,
+			ILogger<RecipesController> logger
 			)
 		{
 			_recipeRepository = recipeRepository;
 			_recipeDomainBuilder = recipeDomainBuilder;
 			_recipesDtoBuilder = recipesDtoBuilder;
 			_unitOfWork = unitOfWork;
+			_imageService = imageService;
+			_logger = logger;
 		}
 
 		[Route("add")]
 		[HttpPost]
 		public async Task<IActionResult> AddRecipe([FromBody]FullRecipeDto request)
 		{
-			Recipe recipe = _recipeDomainBuilder.CreateRecipe(request);
-			if (recipe != null)
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation("Creating recipe from request...");
+			string imgPath = await _imageService.AddImage(request.Img);
+			Recipe recipe = _recipeDomainBuilder.CreateRecipe(request, imgPath);
+			if (recipe == null)
 			{
-				await _recipeRepository.AddRecipe(recipe);
-				await _unitOfWork.Save();
-				return Ok();
+				_logger.LogError($"Recipe with name: {request.Name} failed to created");
+				return BadRequest($"Can't add recipe with name:{request.Name}");
 			}
 
-			return BadRequest();
+			await _recipeRepository.AddRecipe(recipe);
+			await _unitOfWork.Save();
+			_logger.LogInformation("Recipe was created");
+			return Ok();
+
 		}
 
 		[Route("fullrecipe/{userId:int}/{recipeId:int}")]
 		[HttpPost]
 		public async Task<IActionResult> GetFullRecipe(int userId, int recipeId)
 		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Creating model for recipe with id: {recipeId} ");
 			FullRecipeDto fullRecipeDto = await _recipesDtoBuilder
 				.CreateFullRecipeDto(recipeId, userId);
 
-			if (fullRecipeDto != null)
+			if (fullRecipeDto == null)
 			{
-				return Ok(fullRecipeDto);
+				_logger.LogError("Failed to creating model");
+				return BadRequest($"Can't get full recipe with id:{recipeId}");
 			}
 
-			return BadRequest();
+			_logger.LogInformation("Recipe created");
+			return Ok(fullRecipeDto);
 		}
 
 		[Route("edit")]
 		[HttpPost]
 		public async Task<IActionResult> EditRecipe([FromBody] FullRecipeDto request)
 		{
-			Recipe recipe = _recipeDomainBuilder.CreateRecipe(request);
-			if (recipe != null)
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			string imgPath = await _imageService.AddImage(request.Img);
+			Recipe recipe = _recipeDomainBuilder.CreateRecipe(request, imgPath);
+			if (recipe == null)
 			{
-				_recipeRepository.ChangeRecipe(recipe);
-				await _unitOfWork.Save();
-				return Ok();
+				_logger.LogError($"Failed to edit recipe with id: {request.Id}");
+				return BadRequest($"Can't edit recipe with name:{request.Name}");
 			}
 
-			return BadRequest();
-		}
-
-		[Route("delete/{id:int}")]
-		[HttpGet]
-		public async Task<IActionResult> DeleteRecipe(int id)
-		{
-			bool isDeleted = await _recipeRepository.DeleteRecipe(id);
+			_recipeRepository.ChangeRecipe(recipe);
 			await _unitOfWork.Save();
-			if (isDeleted)
-			{
-				return Ok();
-			}
+			_logger.LogInformation("Recipe edited");
+			return Ok();
 
-			return BadRequest();
 		}
 
-		[Route("allRecipes/{id:int}")]
+		[Route("delete/{recipeId:int}")]
 		[HttpGet]
-		public async Task<IActionResult> GetAllRecipes(int id)
+		public async Task<IActionResult> DeleteRecipe(int recipeId)
 		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Deleting recipe with id: {recipeId}...");
+			bool isDeleted = await _recipeRepository.DeleteRecipe(recipeId);
+			await _unitOfWork.Save();
+			if (!isDeleted)
+			{
+				_logger.LogError("Failed to delete recipe");
+				return BadRequest($"Can't delete recipe with id:{recipeId}");
+			}
+
+			_logger.LogInformation("Recipe deleted");
+			return Ok();
+
+		}
+
+		[Route("allRecipes/{userId:int}")]
+		[HttpGet]
+		public async Task<IActionResult> GetAllRecipes(int userId)
+		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Getting all recipes...");
 			List<Recipe> recipes = await _recipeRepository.GetAllRecipes();
-			if (recipes != null)
+			if (recipes == null)
 			{
-				List<Task<RecipeDto>> recipeDtos = recipes
-					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
-
-				return Ok(recipeDtos);
+				_logger.LogWarning($"Any Recipes not found");
+				return BadRequest($"Can't get all recipes");
 			}
-			return BadRequest();
+
+			List<RecipeDto> recipeDtos = new List<RecipeDto>();
+			foreach (Recipe recipe in recipes)
+			{
+				RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, userId);
+				recipeDtos.Add(recipeDto);
+			}
+
+			_logger.LogInformation("Recipes successfully getted");
+			return Ok(recipeDtos);
+
 		}
 
-		[Route("favourites/{id:int}")]
+		[Route("favourites/{userId:int}")]
 		[HttpGet]
-		public async Task<IActionResult> GetFavouritesRecipes(int id)
+		public async Task<IActionResult> GetFavouritesRecipes(int userId)
 		{
-			List<Recipe> recipes = await _recipeRepository.GetAllFavouritesRecipes(id);
-			if (recipes != null)
-			{
-				List<Task<RecipeDto>> recipeDtos = recipes
-					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
-				return Ok(recipeDtos);
+			_logger.LogInformation($"Getting favourites for user with id: {userId}");
+			List<Recipe> recipes = await _recipeRepository.GetAllFavouritesRecipes(userId);
+			if (recipes == null)
+			{
+				_logger.LogWarning("Favourites not found");
+				return BadRequest($"Can't get favourites for user with id:{userId}");
 			}
-			return BadRequest();
+
+			List<RecipeDto> recipeDtos = new List<RecipeDto>();
+			foreach (Recipe recipe in recipes)
+			{
+				RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, userId);
+				recipeDtos.Add(recipeDto);
+			}
+
+			_logger.LogInformation("Favourites successfully getted");
+			return Ok(recipeDtos);
+			
 		}
 
 		[Route("addFavourites/{userId:int}/{recipeId:int}")]
 		[HttpGet]
 		public async Task<IActionResult> AddToFavourites(int userId, int recipeId)
 		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Adding to user with id: {userId} favourites recipe with id: {recipeId}...");
 			bool IsAdded = await _recipeRepository.AddToFavourites(userId, recipeId);
-			if (IsAdded)
+			await _unitOfWork.Save();
+			if (!IsAdded)
 			{
-				await _unitOfWork.Save();
-				return Ok();
+				_logger.LogWarning("Failed to add recipe to favourites");
+				return BadRequest(
+					$"Can't add recipe with id:{recipeId}" +
+					$" to user favourites with id:{userId}"
+				);
 			}
-			return BadRequest();
+
+			_logger.LogInformation("Recipe successfully added to favourites");
+			return Ok();
+
 		}
 
 		[Route("deleteFavourites/{userId:int}/{recipeId:int}")]
 		[HttpGet]
 		public async Task<IActionResult> DeleteFromFavourites(int userId, int recipeId)
 		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Deleting from user with id: {userId} favourites recipe with id: {recipeId}...");
 			bool IsDeleted = await _recipeRepository.DeleteFromFavourites(userId, recipeId);
-			if (IsDeleted)
+			await _unitOfWork.Save();
+			if (!IsDeleted)
 			{
-				await _unitOfWork.Save();
-				return Ok();
+				_logger.LogError("Failed to delete recipe from favourites");
+				return BadRequest(
+					$"Can't delete recipe with id:{recipeId}" +
+					$" from user favourites with id:{userId}"
+				);
 			}
-			return BadRequest();
+
+			_logger.LogInformation("Recipe successfully deleted from favourites");
+			return Ok();
+
 		}
 
-		[Route("userRecipes/{id:int}")]
+		[Route("userRecipes/{userId:int}")]
 		[HttpGet]
-		public async Task<IActionResult> GetUserRecipes(int id)
+		public async Task<IActionResult> GetUserRecipes(int userId)
 		{
-			List<Recipe> recipes = await _recipeRepository.GetAllUsersRecipes(id);
-			if (recipes != null)
-			{
-				List<Task<RecipeDto>> recipeDtos = recipes
-					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
-				return Ok(recipeDtos);
+			_logger.LogInformation($"Getting recipes for user with id: {userId}");
+			List<Recipe> recipes = await _recipeRepository.GetAllUsersRecipes(userId);
+			if (recipes == null)
+			{
+				_logger.LogWarning("Recipes not found");
+				return BadRequest($"Can't get recipes for user with id:{userId}");
 			}
-			return BadRequest();
+
+			List<RecipeDto> recipeDtos = new List<RecipeDto>();
+			foreach (Recipe recipe in recipes)
+			{
+				RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, userId);
+				recipeDtos.Add(recipeDto);
+			}
+
+			_logger.LogInformation("Recipes successufully getted");
+			return Ok(recipeDtos);
+
 		}
 
 		[Route("bestRecipe")]
 		[HttpPost]
 		public async Task<IActionResult> GetBestRecipe()
 		{
-			Recipe recipe = await _recipeRepository.GetBestRecipe();
-			RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, 0);
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
-			if (recipeDto != null)
+			_logger.LogInformation("Getting best recipe...");
+			Recipe recipe = await _recipeRepository.GetBestRecipe();
+			BestRecipeDto recipeDto = await _recipesDtoBuilder.CreateBestRecipe(recipe);
+			if (recipeDto == null)
 			{
-				return Ok(recipeDto);
+				_logger.LogWarning("Best recipe not found");
+				return BadRequest($"Can't get best recipe");
 			}
 
-			return BadRequest();
+			_logger.LogInformation("Best recipe getted");
+			return Ok(recipeDto);
+
 		}
 
-		[Route("search/{id:int}/{name:string}")]
+		[Route("search/{userId:int}/{name}")]
 		[HttpGet]
-		public async Task<IActionResult> SearchRecipe(int id, string name)
+		public async Task<IActionResult> SearchRecipe(int userId, string name)
 		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Searching recipes with name: {name}");
 			List<Recipe> recipes = await _recipeRepository.GetAllRecipesByName(name);
 
-			if (recipes != null)
+			if (recipes == null)
 			{
-				List<Task<RecipeDto>> recipeDtos = recipes
-					.ConvertAll(async r => await _recipesDtoBuilder.CreateRecipeDto(r, id));
-
-				return Ok(recipeDtos);
+				_logger.LogWarning("Recipes not found");
+				return BadRequest();
 			}
 
-			return BadRequest();
+			List<RecipeDto> recipeDtos = new List<RecipeDto>();
+			foreach (Recipe recipe in recipes)
+			{
+				RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, userId);
+				recipeDtos.Add(recipeDto);
+			}
+
+			_logger.LogInformation("Recipes found");
+			return Ok(recipeDtos);
+			
+		}
+
+		[Route("addLike/{userId:int}/{recipeId:int}")]
+		public async Task<IActionResult> AddLike(int userId, int recipeId)
+		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Adding like to recipe with id: {recipeId} from user with id: {userId}");
+			bool isAdded = await _recipeRepository.Like(userId, recipeId);
+
+			if (!isAdded)
+			{
+				_logger.LogError("Can't add like");
+				return BadRequest(
+					$"Can't add like to recipe with id: " +
+					$"{recipeId} from user with id: {userId}"
+					);
+			}
+
+			_logger.LogInformation("Like added");
+			return Ok();
+		}
+
+		[Route("removeLike/{userId:int}/{recipeId:int}")]
+		public async Task<IActionResult> RemoveLike(int userId, int recipeId)
+		{
+			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
+
+			_logger.LogInformation($"Deleting like from recipe with id: {recipeId} from user with id: {userId}");
+			bool isDeleted = await _recipeRepository.RemoveLike(userId, recipeId);
+
+			if (!isDeleted)
+			{
+				_logger.LogError("Can't remove like");
+				return BadRequest(
+					$"Can't remove like from recipe with id: " +
+					$"{recipeId} from user with id: {userId}"
+					);
+			}
+
+			_logger.LogInformation("Like removed");
+			return Ok();
 		}
 
 	}

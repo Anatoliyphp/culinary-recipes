@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using recipe_infrastructure;
 using Application;
+using Microsoft.Extensions.Logging;
 
 namespace recipe_api
 {
@@ -23,7 +24,8 @@ namespace recipe_api
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<RecipesContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<RecipesContext>(options => options.UseSqlServer(connection,
+				x => x.MigrationsAssembly("Recipe.Infrastructure.Migrations")));
 
             services.AddControllers();
 
@@ -53,8 +55,14 @@ namespace recipe_api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory = LoggerFactory
+                .Create(builder =>
+                {
+                    builder.AddConsole();
+                });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

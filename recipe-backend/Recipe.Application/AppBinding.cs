@@ -9,7 +9,7 @@ namespace Application
 			return services
 				.AddScoped<IUserDomainBuilder, UserDomainBuilder>()
 				.AddScoped<IRecipeDomainBuilder, RecipeDomainBuilder>();
-			
+
 		}
 	}
 }

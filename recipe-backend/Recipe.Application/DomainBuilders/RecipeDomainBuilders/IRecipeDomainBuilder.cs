@@ -4,6 +4,6 @@ namespace Application
 {
 	public interface IRecipeDomainBuilder
 	{
-		Recipe CreateRecipe(FullRecipeDto fullRecipeDto);
+		Recipe CreateRecipe(FullRecipeDto fullRecipeDto, string img);
 	}
 }

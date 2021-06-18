@@ -19,6 +19,17 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 			builder.HasMany(t => t.Recipes)
 				.WithMany(r => r.Tags)
 				.UsingEntity(rt => rt.ToTable("RecipeTag"));
+
+			builder.HasData(
+					new Tag("клубника")
+					{ Id = 1 },
+					new Tag("сладости")
+					{ Id = 2 },
+					new Tag("мясо")
+					{ Id = 3 },
+					new Tag("мороженое")
+					{ Id = 4 }
+				);
 		}
 	}
 }

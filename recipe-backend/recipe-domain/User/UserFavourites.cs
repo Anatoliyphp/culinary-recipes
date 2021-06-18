@@ -6,15 +6,15 @@ namespace recipe_domain
 	{
 		public UserFavourites(
 			int userId,
-			User user,
-			int recipeId,
-			Recipe recipe
+			//User user,
+			int recipeId
+			//Recipe recipe
 			)
 		{
 			UserId = userId;
-			User = user;
+			//User = user;
 			RecipeId = recipeId;
-			Recipe = recipe;
+			//Recipe = recipe;
 		}
 
 		public int UserId { get; set; }

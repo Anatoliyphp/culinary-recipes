@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using recipe_domain;
-using System.Collections.Generic;
 
 namespace recipe_infrastructure.Data.EntityConfigurations
 {
@@ -25,6 +24,24 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 			builder.Property(u => u.Password)
 				.HasMaxLength(50)
 				.IsRequired();
+
+			builder.HasData
+				(
+					new User(
+							login: "vasya",
+							password: "abcd",
+							name: "Василий"
+					) { Id = 2, About = ""},
+					new User(
+							login: "artem228",
+							password: "bezymno mozno bit pervim",
+							name: "Боевик"
+						)
+					{
+						Id = 3,
+						About = "На маму не кричи, она не виновата, что у тебя не все как надо…"
+					}
+				);
 		}
 	}
 }
