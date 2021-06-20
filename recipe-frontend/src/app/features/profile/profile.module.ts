@@ -4,6 +4,7 @@ import { ProfileComponent } from './components/profile-component/profile.compone
 import { StatComponent } from './components/stat/stat.component';
 import { FavouritesModule } from '../favourites/favourites.module';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FavouritesModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class ProfileModule { }

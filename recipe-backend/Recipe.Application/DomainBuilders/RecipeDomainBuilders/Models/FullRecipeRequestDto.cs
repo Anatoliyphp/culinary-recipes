@@ -7,11 +7,12 @@ namespace Application
 {
 	[DataContract]
 	[KnownType(typeof(List<string>))]
-	public class RecipeDto
+	[KnownType(typeof(List<IngridientDto>))]
+	[KnownType(typeof(List<StepDto>))]
+	public class FullRecipeRequestDto
 	{
-		public RecipeDto(
-			int id,
-			string img,
+		public FullRecipeRequestDto(
+			IFormFile img,
 			string name,
 			string desc,
 			int time,
@@ -21,10 +22,11 @@ namespace Application
 			int favourites,
 			bool isFavourite,
 			int userId,
-			List<string> tags
+			IEnumerable<string> tags,
+			IEnumerable<IngridientDto> ingridients,
+			IEnumerable<StepDto> steps
 			)
 		{
-			Id = id;
 			Img = img;
 			Name = name;
 			Description = desc;
@@ -35,14 +37,16 @@ namespace Application
 			Favourites = favourites;
 			IsFavourite = isFavourite;
 			UserId = userId;
-			Tags = tags;
+			Tags = tags.ToList();
+			Steps = steps.ToList();
+			Ingridients = ingridients.ToList();
 		}
 
 		[DataMember(Name = "id")]
 		public int Id { get; set; }
 
 		[DataMember(Name = "img")]
-		public string Img { get; set; }
+		public IFormFile Img { get; set; }
 
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
@@ -73,6 +77,12 @@ namespace Application
 
 		[DataMember(Name = "tags")]
 		public List<string> Tags { get; set; }
+
+		[DataMember(Name = "steps")]
+		public List<StepDto> Steps { get; set; }
+
+		[DataMember(Name = "ingridients")]
+		public List<IngridientDto> Ingridients { get; set; }
 
 	}
 }

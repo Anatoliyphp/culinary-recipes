@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using recipe_infrastructure;
 
 namespace Migrations
 {
     [DbContext(typeof(RecipesContext))]
-    partial class RecipesContextModelSnapshot : ModelSnapshot
+    [Migration("20210619153212_AddUserFavourites")]
+    partial class AddUserFavourites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,32 +177,6 @@ namespace Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RecipeLikes");
-
-                    b.HasData(
-                        new
-                        {
-                            RecipeId = 2,
-                            UserId = 2,
-                            Id = 0
-                        },
-                        new
-                        {
-                            RecipeId = 4,
-                            UserId = 2,
-                            Id = 0
-                        },
-                        new
-                        {
-                            RecipeId = 1,
-                            UserId = 3,
-                            Id = 0
-                        },
-                        new
-                        {
-                            RecipeId = 3,
-                            UserId = 3,
-                            Id = 0
-                        });
                 });
 
             modelBuilder.Entity("recipe_domain.RecipeTag", b =>

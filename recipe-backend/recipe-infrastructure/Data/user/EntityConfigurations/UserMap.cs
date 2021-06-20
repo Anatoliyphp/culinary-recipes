@@ -31,7 +31,8 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 							login: "vasya",
 							password: "abcd",
 							name: "Василий"
-					) { Id = 2, About = ""},
+					)
+					{ Id = 2, About = "" },
 					new User(
 							login: "artem228",
 							password: "bezymno mozno bit pervim",

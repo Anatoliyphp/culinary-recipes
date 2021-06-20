@@ -7,6 +7,7 @@ using recipe_infrastructure.UoW;
 using Microsoft.AspNetCore.Http;
 using recipe_api.Services;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace recipe_api.Recipes.Controllers
 {
@@ -39,7 +40,7 @@ namespace recipe_api.Recipes.Controllers
 
 		[Route("add")]
 		[HttpPost]
-		public async Task<IActionResult> AddRecipe([FromBody]FullRecipeDto request)
+		public async Task<IActionResult> AddRecipe([FromBody]FullRecipeRequestDto request)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
@@ -60,13 +61,13 @@ namespace recipe_api.Recipes.Controllers
 		}
 
 		[Route("fullrecipe/{userId:int}/{recipeId:int}")]
-		[HttpPost]
+		[HttpGet]
 		public async Task<IActionResult> GetFullRecipe(int userId, int recipeId)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
 			_logger.LogInformation($"Creating model for recipe with id: {recipeId} ");
-			FullRecipeDto fullRecipeDto = await _recipesDtoBuilder
+			FullRecipeResponseDto fullRecipeDto = await _recipesDtoBuilder
 				.CreateFullRecipeDto(recipeId, userId);
 
 			if (fullRecipeDto == null)
@@ -81,7 +82,7 @@ namespace recipe_api.Recipes.Controllers
 
 		[Route("edit")]
 		[HttpPost]
-		public async Task<IActionResult> EditRecipe([FromBody] FullRecipeDto request)
+		public async Task<IActionResult> EditRecipe([FromBody] FullRecipeRequestDto request)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
@@ -126,12 +127,12 @@ namespace recipe_api.Recipes.Controllers
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
-			_logger.LogInformation($"Getting all recipes...");
+			_logger.LogInformation("Getting all recipes...");
 			List<Recipe> recipes = await _recipeRepository.GetAllRecipes();
 			if (recipes == null)
 			{
-				_logger.LogWarning($"Any Recipes not found");
-				return BadRequest($"Can't get all recipes");
+				_logger.LogWarning("Any Recipes not found");
+				return BadRequest("Can't get all recipes");
 			}
 
 			List<RecipeDto> recipeDtos = new List<RecipeDto>();
@@ -140,6 +141,8 @@ namespace recipe_api.Recipes.Controllers
 				RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, userId);
 				recipeDtos.Add(recipeDto);
 			}
+
+			recipeDtos = recipeDtos.OrderByDescending(rd => rd.Likes).ToList();
 
 			_logger.LogInformation("Recipes successfully getted");
 			return Ok(recipeDtos);
@@ -167,6 +170,8 @@ namespace recipe_api.Recipes.Controllers
 				recipeDtos.Add(recipeDto);
 			}
 
+			recipeDtos = recipeDtos.OrderByDescending(rd => rd.Likes).ToList();
+
 			_logger.LogInformation("Favourites successfully getted");
 			return Ok(recipeDtos);
 			
@@ -181,6 +186,7 @@ namespace recipe_api.Recipes.Controllers
 			_logger.LogInformation($"Adding to user with id: {userId} favourites recipe with id: {recipeId}...");
 			bool IsAdded = await _recipeRepository.AddToFavourites(userId, recipeId);
 			await _unitOfWork.Save();
+
 			if (!IsAdded)
 			{
 				_logger.LogWarning("Failed to add recipe to favourites");
@@ -239,6 +245,8 @@ namespace recipe_api.Recipes.Controllers
 				recipeDtos.Add(recipeDto);
 			}
 
+			recipeDtos = recipeDtos.OrderByDescending(rd => rd.Likes).ToList();
+
 			_logger.LogInformation("Recipes successufully getted");
 			return Ok(recipeDtos);
 
@@ -286,18 +294,22 @@ namespace recipe_api.Recipes.Controllers
 				recipeDtos.Add(recipeDto);
 			}
 
+			recipeDtos = recipeDtos.OrderByDescending(rd => rd.Likes).ToList();
+
 			_logger.LogInformation("Recipes found");
 			return Ok(recipeDtos);
 			
 		}
 
 		[Route("addLike/{userId:int}/{recipeId:int}")]
+		[HttpGet]
 		public async Task<IActionResult> AddLike(int userId, int recipeId)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
 			_logger.LogInformation($"Adding like to recipe with id: {recipeId} from user with id: {userId}");
 			bool isAdded = await _recipeRepository.Like(userId, recipeId);
+			await _unitOfWork.Save();
 
 			if (!isAdded)
 			{
@@ -313,12 +325,14 @@ namespace recipe_api.Recipes.Controllers
 		}
 
 		[Route("removeLike/{userId:int}/{recipeId:int}")]
+		[HttpGet]
 		public async Task<IActionResult> RemoveLike(int userId, int recipeId)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
 			_logger.LogInformation($"Deleting like from recipe with id: {recipeId} from user with id: {userId}");
 			bool isDeleted = await _recipeRepository.RemoveLike(userId, recipeId);
+			await _unitOfWork.Save();
 
 			if (!isDeleted)
 			{
@@ -331,6 +345,25 @@ namespace recipe_api.Recipes.Controllers
 
 			_logger.LogInformation("Like removed");
 			return Ok();
+		}
+
+		[Route("stats/{userId:int}")]
+		[HttpGet]
+		public async Task<IActionResult> GetUserStats(int userId)
+		{
+			List<Recipe> recipes = await _recipeRepository.GetAllUsersRecipes(userId);
+			int numberOfUserRecipes = recipes.Count;
+			int numberOfUserFavourites = await _recipeRepository.GetUserFavouritesNumber(recipes);
+			int numberOfUserLikes = await _recipeRepository.GetUserLikesNumber(recipes);
+
+			return Ok(
+				new
+				{
+					recipes = numberOfUserRecipes,
+					likes = numberOfUserLikes,
+					favourites = numberOfUserFavourites
+				}
+			);
 		}
 
 	}

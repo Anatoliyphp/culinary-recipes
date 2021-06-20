@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using recipe_api.Recipes.Mappers;
 using recipe_api.Services;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace recipe_api
 {
@@ -43,18 +44,20 @@ namespace recipe_api
 			return null;
 		}
 
-		public async Task<FullRecipeDto> CreateFullRecipeDto(int recipeId, int userId)
+		public async Task<FullRecipeResponseDto> CreateFullRecipeDto(int recipeId, int userId)
 		{
 			Recipe recipe = await _recipeRepository.GetRecipeById(recipeId);
 			if (recipe != null)
 			{
-				IFormFile img = null; //= await _imageService.GetImage(recipe.Img);
+				string img = await _imageService.GetImage(recipe.Img);
 				int favouritesNumber = await _recipeRepository.GetFavouritesNumber(recipeId);
 				bool isFavourite = await _recipeRepository.IsFavouriteForCurrentUser(userId, recipeId);
 				int likes = await _recipeRepository.GetLikesNumber(recipeId);
 				bool isLike = await _recipeRepository.IsLikedForCurrentUser(userId, recipeId);
-				return new FullRecipeDto
+				List<Tag> tags = await _recipeRepository.GetRecipeTags(recipeId);
+				return new FullRecipeResponseDto
 				(
+					recipeId,
 					img,
 					recipe.Name,
 					recipe.Description,
@@ -65,8 +68,8 @@ namespace recipe_api
 					favouritesNumber,
 					isFavourite,
 					recipe.UserId,
-					recipe.Tags.Select(
-						t => TagMapper.Map(t)).ToList(),
+					tags.ConvertAll(
+						t => t.Name),
 					recipe.Ingridients.Select(
 						i => IngridientMapper.Map(i)).ToList(),
 					recipe.Steps.Select(
@@ -85,6 +88,7 @@ namespace recipe_api
 				int likes = await _recipeRepository.GetLikesNumber(recipe.Id);
 				bool isLike = await _recipeRepository.IsLikedForCurrentUser(userId, recipe.Id);
 				string img = await _imageService.GetImage(recipe.Img);
+				List<Tag> tags = await _recipeRepository.GetRecipeTags(recipe.Id);
 				return new RecipeDto
 				(
 					recipe.Id,
@@ -98,8 +102,8 @@ namespace recipe_api
 					favouritesNumber,
 					isFavourite,
 					recipe.UserId,
-					recipe.Tags.Select(
-						t => TagMapper.Map(t)).ToList()
+					tags.ConvertAll(
+						t => t.Name)
 				);
 			}
 			return null;

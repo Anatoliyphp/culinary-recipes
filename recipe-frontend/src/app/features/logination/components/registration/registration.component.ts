@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,10 +12,10 @@ import { onClose, toLogIn } from '../../../../core/services/logination_routing';
 })
 export class RegistrationComponent {
 
-  constructor(private router: Router, private auth: AuthService){}
+  constructor(private router: Router, private auth: AuthService, private loc: Location){}
 
   onClose():void{
-    onClose(this.router);
+    onClose(this.loc);
   }
 
   toLogIn(): void{

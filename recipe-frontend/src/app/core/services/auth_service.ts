@@ -66,4 +66,10 @@ export class AuthService {
     getUser(): Observable<User> {
         return this.http.get<User>('api/account/getUser/' + idGetter());
       }
+
+    editUser(id: number, login: string, password: string, name: string, about: string): Observable<User>{
+        return this.http.post<User>("api/account/editUser", {
+            id, login, password, name, about
+        });
+    }
 }

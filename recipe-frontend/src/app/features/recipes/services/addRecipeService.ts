@@ -15,12 +15,12 @@ export class AddRecipeService {
     private deletedIngrs: number = 0;
 
     AddStep(){
-        this.steps.push({number: this.stepIt, header: "", desc: ""});
+        //this.steps.push({number: this.stepIt, header: "", desc: ""});
         this.stepIt++;
       }
     
     AddIngr(){
-        this.ingrs.push({id: this.ingrsIt, header: "", desc: ""});
+        //this.ingrs.push({id: this.ingrsIt, header: "", desc: ""});
         this.ingrsIt++;
     }
 

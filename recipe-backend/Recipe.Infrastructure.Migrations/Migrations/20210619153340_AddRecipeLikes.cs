@@ -1,42 +1,42 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infrastructure.Migrations.Migrations
+namespace Migrations
 {
-    public partial class AddUserFavourites : Migration
+    public partial class AddRecipeLikes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
-                table: "UserFavourites",
+                table: "RecipeLikes",
                 columns: new[] { "RecipeId", "UserId", "Id" },
                 values: new object[,]
                 {
-                    { 2, 2, 1 },
-                    { 4, 2, 2 },
-                    { 1, 3, 3 },
-                    { 3, 3, 4 }
+                    { 2, 2, 0 },
+                    { 4, 2, 0 },
+                    { 1, 3, 0 },
+                    { 3, 3, 0 }
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
-                table: "UserFavourites",
+                table: "RecipeLikes",
                 keyColumns: new[] { "RecipeId", "UserId" },
                 keyValues: new object[] { 1, 3 });
 
             migrationBuilder.DeleteData(
-                table: "UserFavourites",
+                table: "RecipeLikes",
                 keyColumns: new[] { "RecipeId", "UserId" },
                 keyValues: new object[] { 2, 2 });
 
             migrationBuilder.DeleteData(
-                table: "UserFavourites",
+                table: "RecipeLikes",
                 keyColumns: new[] { "RecipeId", "UserId" },
                 keyValues: new object[] { 3, 3 });
 
             migrationBuilder.DeleteData(
-                table: "UserFavourites",
+                table: "RecipeLikes",
                 keyColumns: new[] { "RecipeId", "UserId" },
                 keyValues: new object[] { 4, 2 });
         }

@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { RIngridient } from 'src/app/core/models/ingridient';
-import { Recipe } from 'src/app/core/models/recipe';
-import { RStep } from 'src/app/core/models/step';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FullRecipe } from 'src/app/core/models/fullrecipe';
+import { onClose } from 'src/app/core/services/logination_routing';
+import { RecipeService } from 'src/app/core/services/recipe_service';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -9,32 +12,37 @@ import { RStep } from 'src/app/core/models/step';
   styleUrls: ['../../../../../styles/edit-recipe.component.css']
 })
 
-export class EditRecipeComponent {
+export class EditRecipeComponent implements OnInit {
 
-  recipe!: Recipe;
+  constructor(private a_router: ActivatedRoute, private recipeServ: RecipeService, private loc: Location) { }
 
-  ingrs: RIngridient[] = [
-    {id: 1, header: "Для панна котты",
-      desc: "Сливки-20-30% - 500мл. Молоко - 100мл. Желатин - 2ч.л. Сахар - 3ст.л. Ванильный сахар - 2 ч.л."
-    },
-    {id: 2, header: "Для панна котты",
-      desc: "Сливки-20-30% - 500мл. Молоко - 100мл. Желатин - 2ч.л. Сахар - 3ст.л. Ванильный сахар - 2 ч.л."
-    }
-  ]
+  ngOnInit(): void {
+    this.recipeServ.getFullRecipe(this.a_router.snapshot.paramMap.get('id'))
+      .subscribe(value => {this.recipe = value})
+  }
 
-  steps: RStep[] = [
-    {number: 1, header: "Шаг 1", 
-      desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
-    },
-    {number: 1, header: "Шаг 1", 
-      desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
-    },
-    {number: 1, header: "Шаг 1", 
-      desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
-    },
-    {number: 1, header: "Шаг 1", 
-      desc: "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!)."
-    },
-  ]
+  onBack(){
+    onClose(this.loc);
+  }
+
+  onEdit(form: NgForm){
+    this.recipeServ.editRecipe(
+      form.value.img,
+      form.value.name,
+	    form.value.desc,
+		  form.value.time,
+		  form.value.persons,
+	    this.recipe.likes,
+		  this.recipe.isLike,
+		  this.recipe.favourites,
+		  this.recipe.isFavourite,
+		  this.recipe.userId,
+		  form.value.tags,
+		  form.value.ingridients,
+		  form.value.steps
+    ).subscribe(value => {})
+  }
+
+  recipe!: FullRecipe;
 
 }

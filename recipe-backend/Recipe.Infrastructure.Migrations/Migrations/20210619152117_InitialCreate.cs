@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infrastructure.Migrations.Migrations
+namespace Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -104,27 +104,26 @@ namespace Infrastructure.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecipeTag",
+                name: "RecipeTags",
                 columns: table => new
                 {
-                    RecipesId = table.Column<int>(type: "int", nullable: false),
-                    TagsId = table.Column<int>(type: "int", nullable: false)
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecipeTag", x => new { x.RecipesId, x.TagsId });
+                    table.PrimaryKey("PK_RecipeTags", x => new { x.RecipeId, x.TagId });
                     table.ForeignKey(
-                        name: "FK_RecipeTag_Recipes_RecipesId",
-                        column: x => x.RecipesId,
+                        name: "FK_RecipeTags_Recipes_RecipeId",
+                        column: x => x.RecipeId,
                         principalTable: "Recipes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_RecipeTag_Tags_TagsId",
-                        column: x => x.TagsId,
+                        name: "FK_RecipeTags_Tags_TagId",
+                        column: x => x.TagId,
                         principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -186,9 +185,9 @@ namespace Infrastructure.Migrations.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecipeTag_TagsId",
-                table: "RecipeTag",
-                column: "TagsId");
+                name: "IX_RecipeTags_TagId",
+                table: "RecipeTags",
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Steps_RecipeId",
@@ -210,7 +209,7 @@ namespace Infrastructure.Migrations.Migrations
                 name: "RecipeLikes");
 
             migrationBuilder.DropTable(
-                name: "RecipeTag");
+                name: "RecipeTags");
 
             migrationBuilder.DropTable(
                 name: "Steps");

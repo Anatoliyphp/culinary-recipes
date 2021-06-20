@@ -5,7 +5,7 @@ namespace Application
 	class RecipeDomainBuilder : IRecipeDomainBuilder
 	{
 
-		public Recipe CreateRecipe(FullRecipeDto recipeDto, string img)
+		public Recipe CreateRecipe(FullRecipeRequestDto recipeDto, string img)
 		{
 			if (recipeDto != null)
 			{
@@ -21,8 +21,6 @@ namespace Application
 					.ConvertAll(s => new Step(s.Name, s.Desc, recipe.Id));
 				recipe.Ingridients = recipeDto.Ingridients
 					.ConvertAll(i => new Ingridient(i.Name, i.List, recipe.Id));
-				recipe.Tags = recipeDto.Tags
-					.ConvertAll(t => new Tag(t.Name));
 
 				return recipe;
 			}

@@ -23,6 +23,13 @@
     margin-right: 40px;
 }
 
+.error_message{
+    color: red;
+    font: 500 15px/20px Montserrat;
+    position: absolute;
+    margin-top: -30px;
+}
+
 .login_form{
     margin-left: 60px;
 }

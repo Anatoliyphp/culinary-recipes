@@ -2,19 +2,19 @@
 
 namespace recipe_domain
 {
-	public class RecipeLike: Entity
+	public class RecipeTag: Entity
 	{
-		public RecipeLike(
-				int userId,
+		public RecipeTag(
+				int tagId,
 				int recipeId
 				)
 		{
-			UserId = userId;
+			TagId = tagId;
 			RecipeId = recipeId;
 		}
 
-		public int UserId { get; set; }
-		public User User { get; set; }
+		public int TagId { get; set; }
+		public Tag Tag { get; set; }
 
 		public int RecipeId { get; set; }
 		public Recipe Recipe { get; set; }

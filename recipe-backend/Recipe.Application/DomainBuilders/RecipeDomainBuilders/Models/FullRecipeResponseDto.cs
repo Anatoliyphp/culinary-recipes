@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Application
 {
 	[DataContract]
-	public class FullRecipeDto
+	[KnownType(typeof(List<string>))]
+	[KnownType(typeof(List<IngridientDto>))]
+	[KnownType(typeof(List<StepDto>))]
+	public class FullRecipeResponseDto
 	{
-		public FullRecipeDto(
-			IFormFile img,
+		public FullRecipeResponseDto(
+			int id,
+			string img,
 			string name,
 			string desc,
 			int time,
@@ -21,11 +22,12 @@ namespace Application
 			int favourites,
 			bool isFavourite,
 			int userId,
-			IEnumerable<TagDto> tags,
+			IEnumerable<string> tags,
 			IEnumerable<IngridientDto> ingridients,
 			IEnumerable<StepDto> steps
 			)
 		{
+			Id = id;
 			Img = img;
 			Name = name;
 			Description = desc;
@@ -45,7 +47,7 @@ namespace Application
 		public int Id { get; set; }
 
 		[DataMember(Name = "img")]
-		public IFormFile Img { get; set; }
+		public string Img { get; set; }
 
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
@@ -75,13 +77,12 @@ namespace Application
 		public int UserId { get; set; }
 
 		[DataMember(Name = "tags")]
-		public List<TagDto> Tags;
+		public List<string> Tags { get; set; }
 
 		[DataMember(Name = "steps")]
-		public List<StepDto> Steps;
+		public List<StepDto> Steps { get; set; }
 
 		[DataMember(Name = "ingridients")]
-		public List<IngridientDto> Ingridients;
-
+		public List<IngridientDto> Ingridients { get; set; }
 	}
 }

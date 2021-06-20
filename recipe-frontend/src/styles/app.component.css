@@ -90,23 +90,3 @@
 .container_content{
     margin-top: 120px;
 }
-
-.wave_one{
-    position: absolute;
-    width: 1745.08px;
-    height: 905.67px;
-    left: -300px;
-    top: 231.25px;
-    transform: rotate(-18.07deg);
-    z-index: -1;
-}
-
-.wave_two{
-    position: absolute;
-    width: 2097.52px;
-    height: 905.67px;
-    left: -620px;
-    top: 1443px;
-    transform: rotate(14.51deg);
-    z-index: -1;
-}

@@ -9,6 +9,10 @@ namespace recipe_domain
 
 		Task<List<Recipe>> GetAllRecipes();
 
+		Task<int> GetUserFavouritesNumber(List<Recipe> recipes);
+
+		Task<int> GetUserLikesNumber(List<Recipe> recipes);
+
 		Task<List<Recipe>> GetAllFavouritesRecipes(int userId);
 
 		Task<List<Recipe>> GetAllUsersRecipes(int userId);
@@ -42,6 +46,8 @@ namespace recipe_domain
 		Task<bool> AddToFavourites(int userId, int recipeId);
 
 		Task<bool> IsRepeatingImage(string path);
+
+		Task<List<Tag>> GetRecipeTags(int recipeId);
 
 	}
 }

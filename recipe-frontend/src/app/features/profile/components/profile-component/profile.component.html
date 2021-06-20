@@ -1,20 +1,22 @@
 <div class="profile">
     <img src="assets/images/arrow.png">
-    <a class="back" routerLink="/">Назад</a>
+    <a class="back" (click)="onClose()">Назад</a>
     <div class="profile_info">
         <h2 class="profile_info_head">Мой профиль</h2>
-        <form class="profile_form">
+        <form class="profile_form" #myForm="ngForm" >
             <div class="profile_form_info">
                 <p class="name">имя</p>
                 <p class="login">логин</p>
-                <input class="profile_form_info_field" type="text" value="{{user.name}}">
-                <input class="profile_form_info_field" type="text" value="{{user.login}}">
-                <input class="profile_form_info_password" type={{type}} value="{{user.password}}">
+                <input class="profile_form_info_field" name="name" [(ngModel)]="user.name" required type="text">
+                <input class="profile_form_info_field" name="login" [(ngModel)]="user.login" required type="text">
+                <input class="profile_form_info_password" name="password" [(ngModel)]="user.password" required type={{type}}>
                 <img class="show_password" (click)="onShowPass()" src="assets/images/show.png"/>
+                <a *ngIf="Error" class="error_message">Не корректные данные для редактирования</a>
             </div>
             <textarea rows="8" cols="5" class="profile_form_info_about" type="textarea"
-             placeholder="Напишите немного о себе" value="{{user.about}}"></textarea>
-            <img class="change" src="assets/images/karandash.png">
+             placeholder="Напишите немного о себе"
+             name="about" [(ngModel)]="user.about" max="150" required></textarea>
+            <img class="change" src="assets/images/karandash.png" (click)="onEdit(myForm)">
         </form>
         <div class="profile_stat">
             <app-stat

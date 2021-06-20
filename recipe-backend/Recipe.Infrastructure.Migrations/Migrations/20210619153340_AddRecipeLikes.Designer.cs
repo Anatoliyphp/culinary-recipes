@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using recipe_infrastructure;
 
-namespace Infrastructure.Migrations.Migrations
+namespace Migrations
 {
     [DbContext(typeof(RecipesContext))]
-    [Migration("20210618124323_AddSteps")]
-    partial class AddSteps
+    [Migration("20210619153340_AddRecipeLikes")]
+    partial class AddRecipeLikes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,21 +22,6 @@ namespace Infrastructure.Migrations.Migrations
 
             modelBuilder.HasSequence("DbSequenceHiLo")
                 .IncrementsBy(10);
-
-            modelBuilder.Entity("RecipeTag", b =>
-                {
-                    b.Property<int>("RecipesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecipesId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("RecipeTag");
-                });
 
             modelBuilder.Entity("recipe_domain.Ingridient", b =>
                 {
@@ -192,6 +177,76 @@ namespace Infrastructure.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RecipeLikes");
+
+                    b.HasData(
+                        new
+                        {
+                            RecipeId = 2,
+                            UserId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 4,
+                            UserId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 1,
+                            UserId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 3,
+                            UserId = 3,
+                            Id = 0
+                        });
+                });
+
+            modelBuilder.Entity("recipe_domain.RecipeTag", b =>
+                {
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipeId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("RecipeTags");
+
+                    b.HasData(
+                        new
+                        {
+                            RecipeId = 1,
+                            TagId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 2,
+                            TagId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 3,
+                            TagId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 4,
+                            TagId = 4,
+                            Id = 0
+                        });
                 });
 
             modelBuilder.Entity("recipe_domain.Step", b =>
@@ -364,21 +419,32 @@ namespace Infrastructure.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserFavourites");
-                });
 
-            modelBuilder.Entity("RecipeTag", b =>
-                {
-                    b.HasOne("recipe_domain.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("RecipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("recipe_domain.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasData(
+                        new
+                        {
+                            RecipeId = 2,
+                            UserId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 4,
+                            UserId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 1,
+                            UserId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            RecipeId = 3,
+                            UserId = 3,
+                            Id = 0
+                        });
                 });
 
             modelBuilder.Entity("recipe_domain.Ingridient", b =>
@@ -422,6 +488,25 @@ namespace Infrastructure.Migrations.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("recipe_domain.RecipeTag", b =>
+                {
+                    b.HasOne("recipe_domain.Recipe", "Recipe")
+                        .WithMany("RecipeTags")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("recipe_domain.Tag", "Tag")
+                        .WithMany("RecipeTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("recipe_domain.Step", b =>
                 {
                     b.HasOne("recipe_domain.Recipe", "Recipe")
@@ -458,9 +543,16 @@ namespace Infrastructure.Migrations.Migrations
 
                     b.Navigation("RecipeLikes");
 
+                    b.Navigation("RecipeTags");
+
                     b.Navigation("Steps");
 
                     b.Navigation("UserFavourites");
+                });
+
+            modelBuilder.Entity("recipe_domain.Tag", b =>
+                {
+                    b.Navigation("RecipeTags");
                 });
 
             modelBuilder.Entity("recipe_domain.User", b =>

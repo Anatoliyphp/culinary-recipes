@@ -8,6 +8,7 @@
             <button type="submit" class='login_buttons_login'>Войти</button>
             <button class="login_buttons_cancel" (click)="onClose()">Отмена</button>
         </div>
+        <a *ngIf="Error" class="error_message">Не верный логин или пароль</a>
     </form>
     <a class="login_to_register" (click)="toRegister()">У меня еще нет аккаунта</a>
 </div>

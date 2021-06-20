@@ -1,5 +1,4 @@
 export interface RIngridient{
-    id: number;
-    header: string,
-    desc: string
+    name: string,
+    list: string
 }

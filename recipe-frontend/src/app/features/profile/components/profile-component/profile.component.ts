@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { idGetter } from 'src/app/core/app.module';
+import { NgForm } from '@angular/forms';
+import { from } from 'rxjs';
 import { Recipe } from 'src/app/core/models/recipe';
 import { AuthService } from 'src/app/core/services/auth_service';
+import { onClose } from 'src/app/core/services/logination_routing';
 import { RecipeService } from 'src/app/core/services/recipe_service';
 import { Stat } from '../../models/stat';
 import { User } from '../../models/user';
@@ -16,17 +16,28 @@ import { User } from '../../models/user';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private auth: AuthService, private rec: RecipeService){}
+  constructor(private auth: AuthService, private rec: RecipeService, private loc: Location){}
 
   user!: User;
 
+  onClose(){
+    onClose(this.loc);
+  }
+
   ngOnInit(): void {
     this.auth.getUser()
-      .subscribe( value => { this.user = value}, error => {
+      .subscribe( value => { this.user= value}, error => {
       })
 
     this.rec.getUserRecipes()
       .subscribe(value => {this.recipes = value});
+
+    this.rec.getUserRecipesStats()
+      .subscribe(value => {
+        this.stats[0].number = value.recipes;
+        this.stats[1].number = value.likes;
+        this.stats[2].number = value.favourites;
+      })
   }
 
   type = "password";
@@ -36,11 +47,34 @@ export class ProfileComponent implements OnInit {
     this.type = this.type == "password" ? "text" : "password";
   }
 
+  onEdit(form: NgForm): void{
+    var editUser: User =
+      {
+        id: this.user.id,
+        login: form.value.login,
+        password: form.value.password,
+        name: form.value.name,
+        about: form.value.about
+      }
+    this.auth.editUser(
+      this.user.id,
+      form.value.login,
+      form.value.password,
+      form.value.name,
+      form.value.about
+      )
+      .subscribe(value => {this.Error = false}, error => {
+        this.Error = true;
+      });
+  }
+
   stats: Stat[] = [
-    {title: "Всего рецептов", number: 15},
-    {title: "Всего лайков", number: 15},
-    {title: "В избранных", number: 15}
+    {title: "Всего рецептов", number: 0},
+    {title: "Всего лайков", number: 0},
+    {title: "В избранных", number: 0}
   ]
+
+  Error: boolean = false;
 
   recipes!: Recipe[];
 

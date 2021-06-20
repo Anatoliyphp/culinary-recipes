@@ -8,7 +8,7 @@ namespace recipe_api
 	{
 		Task<RecipeDto> CreateRecipeDto(Recipe recipe, int userId);
 
-		Task<FullRecipeDto> CreateFullRecipeDto(int recipeId, int userId);
+		Task<FullRecipeResponseDto> CreateFullRecipeDto(int recipeId, int userId);
 
 		Task<BestRecipeDto> CreateBestRecipe(Recipe recipe);
 	}

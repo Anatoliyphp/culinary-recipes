@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infrastructure.Migrations.Migrations
+namespace Migrations
 {
     public partial class AddRecipes : Migration
     {

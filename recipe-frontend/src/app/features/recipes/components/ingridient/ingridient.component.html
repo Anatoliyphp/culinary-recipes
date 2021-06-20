@@ -1,5 +1,5 @@
 <div class="ingridient">
-    <img (click)="addRecipeServ.RemoveIngr(ingr.id)" class="close" src="assets/images/krest.png"/>
-    <input class="ingridient_head" value={{ingr.header}} type="text" placeholder="Заголовок ингридиентов"/>
-    <textarea class="ingridient_list" value={{ingr.desc}} placeholder="Список продуктов для категории"></textarea>
+    <img (click)="addRecipeServ.RemoveIngr(1)" class="close" src="assets/images/krest.png"/>
+    <input class="ingridient_head" name="name" [(ngModel)]="ingr.name" required type="text" placeholder="Заголовок ингридиентов"/>
+    <textarea class="ingridient_list" name="list" [(ngModel)]="ingr.list" placeholder="Список продуктов для категории"></textarea>
 </div>

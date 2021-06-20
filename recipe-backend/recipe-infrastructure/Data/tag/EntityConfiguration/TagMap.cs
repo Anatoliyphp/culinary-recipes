@@ -16,10 +16,6 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 				.HasMaxLength(20)
 				.IsRequired();
 
-			builder.HasMany(t => t.Recipes)
-				.WithMany(r => r.Tags)
-				.UsingEntity(rt => rt.ToTable("RecipeTag"));
-
 			builder.HasData(
 					new Tag("клубника")
 					{ Id = 1 },

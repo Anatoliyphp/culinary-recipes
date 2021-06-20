@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { onClose, toRegister } from '../../../../core/services/logination_routing';
 import { NgForm} from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth_service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -11,24 +12,27 @@ import { AuthService } from '../../../../core/services/auth_service';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private auth: AuthService){}
+  constructor(private router: Router, private auth: AuthService, private loc: Location){}
 
   onClose(): void{
-    onClose(this.router);
+    this.loc.back();
   }
 
   toRegister(): void{
     toRegister(this.router);
   }
 
+  Error: boolean = false;
+
   login(form: NgForm)
   {
     this.auth.login(form.value.login, form.value.password)
     .subscribe(res => {
-      this.onClose()
-      location.reload()
+      this.loc.go("/");
+      location.reload();
+      this.Error = false;
     }, error => {
-      alert("Wrong login or password")
+      this.Error = true;
     })
   }
 }

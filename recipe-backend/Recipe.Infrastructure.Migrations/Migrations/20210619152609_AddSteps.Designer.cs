@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using recipe_infrastructure;
 
-namespace Infrastructure.Migrations.Migrations
+namespace Migrations
 {
     [DbContext(typeof(RecipesContext))]
-    [Migration("20210617135523_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210619152609_AddSteps")]
+    partial class AddSteps
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,21 +22,6 @@ namespace Infrastructure.Migrations.Migrations
 
             modelBuilder.HasSequence("DbSequenceHiLo")
                 .IncrementsBy(10);
-
-            modelBuilder.Entity("RecipeTag", b =>
-                {
-                    b.Property<int>("RecipesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecipesId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("RecipeTag");
-                });
 
             modelBuilder.Entity("recipe_domain.Ingridient", b =>
                 {
@@ -102,6 +87,48 @@ namespace Infrastructure.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах, украсив взбитыми сливками, свежими ягодами и мятой.",
+                            Img = "/Images/FirstRecipe.png",
+                            Name = "Клубничная панна-котта",
+                            Persons = 5,
+                            Time = 35,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Мясные фрикадельки в томатном соусе - несложное и вкусное блюдо, которым можно порадовать своих близких. ",
+                            Img = "/Images/SecondRecipe.png",
+                            Name = "Мясные фрикадельки",
+                            Persons = 4,
+                            Time = 90,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Панкейки: меньше, чем блины, но больше, чем оладьи. Основное отличие — в тесте, оно должно быть воздушным, чтобы панкейки не растекались по сковородке...",
+                            Img = "Images/ThirdRecipe.png",
+                            Name = "Панкейки",
+                            Persons = 3,
+                            Time = 40,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Йогуртовое мороженое сочетает в себе нежный вкус и низкую калорийность, что будет особенно актуально для сладкоежек, соблюдающих диету.",
+                            Img = "Images/FouthRecipe.png",
+                            Name = "Полезное мороженое без сахара",
+                            Persons = 2,
+                            Time = 35,
+                            UserId = 3
+                        });
                 });
 
             modelBuilder.Entity("recipe_domain.RecipeLike", b =>
@@ -120,6 +147,24 @@ namespace Infrastructure.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RecipeLikes");
+                });
+
+            modelBuilder.Entity("recipe_domain.RecipeTag", b =>
+                {
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipeId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("RecipeTags");
                 });
 
             modelBuilder.Entity("recipe_domain.Step", b =>
@@ -148,6 +193,43 @@ namespace Infrastructure.Migrations.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("Steps");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Desc = "Приготовим панна котту: Зальем желатин молоком и поставим на 30 минут для набухания. В сливки добавим сахар и ванильный сахар. Доводим до кипения (не кипятим!).",
+                            Name = "Шаг 1",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Desc = "Добавим в сливки набухший в молоке желатин. Перемешаем до полного растворения. Огонь отключаем. Охладим до комнатной температуры.",
+                            Name = "Шаг 2",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Desc = "Для приготовления фрикаделек к фаршу добавьте яйцо и измельченную зелень. По вкусу посыпьте небольшим количеством соли и специи. Все хорошо перемешайте до однородной массы.",
+                            Name = "Шаг 1",
+                            RecipeId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Desc = "Смешайте 2 яйца и 200 мл молока.Затем добавьте 2 ст.л.сахара и ваниль.Взбейте до однородности.Добавьте 10 ст.л.муки и разрыхлитель.Тщательно перемешайте.Тесто получится средней густоты.",
+                            Name = "Шаг 1",
+                            RecipeId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Desc = "Взбейте миксером холодные сливки до кремообразной консистенции. Затем смешайте их со сгущёнкой.",
+                            Name = "Шаг 1",
+                            RecipeId = 4
+                        });
                 });
 
             modelBuilder.Entity("recipe_domain.Tag", b =>
@@ -197,6 +279,24 @@ namespace Infrastructure.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            About = "",
+                            Login = "vasya",
+                            Name = "Василий",
+                            Password = "abcd"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            About = "На маму не кричи, она не виновата, что у тебя не все как надо…",
+                            Login = "artem228",
+                            Name = "Боевик",
+                            Password = "bezymno mozno bit pervim"
+                        });
                 });
 
             modelBuilder.Entity("recipe_domain.UserFavourites", b =>
@@ -215,21 +315,6 @@ namespace Infrastructure.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserFavourites");
-                });
-
-            modelBuilder.Entity("RecipeTag", b =>
-                {
-                    b.HasOne("recipe_domain.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("RecipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("recipe_domain.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("recipe_domain.Ingridient", b =>
@@ -273,6 +358,25 @@ namespace Infrastructure.Migrations.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("recipe_domain.RecipeTag", b =>
+                {
+                    b.HasOne("recipe_domain.Recipe", "Recipe")
+                        .WithMany("RecipeTags")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("recipe_domain.Tag", "Tag")
+                        .WithMany("RecipeTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("recipe_domain.Step", b =>
                 {
                     b.HasOne("recipe_domain.Recipe", "Recipe")
@@ -309,9 +413,16 @@ namespace Infrastructure.Migrations.Migrations
 
                     b.Navigation("RecipeLikes");
 
+                    b.Navigation("RecipeTags");
+
                     b.Navigation("Steps");
 
                     b.Navigation("UserFavourites");
+                });
+
+            modelBuilder.Entity("recipe_domain.Tag", b =>
+                {
+                    b.Navigation("RecipeTags");
                 });
 
             modelBuilder.Entity("recipe_domain.User", b =>

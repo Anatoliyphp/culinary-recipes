@@ -13,11 +13,20 @@ export class FavouritesComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipeServ.getFavourites()
-      .subscribe(value => {this.recipes = value;})
+      .subscribe(value => {
+        this.recipes = value;
+         if (this.recipes.length < 1)
+         {
+           this.hasFavourites = false
+          }
+         else{
+           this.hasFavourites = true
+          }
+        })
   }
 
   recipes!: Recipe[];
 
-  hasFavourites = true;
+  hasFavourites = false;
   
 }

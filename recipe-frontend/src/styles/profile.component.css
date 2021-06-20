@@ -12,6 +12,14 @@
     height: 18px;
     margin-bottom: 250px;
     margin-right: -20px;
+    cursor: pointer;
+}
+
+.error_message{
+    color: red;
+    font: 500 10px/15px Montserrat;
+    position: absolute;
+    margin-top: 200px;
 }
 
 .back{

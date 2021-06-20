@@ -14,6 +14,7 @@ namespace recipe_infrastructure
         public DbSet<Ingridient> Ingridients { get; set; }
         public DbSet<UserFavourites> UserFavourites { get; set; }
         public DbSet<RecipeLike> RecipeLikes { get; set; }
+        public DbSet<RecipeTag> RecipeTags { get; set; }
 
         public RecipesContext(DbContextOptions<RecipesContext> options)
            : base(options)
@@ -29,6 +30,7 @@ namespace recipe_infrastructure
             modelBuilder.ApplyConfiguration(new StepMap());
             modelBuilder.ApplyConfiguration(new UserFavouriteMap());
             modelBuilder.ApplyConfiguration(new RecipeLikeMap());
+            modelBuilder.ApplyConfiguration(new RecipeTagMap());
         }
     }
 }

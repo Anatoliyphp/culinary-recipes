@@ -44,33 +44,9 @@ namespace recipe_domain
 
 		public List<Step> Steps = new List<Step>();
 
-		public List<Tag> Tags = new List<Tag>();
+		public List<RecipeTag> RecipeTags { get; set; }
 
 		public List<Ingridient> Ingridients = new List<Ingridient>();
-
-		public void AddStep(string name, string desc)
-		{
-			if (!Steps.Any(s => s.Name == name))
-			{
-				Steps.Add(new Step(name, desc, Id));
-			}
-		}
-
-		public void AddTag(string name)
-		{
-			if (!Tags.Any(t => t.Name == name))
-			{
-				Tags.Add(new Tag(name));
-			}
-		}
-
-		public void AddIngridient(string name, string list)
-		{
-			if (!Ingridients.Any(i => i.Name == Name))
-			{
-				Ingridients.Add(new Ingridient(name, list, Id));
-			}
-		}
 
 		public ICollection<IEventData> DomainEvents => throw new System.NotImplementedException();
 	}
