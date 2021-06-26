@@ -7,10 +7,10 @@ namespace recipe_api.Recipes.Mappers
 	{
 		public static StepDto Map(Step step)
 		{
-			return new StepDto(
-					step.Name,
-					step.Desc
-				);
+			StepDto stepDto = new StepDto();
+			stepDto.Name = step.Name;
+			stepDto.Desc = step.Desc;
+			return stepDto;
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace recipe_infrastructure
 			builder.HasOne(rl => rl.Recipe)
 				.WithMany(r => r.RecipeLikes)
 				.HasForeignKey(uf => uf.RecipeId)
-				.OnDelete(DeleteBehavior.NoAction);
+				.OnDelete(DeleteBehavior.Cascade);
 
 			builder.HasData(
 				new RecipeLike(2, 2),

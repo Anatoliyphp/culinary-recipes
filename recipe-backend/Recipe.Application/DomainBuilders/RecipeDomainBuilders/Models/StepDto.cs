@@ -5,15 +5,6 @@ namespace Application
 	[DataContract]
 	public class StepDto
 	{
-		public StepDto(
-			string name,
-			string desc
-			)
-		{
-			Name = name;
-			Desc = desc;
-		}
-
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 

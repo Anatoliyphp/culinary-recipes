@@ -12,6 +12,7 @@ using recipe_api.Account.Builders;
 using Application;
 using recipe_infrastructure.UoW;
 using Microsoft.Extensions.Logging;
+using recipe_api.Services;
 
 namespace recipe_api.Controllers
 {
@@ -21,18 +22,20 @@ namespace recipe_api.Controllers
     public class AccountController : Controller
     {
         private readonly IOptions<AuthOptions> _authOptions;
-        private readonly ILogger _logger;
+        private readonly ILogger<AccountController> _logger;
         private readonly IUserRepository _userRepository;
         private readonly IUserDtoBuilder _userDtoBuilder;
         private readonly IUserDomainBuilder _userDomainBuilder;
         private readonly UnitOfWork _unitOfWork;
+        private readonly IHashService _hashService;
         public AccountController(
             IOptions<AuthOptions> auth,
             IUserRepository userRepository,
             IUserDtoBuilder userDtoBuilder,
             IUserDomainBuilder userDomainBuilder,
             UnitOfWork unitOfWork,
-            ILogger<AccountController> logger
+            ILogger<AccountController> logger,
+            IHashService hashService
             )
         {
             _authOptions = auth;
@@ -41,6 +44,7 @@ namespace recipe_api.Controllers
             _userDomainBuilder = userDomainBuilder;
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _hashService = hashService;
         }
 
         [Route("login")]
@@ -49,10 +53,18 @@ namespace recipe_api.Controllers
         {
             _logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
             _logger.LogInformation($"Searching user with login: {request.Login}");
-            var user = await _userRepository.AuthenticateUser(request.Login, request.Password);
+            var user = await _userRepository.AuthenticateUser(request.Login);
             if (user == null)
             {
                 _logger.LogWarning($"Wrong fields for login");
+                return Unauthorized();
+            }
+
+            _logger.LogInformation("Verifing password...");
+            string decryptPassword = _hashService.DecryteString(user.Password);
+            if (request.Password != decryptPassword)
+			{
+                _logger.LogWarning($"Wrong fields for password");
                 return Unauthorized();
             }
 
@@ -75,7 +87,8 @@ namespace recipe_api.Controllers
             _logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
             _logger.LogInformation($"Trying to create user with login: {user.Login}");
-            bool isRegistered = await _userRepository.RegisterUser(user.Login, user.Name, user.Password);
+            string encryptedPassword = _hashService.HashString(user.Password);
+            bool isRegistered = await _userRepository.RegisterUser(user.Login, user.Name, encryptedPassword);
             if (!isRegistered)
             {
                 _logger.LogError($"Failed to create user");
@@ -84,7 +97,7 @@ namespace recipe_api.Controllers
             await _unitOfWork.Save();
 
             _logger.LogInformation("User created, authenticating...");
-            var authUser = await _userRepository.AuthenticateUser(user.Login, user.Password);
+            var authUser = await _userRepository.AuthenticateUser(user.Login);
             if (authUser == null)
             {
                 _logger.LogError($"New user authentication was failed");
@@ -128,6 +141,7 @@ namespace recipe_api.Controllers
 		{
             _logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
             _logger.LogInformation("Creating user from request");
+            userDto.Password = _hashService.HashString(userDto.Password);
             User user = _userDomainBuilder.CreateUser(userDto);
             if (user == null)
             {

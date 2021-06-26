@@ -1,6 +1,42 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+textarea.ng-touched.ng-invalid {border:solid red 2px;}
+textarea.ng-touched.ng-valid {border:solid green 2px;}
+
 .back_container{
     display: flex;
     align-items: center;
+}
+
+.add_info{
+    width: 380px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: white;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+}
+
+.add_step{
+    width: 380px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: white;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+    margin-left: 200px;
 }
 
 .add_recipe_top{

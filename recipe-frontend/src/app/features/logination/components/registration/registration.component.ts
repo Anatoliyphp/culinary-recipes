@@ -22,15 +22,26 @@ export class RegistrationComponent {
     toLogIn(this.router);
   }
 
+  Error: boolean = false;
+  ConfirmPasswordsError: boolean = false;
+
   registration(form: NgForm)
   {
-    this.auth.register(form.value.login, form.value.name, form.value.password)
-    .subscribe(res => {
-      location.reload()
-      this.onClose()
-    }, error => {
-      alert("Failed")
-    })
+    if (form.value.password == form.value.passwordCheck)
+    {
+      this.ConfirmPasswordsError = false;
+      this.auth.register(form.value.login, form.value.name, form.value.password)
+      .subscribe(res => {
+        location.reload()
+        this.onClose()
+        this.Error = false;
+      }, error => {
+        this.Error = true;
+      })
+    }
+    else {
+      this.ConfirmPasswordsError = true;
+    }
   }
 
 }

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Application
 {
 	[DataContract]
-	[KnownType(typeof(List<string>))]
+	[KnownType(typeof(List<TagDto>))]
 	public class RecipeDto
 	{
 		public RecipeDto(
@@ -21,7 +21,7 @@ namespace Application
 			int favourites,
 			bool isFavourite,
 			int userId,
-			List<string> tags
+			List<TagDto> tags
 			)
 		{
 			Id = id;
@@ -72,7 +72,7 @@ namespace Application
 		public int UserId { get; set; }
 
 		[DataMember(Name = "tags")]
-		public List<string> Tags { get; set; }
+		public List<TagDto> Tags { get; set; }
 
 	}
 }

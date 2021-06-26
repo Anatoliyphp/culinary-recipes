@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Recipe } from 'src/app/core/models/recipe';
 import { AuthService } from 'src/app/core/services/auth_service';
 import { toAddRecipe, toAuthorize, toRegister } from 'src/app/core/services/logination_routing';
 import { RecipeService } from 'src/app/core/services/recipe_service';
+import { SearchComponent } from 'src/app/features/home/components/search/search.component';
 import { SortCategories } from 'src/app/features/home/constants/categouries';
 
 @Component({
@@ -17,11 +18,21 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit(): void {
     this.rec.getAllRecipes()
-      .subscribe(value => {this.recipes = value})
+      .subscribe(value => {
+        this.recipes = value
+        if (this.rec.recipes != null){
+          this.recipes = this.rec.recipes;
+          this.rec.recipes = [];
+        }
+  })
   }
-  
+
   @Input()
   categories = SortCategories;
+
+  public getRecipes(recipes: any):void {
+    this.recipes = recipes;
+  }
 
   currNumberOfItems = 4;
 

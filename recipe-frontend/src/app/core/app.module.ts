@@ -31,7 +31,7 @@ export function nameGetter()
 
 export function idGetter()
 {
-  return localStorage.getItem(USER_ID);
+    return localStorage.getItem(USER_ID);
 }
 
 @NgModule({

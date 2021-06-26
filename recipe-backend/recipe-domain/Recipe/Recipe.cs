@@ -1,7 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Events.Bus;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace recipe_domain
 {
@@ -47,6 +46,16 @@ namespace recipe_domain
 		public List<RecipeTag> RecipeTags { get; set; }
 
 		public List<Ingridient> Ingridients = new List<Ingridient>();
+
+		public void Like(int userId)
+		{
+			RecipeLikes.Add(new RecipeLike(userId, Id));
+		}
+
+		public void AddToFavourites(int userId)
+		{
+			UserFavourites.Add(new UserFavourites(userId, Id));
+		}
 
 		public ICollection<IEventData> DomainEvents => throw new System.NotImplementedException();
 	}

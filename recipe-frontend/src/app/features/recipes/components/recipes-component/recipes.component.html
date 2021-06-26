@@ -15,7 +15,7 @@
     </div>
     <div class="recipes_search">
         <h3 class="recipes_search_head">Поиск рецепта</h3>
-        <app-search></app-search>
+        <app-search (childComponentValue)="getRecipes($event)"></app-search>
     </div>
     <div>
         <app-recipe

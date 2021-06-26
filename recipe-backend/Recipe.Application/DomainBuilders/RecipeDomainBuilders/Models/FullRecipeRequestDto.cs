@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Application
@@ -11,37 +10,6 @@ namespace Application
 	[KnownType(typeof(List<StepDto>))]
 	public class FullRecipeRequestDto
 	{
-		public FullRecipeRequestDto(
-			IFormFile img,
-			string name,
-			string desc,
-			int time,
-			int persons,
-			int likes,
-			bool isLike,
-			int favourites,
-			bool isFavourite,
-			int userId,
-			IEnumerable<string> tags,
-			IEnumerable<IngridientDto> ingridients,
-			IEnumerable<StepDto> steps
-			)
-		{
-			Img = img;
-			Name = name;
-			Description = desc;
-			Time = time;
-			Persons = persons;
-			Likes = likes;
-			IsLike = isLike;
-			Favourites = favourites;
-			IsFavourite = isFavourite;
-			UserId = userId;
-			Tags = tags.ToList();
-			Steps = steps.ToList();
-			Ingridients = ingridients.ToList();
-		}
-
 		[DataMember(Name = "id")]
 		public int Id { get; set; }
 
@@ -69,10 +37,10 @@ namespace Application
 		[DataMember(Name = "favourites")]
 		public int Favourites { get; set; }
 
-		[DataMember(Name = "IsFavourite")]
+		[DataMember(Name = "isFavourite")]
 		public bool IsFavourite { get; set; }
 
-		[DataMember(Name = "user_id")]
+		[DataMember(Name = "userId")]
 		public int UserId { get; set; }
 
 		[DataMember(Name = "tags")]

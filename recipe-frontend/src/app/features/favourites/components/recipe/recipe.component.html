@@ -3,7 +3,7 @@
     <div class="recipe_container">
         <div class="recipe_stats">
             <div class="recipe_stats_tags">
-                <p class="recipe_stats_tag" *ngFor="let tag of recipe.tags">{{tag}}</p>
+                <p class="recipe_stats_tag" (click)="onSearch(tag)" *ngFor="let tag of recipe.tags">{{tag.name}}</p>
             </div>
             <div class="recipe_stat" (click)="onFavouritesClick()">
                 <img class="recipe_stat_img" src="{{currStar}}">

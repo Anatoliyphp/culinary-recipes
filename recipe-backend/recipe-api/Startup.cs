@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using recipe_infrastructure;
 using Application;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System;
+using recipe_api.Services;
 
 namespace recipe_api
 {
@@ -33,7 +36,8 @@ namespace recipe_api
 
             services.AddInfrastructure();
 
-            services.AddApi();
+            string securityKey = Configuration["SecurityKey"];
+            services.AddApi(securityKey);
 
             var authOptionsConfiguration = Configuration.GetSection("Auth");
             services.Configure<AuthOptions>(authOptionsConfiguration);
@@ -57,11 +61,8 @@ namespace recipe_api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory = LoggerFactory
-                .Create(builder =>
-                {
-                    builder.AddConsole();
-                });
+            string path = Directory.GetCurrentDirectory();
+            loggerFactory.AddFile($"{path}\\Logs\\Log.txt");
 
             if (env.IsDevelopment())
             {

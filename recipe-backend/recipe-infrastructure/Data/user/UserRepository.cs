@@ -14,9 +14,9 @@ namespace recipe_infrastructure
 			db = Users;
 		}
 
-		public async Task<User> AuthenticateUser(string login, string password)
+		public async Task<User> AuthenticateUser(string login)
 		{
-			return await db.Users.SingleOrDefaultAsync (u => u.Login == login && u.Password == password);
+			return await db.Users.SingleOrDefaultAsync (u => u.Login == login);
 		}
 
 		public async Task<User> GetUser(int userId)

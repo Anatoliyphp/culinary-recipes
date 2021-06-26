@@ -1,5 +1,5 @@
 export interface RStep{
-    number: number,
+    //number: number,
     name: string,
     desc: string
 }

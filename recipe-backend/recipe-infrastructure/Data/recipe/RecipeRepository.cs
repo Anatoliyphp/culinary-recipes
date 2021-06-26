@@ -18,15 +18,11 @@ namespace recipe_infrastructure
 
 		public async Task<Recipe> GetBestRecipe()
 		{
-			List<Recipe> recipes = await GetAllRecipes();
+			List<Recipe> recipes = await db.Recipes
+				.Include(r => r.RecipeLikes)
+				.OrderByDescending(r => r.RecipeLikes.Count)
+				.ToListAsync();
 			Recipe bestRecipe = recipes.FirstOrDefault();
-			foreach (Recipe recipe in recipes)
-			{
-				if ( await GetLikesNumber(recipe.Id) > await GetLikesNumber(bestRecipe.Id))
-				{
-					bestRecipe = recipe;
-				}
-			}
 
 			return bestRecipe;
 		}
@@ -40,6 +36,8 @@ namespace recipe_infrastructure
 		public async Task<List<Recipe>> GetAllUsersRecipes(int userId)
 		{
 			IQueryable<Recipe> recipes = db.Recipes
+				.Include(r => r.RecipeLikes)
+				.Include(r => r.UserFavourites)
 				.Where(r => r.UserId == userId);
 			return await recipes.ToListAsync();
 		}
@@ -56,13 +54,6 @@ namespace recipe_infrastructure
 				return userFavourites.ConvertAll(r => r.Recipe);
 			}
 			return null;
-		}
-
-		public async Task<List<Recipe>> GetAllRecipesByName(string name)
-		{
-			return await db.Recipes
-				.Where(r => EF.Functions.Like(r.Name, name))
-				.ToListAsync();
 		}
 
 		public async Task AddRecipe(Recipe recipe)
@@ -86,54 +77,31 @@ namespace recipe_infrastructure
 			db.Recipes.Update(recipe);
 		}
 
-		public async Task<bool> Like(int userId, int recipeId)
-		{
-			Recipe recipe = await db.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-			User user = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-			if (recipe != null && user != null)
-			{
-				RecipeLike recipeLike = new RecipeLike(
-					userId,
-					recipeId
-				);
-				await db.RecipeLikes.AddAsync(recipeLike);
-
-				return true;
-			}
-
-			return false;
-		}
-
 		public async Task<Recipe> GetRecipeById(int recipeId)
 		{
 			return await db.Recipes
 				.Include(r => r.Steps)
 				.Include(r => r.Ingridients)
+				.Include(r => r.RecipeLikes)
+				.Include(r => r.UserFavourites)
 				.SingleOrDefaultAsync(r => r.Id == recipeId);
 		}
 
-		public Task<List<Recipe>> GetAllByTags(string[] tagNames)//int where id in ()
+		public async Task<List<Recipe>> SearchRecipes(int[] tagIds, string name)
 		{
-			//in one
-			throw new System.NotImplementedException();
+			List<RecipeTag> recipeTags = await db.RecipeTags
+				.Include(rt => rt.Recipe)
+				.Where(rt => (tagIds.Contains(rt.TagId) && EF.Functions.Like(rt.Recipe.Name, $"%{name}%") && name.Any())
+				|| (tagIds.Contains(rt.TagId) && !name.Any())
+				|| (EF.Functions.Like(rt.Recipe.Name, $"%{name}%") && name.Any()))
+				.ToListAsync();
+			List<Recipe> recipes = recipeTags.Select(rt => rt.Recipe).ToList();
+			return recipes;
 		}
 
-		public async Task<bool> AddToFavourites(int userId, int recipeId)
+		public async Task<List<Tag>> GetAllTags()
 		{
-			Recipe recipe = await db.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-			User user = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
-			if (recipe != null && user != null)
-			{
-				UserFavourites userFavourites = new UserFavourites(
-					userId,
-					recipeId
-				);
-				await db.UserFavourites.AddAsync(userFavourites);
-
-				return true;
-			}
-
-			return false;
+			return await db.Tags.ToListAsync();
 		}
 
 		public async Task<bool> DeleteFromFavourites(int userID, int recipeId)
@@ -147,11 +115,6 @@ namespace recipe_infrastructure
 			}
 
 			return false;
-		}
-
-		public async Task<int> GetFavouritesNumber(int recipeId)
-		{
-			return await db.UserFavourites.CountAsync(uf => uf.RecipeId == recipeId);
 		}
 
 		public async Task<bool> IsFavouriteForCurrentUser(int userId, int recipeId)
@@ -168,12 +131,7 @@ namespace recipe_infrastructure
 
 		public async Task<bool> IsRepeatingImage(string path)
 		{
-			if (await db.Recipes.AnyAsync(r => r.Img == path))
-			{
-				return true;
-			}
-
-			return false;
+			return await db.Recipes.AnyAsync(r => r.Img == path);
 		}
 
 		public async Task<int> GetLikesNumber(int recipeId)
@@ -208,28 +166,41 @@ namespace recipe_infrastructure
 			return null;
 		}
 
-		public async Task<int> GetUserFavouritesNumber(List<Recipe> recipes)
+		public async Task AddRecipeTags(int recipeId, List<string> TagNames)
 		{
-			int favouritesNumber = 0;
-			foreach (Recipe recipe in recipes)
+			foreach (string tagName in TagNames)
 			{
-				favouritesNumber += await GetFavouritesNumber(recipe.Id);
+				Tag existingTag = await db.Tags.FirstOrDefaultAsync(t => t.Name == tagName);
+				if (existingTag == null)
+				{
+					Tag tag = await db.Tags.AddAsync(new Tag(tagName));
+					await db.RecipeTags.AddAsync(new RecipeTag(tag.Id, recipeId));
+				}
+				else
+				{
+					RecipeTag existingRecipeTag = await db.RecipeTags
+						.FirstOrDefaultAsync(rt => rt.RecipeId == recipeId && rt.TagId == existingTag.Id);
+					if (existingRecipeTag == null)
+					{
+						await db.RecipeTags.AddAsync(new RecipeTag(existingTag.Id, recipeId));
+					}
+				}
 			}
-
-			return favouritesNumber;
 		}
 
-		public async Task<int> GetUserLikesNumber(List<Recipe> recipes)
+		public int GetUserFavouritesNumber(List<Recipe> recipes)
 		{
-			int likesNumber = 0;
-			foreach (Recipe recipe in recipes)
-			{
-				likesNumber += await GetLikesNumber(recipe.Id);
-			}
-
-			return likesNumber;
+			return recipes.Sum(r => r.UserFavourites.Count);
 		}
 
-		//поиск по тэгам
+		public int GetUserLikesNumber(List<Recipe> recipes)
+		{
+			return recipes.Sum(r => r.RecipeLikes.Count);
+		}
+
+		public Task<int> GetFavouritesNumber(int recipeId)
+		{
+			return db.UserFavourites.CountAsync(uf => uf.RecipeId == recipeId);
+		}
 	}
 }

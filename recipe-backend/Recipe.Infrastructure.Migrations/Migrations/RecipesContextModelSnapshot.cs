@@ -472,7 +472,7 @@ namespace Migrations
                     b.HasOne("recipe_domain.Recipe", "Recipe")
                         .WithMany("RecipeLikes")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("recipe_domain.User", "User")
@@ -491,13 +491,13 @@ namespace Migrations
                     b.HasOne("recipe_domain.Recipe", "Recipe")
                         .WithMany("RecipeTags")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("recipe_domain.Tag", "Tag")
                         .WithMany("RecipeTags")
                         .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Recipe");
@@ -521,7 +521,7 @@ namespace Migrations
                     b.HasOne("recipe_domain.Recipe", "Recipe")
                         .WithMany("UserFavourites")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("recipe_domain.User", "User")

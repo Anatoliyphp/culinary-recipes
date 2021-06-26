@@ -7,10 +7,10 @@ namespace recipe_api.Recipes.Mappers
 	{
 		public static IngridientDto Map(Ingridient ingridient)
 		{
-			return new IngridientDto(
-					ingridient.Name,
-					ingridient.List
-				);
+			IngridientDto ingridientDto = new IngridientDto();
+			ingridientDto.Name = ingridient.Name;
+			ingridientDto.List = ingridient.List;
+			return ingridientDto;
 		}
 	}
 }

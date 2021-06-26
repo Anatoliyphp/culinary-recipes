@@ -1,3 +1,6 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+
 .login{
     position: fixed;
     box-shadow: 0px 16px 200px #4A525A;

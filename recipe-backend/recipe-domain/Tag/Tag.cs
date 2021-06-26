@@ -1,4 +1,6 @@
 ﻿using Abp.Domain.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 
 namespace recipe_domain
@@ -14,5 +16,9 @@ namespace recipe_domain
 
 		public List<RecipeTag> RecipeTags { get; set; }
 
+		public static implicit operator Tag(EntityEntry<Tag> v)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

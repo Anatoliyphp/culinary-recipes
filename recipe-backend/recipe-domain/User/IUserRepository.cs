@@ -4,7 +4,7 @@ namespace recipe_domain
 {
 	public interface IUserRepository
 	{
-		Task<User> AuthenticateUser(string login, string password);
+		Task<User> AuthenticateUser(string login);
 
 		Task<bool> RegisterUser(string login, string name, string password);
 

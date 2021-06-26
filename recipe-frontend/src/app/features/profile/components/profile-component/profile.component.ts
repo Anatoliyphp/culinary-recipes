@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { from } from 'rxjs';
 import { Recipe } from 'src/app/core/models/recipe';
-import { AuthService } from 'src/app/core/services/auth_service';
+import { AuthService, USER_NAME } from 'src/app/core/services/auth_service';
 import { onClose } from 'src/app/core/services/logination_routing';
 import { RecipeService } from 'src/app/core/services/recipe_service';
 import { Stat } from '../../models/stat';
@@ -63,7 +63,12 @@ export class ProfileComponent implements OnInit {
       form.value.name,
       form.value.about
       )
-      .subscribe(value => {this.Error = false}, error => {
+      .subscribe(value => {
+        this.Error = false
+        localStorage.removeItem(USER_NAME);
+        localStorage.setItem(USER_NAME, form.value.name);
+        location.reload();
+      }, error => {
         this.Error = true;
       });
   }

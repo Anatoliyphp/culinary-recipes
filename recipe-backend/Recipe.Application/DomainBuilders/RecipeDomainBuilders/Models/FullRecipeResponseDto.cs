@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Application
 {
 	[DataContract]
-	[KnownType(typeof(List<string>))]
+	[KnownType(typeof(List<TagDto>))]
 	[KnownType(typeof(List<IngridientDto>))]
 	[KnownType(typeof(List<StepDto>))]
 	public class FullRecipeResponseDto
@@ -22,7 +22,7 @@ namespace Application
 			int favourites,
 			bool isFavourite,
 			int userId,
-			IEnumerable<string> tags,
+			IEnumerable<TagDto> tags,
 			IEnumerable<IngridientDto> ingridients,
 			IEnumerable<StepDto> steps
 			)
@@ -77,7 +77,7 @@ namespace Application
 		public int UserId { get; set; }
 
 		[DataMember(Name = "tags")]
-		public List<string> Tags { get; set; }
+		public List<TagDto> Tags { get; set; }
 
 		[DataMember(Name = "steps")]
 		public List<StepDto> Steps { get; set; }

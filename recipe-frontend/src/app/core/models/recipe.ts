@@ -1,3 +1,5 @@
+import { Tag } from "./tag";
+
 export interface Recipe{
   id: number,
   img: string,
@@ -10,5 +12,5 @@ export interface Recipe{
   favourites: number,
   isFavourite: boolean,
   userId: number,
-  tags: string[]
+  tags: Tag[]
   }

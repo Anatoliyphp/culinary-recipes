@@ -7,11 +7,15 @@ namespace recipe_domain
 	{
 		Task<Recipe> GetBestRecipe();
 
+		Task<List<Tag>> GetAllTags();
+
 		Task<List<Recipe>> GetAllRecipes();
 
-		Task<int> GetUserFavouritesNumber(List<Recipe> recipes);
+		Task AddRecipeTags(int recipeId, List<string> TagNames);
 
-		Task<int> GetUserLikesNumber(List<Recipe> recipes);
+		int GetUserFavouritesNumber(List<Recipe> recipes);
+
+		int GetUserLikesNumber(List<Recipe> recipes);
 
 		Task<List<Recipe>> GetAllFavouritesRecipes(int userId);
 
@@ -19,15 +23,11 @@ namespace recipe_domain
 
 		Task<Recipe> GetRecipeById(int recipeId);
 
-		Task<List<Recipe>> GetAllRecipesByName(string name);
-
 		Task AddRecipe(Recipe recipe);
 
 		Task<bool> DeleteRecipe(int id);
 
 		void ChangeRecipe(Recipe recipe);
-
-		Task<bool> Like(int userId, int recipreId);
 
 		Task<bool> IsLikedForCurrentUser(int userID, int recipeId);
 
@@ -41,9 +41,7 @@ namespace recipe_domain
 
 		Task<bool> RemoveLike(int userId, int recipeId);
 
-		Task<List<Recipe>> GetAllByTags(string[] tagNames);
-
-		Task<bool> AddToFavourites(int userId, int recipeId);
+		Task<List<Recipe>> SearchRecipes(int[] tagIds, string name);
 
 		Task<bool> IsRepeatingImage(string path);
 

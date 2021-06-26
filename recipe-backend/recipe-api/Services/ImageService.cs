@@ -13,11 +13,11 @@ namespace recipe_api.Services
 		IWebHostEnvironment _appEnvironment;
 
 		public ImageService(
-			IRecipeRepository reciperepository,
+			IRecipeRepository recipeRepository,
 			IWebHostEnvironment appEnvironment
 			)
 		{
-			_recipeRepository = reciperepository;
+			_recipeRepository = recipeRepository;
 			_appEnvironment = appEnvironment;
 		}
 
@@ -28,9 +28,14 @@ namespace recipe_api.Services
 				throw new System.ArgumentNullException("Image is empty!");
 			}
 
-			string path = _appEnvironment.WebRootPath + "/Images/" + img.FileName;
+			string path = "/Images/" + img.FileName;
 
-			using (var fileStream = new FileStream(path, FileMode.Create))
+			if (await _recipeRepository.IsRepeatingImage(path))
+			{
+				return path;
+			}
+
+			using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
 			{
 				await img.CopyToAsync(fileStream);
 			}

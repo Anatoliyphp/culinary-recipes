@@ -18,7 +18,7 @@ namespace recipe_infrastructure.Data.user.EntityConfigurations
 			builder.HasOne(uf => uf.Recipe)
 				.WithMany(r => r.UserFavourites)
 				.HasForeignKey(uf => uf.RecipeId)
-				.OnDelete(DeleteBehavior.NoAction);
+				.OnDelete(DeleteBehavior.Cascade);
 
 			builder.HasData(
 				new UserFavourites(2, 2),

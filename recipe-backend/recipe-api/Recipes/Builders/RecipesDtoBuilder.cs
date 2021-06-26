@@ -69,7 +69,7 @@ namespace recipe_api
 					isFavourite,
 					recipe.UserId,
 					tags.ConvertAll(
-						t => t.Name),
+						t => new TagDto(t.Id, t.Name)),
 					recipe.Ingridients.Select(
 						i => IngridientMapper.Map(i)).ToList(),
 					recipe.Steps.Select(
@@ -103,7 +103,7 @@ namespace recipe_api
 					isFavourite,
 					recipe.UserId,
 					tags.ConvertAll(
-						t => t.Name)
+						t => new TagDto(t.Id, t.Name))
 				);
 			}
 			return null;

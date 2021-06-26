@@ -15,7 +15,7 @@ namespace recipe_api.Recipes.Controllers
 	[ApiController]
 	public class RecipesController : ControllerBase
 	{
-		private readonly ILogger _logger;
+		private readonly ILogger<RecipesController> _logger;
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IRecipeDomainBuilder _recipeDomainBuilder;
 		private readonly IRecipesDtoBuilder _recipesDtoBuilder;
@@ -40,7 +40,7 @@ namespace recipe_api.Recipes.Controllers
 
 		[Route("add")]
 		[HttpPost]
-		public async Task<IActionResult> AddRecipe([FromBody]FullRecipeRequestDto request)
+		public async Task<IActionResult> AddRecipe([FromForm]FullRecipeRequestDto request)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
@@ -54,6 +54,7 @@ namespace recipe_api.Recipes.Controllers
 			}
 
 			await _recipeRepository.AddRecipe(recipe);
+			await _recipeRepository.AddRecipeTags(recipe.Id, request.Tags);
 			await _unitOfWork.Save();
 			_logger.LogInformation("Recipe was created");
 			return Ok();
@@ -80,9 +81,9 @@ namespace recipe_api.Recipes.Controllers
 			return Ok(fullRecipeDto);
 		}
 
-		[Route("edit")]
+		[Route("edit/{recipeId:int}")]
 		[HttpPost]
-		public async Task<IActionResult> EditRecipe([FromBody] FullRecipeRequestDto request)
+		public async Task<IActionResult> EditRecipe([FromRoute]int recipeId, [FromForm]FullRecipeRequestDto request)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
@@ -94,6 +95,8 @@ namespace recipe_api.Recipes.Controllers
 				return BadRequest($"Can't edit recipe with name:{request.Name}");
 			}
 
+			recipe.Id = recipeId;
+			await _recipeRepository.AddRecipeTags(recipeId, request.Tags);
 			_recipeRepository.ChangeRecipe(recipe);
 			await _unitOfWork.Save();
 			_logger.LogInformation("Recipe edited");
@@ -109,13 +112,13 @@ namespace recipe_api.Recipes.Controllers
 
 			_logger.LogInformation($"Deleting recipe with id: {recipeId}...");
 			bool isDeleted = await _recipeRepository.DeleteRecipe(recipeId);
-			await _unitOfWork.Save();
 			if (!isDeleted)
 			{
 				_logger.LogError("Failed to delete recipe");
 				return BadRequest($"Can't delete recipe with id:{recipeId}");
 			}
 
+			await _unitOfWork.Save();
 			_logger.LogInformation("Recipe deleted");
 			return Ok();
 
@@ -136,7 +139,7 @@ namespace recipe_api.Recipes.Controllers
 			}
 
 			List<RecipeDto> recipeDtos = new List<RecipeDto>();
-			foreach (Recipe recipe in recipes)
+			foreach (Recipe recipe in recipes)//
 			{
 				RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, userId);
 				recipeDtos.Add(recipeDto);
@@ -184,10 +187,9 @@ namespace recipe_api.Recipes.Controllers
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
 			_logger.LogInformation($"Adding to user with id: {userId} favourites recipe with id: {recipeId}...");
-			bool IsAdded = await _recipeRepository.AddToFavourites(userId, recipeId);
-			await _unitOfWork.Save();
-
-			if (!IsAdded)
+			Recipe recipe = await _recipeRepository.GetRecipeById(recipeId);
+			recipe.AddToFavourites(userId);
+			if (recipe == null)
 			{
 				_logger.LogWarning("Failed to add recipe to favourites");
 				return BadRequest(
@@ -196,6 +198,7 @@ namespace recipe_api.Recipes.Controllers
 				);
 			}
 
+			await _unitOfWork.Save();
 			_logger.LogInformation("Recipe successfully added to favourites");
 			return Ok();
 
@@ -209,7 +212,6 @@ namespace recipe_api.Recipes.Controllers
 
 			_logger.LogInformation($"Deleting from user with id: {userId} favourites recipe with id: {recipeId}...");
 			bool IsDeleted = await _recipeRepository.DeleteFromFavourites(userId, recipeId);
-			await _unitOfWork.Save();
 			if (!IsDeleted)
 			{
 				_logger.LogError("Failed to delete recipe from favourites");
@@ -219,6 +221,7 @@ namespace recipe_api.Recipes.Controllers
 				);
 			}
 
+			await _unitOfWork.Save();
 			_logger.LogInformation("Recipe successfully deleted from favourites");
 			return Ok();
 
@@ -272,14 +275,14 @@ namespace recipe_api.Recipes.Controllers
 
 		}
 
-		[Route("search/{userId:int}/{name}")]
-		[HttpGet]
-		public async Task<IActionResult> SearchRecipe(int userId, string name)
+		[Route("search/{userId:int}")]
+		[HttpPost]
+		public async Task<IActionResult> SearchRecipe([FromRoute]int userId, [FromBody]SearchRecipeModel searchRecipeModel)
 		{
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
-			_logger.LogInformation($"Searching recipes with name: {name}");
-			List<Recipe> recipes = await _recipeRepository.GetAllRecipesByName(name);
+			_logger.LogInformation("Searching recipes...");
+			List<Recipe> recipes = await _recipeRepository.SearchRecipes(searchRecipeModel.TagIds, searchRecipeModel.Name);
 
 			if (recipes == null)
 			{
@@ -301,6 +304,17 @@ namespace recipe_api.Recipes.Controllers
 			
 		}
 
+		[Route("allTags")]
+		[HttpGet]
+		public async Task<IActionResult> GetAllTags()
+		{
+			List<Tag> tags = await _recipeRepository.GetAllTags();
+
+			List<TagDto> tagDtos = tags.ConvertAll(t => new TagDto(t.Id, t.Name));
+
+			return Ok(tagDtos);
+		}
+
 		[Route("addLike/{userId:int}/{recipeId:int}")]
 		[HttpGet]
 		public async Task<IActionResult> AddLike(int userId, int recipeId)
@@ -308,18 +322,9 @@ namespace recipe_api.Recipes.Controllers
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
 			_logger.LogInformation($"Adding like to recipe with id: {recipeId} from user with id: {userId}");
-			bool isAdded = await _recipeRepository.Like(userId, recipeId);
+			Recipe recipe = await _recipeRepository.GetRecipeById(recipeId);
+			recipe.Like(userId);
 			await _unitOfWork.Save();
-
-			if (!isAdded)
-			{
-				_logger.LogError("Can't add like");
-				return BadRequest(
-					$"Can't add like to recipe with id: " +
-					$"{recipeId} from user with id: {userId}"
-					);
-			}
-
 			_logger.LogInformation("Like added");
 			return Ok();
 		}
@@ -353,8 +358,8 @@ namespace recipe_api.Recipes.Controllers
 		{
 			List<Recipe> recipes = await _recipeRepository.GetAllUsersRecipes(userId);
 			int numberOfUserRecipes = recipes.Count;
-			int numberOfUserFavourites = await _recipeRepository.GetUserFavouritesNumber(recipes);
-			int numberOfUserLikes = await _recipeRepository.GetUserLikesNumber(recipes);
+			int numberOfUserFavourites = _recipeRepository.GetUserFavouritesNumber(recipes);
+			int numberOfUserLikes = _recipeRepository.GetUserLikesNumber(recipes);
 
 			return Ok(
 				new

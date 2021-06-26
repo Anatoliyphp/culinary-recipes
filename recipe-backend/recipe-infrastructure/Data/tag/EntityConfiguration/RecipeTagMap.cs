@@ -13,12 +13,12 @@ namespace recipe_infrastructure
 			builder.HasOne(rt => rt.Tag)
 				.WithMany(t => t.RecipeTags)
 				.HasForeignKey(rt => rt.TagId)
-				.OnDelete(DeleteBehavior.NoAction);
+				.OnDelete(DeleteBehavior.Cascade);
 
 			builder.HasOne(rl => rl.Recipe)
 				.WithMany(r => r.RecipeTags)
 				.HasForeignKey(rl => rl.RecipeId)
-				.OnDelete(DeleteBehavior.NoAction);
+				.OnDelete(DeleteBehavior.Cascade);
 
 			builder.HasData(
 				new RecipeTag(1, 1),
