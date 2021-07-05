@@ -1,0 +1,149 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+
+textarea.ng-touched.ng-invalid {border:solid red 2px;}
+textarea.ng-touched.ng-valid {border:solid green 2px;}
+
+.profile_info_head{
+    width: 811px;
+    height: 62px;
+    font: bold 42px/62px Montserrat;
+    color: #25292D;
+    margin-bottom: 50px;
+    margin-top: 11px;
+}
+
+.empty{
+    width: 556px;
+    height: 30px;
+    margin-left: 442px;
+    margin-top: 117px;
+    font: 600 24px/30px Montserrat;
+    color: #FDB100;
+    opacity: 0.5;
+    margin-bottom: 200px;
+}
+
+.change{
+    width: 18px;
+    height: 18px;
+    margin-bottom: 250px;
+    margin-right: -20px;
+    cursor: pointer;
+}
+
+.error_message{
+    color: red;
+    font: 500 10px/15px Montserrat;
+    position: absolute;
+    margin-top: 200px;
+}
+
+.back{
+    width: 58px;
+    height: 22px;
+    font: 500 18px/22px Montserrat;
+    color: #FDB100;
+    margin-left: 13px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.profile_form{
+    display: flex;
+    flex-direction: row;
+    width: 1200px;
+    height: 311px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 72px rgba(34, 39, 47, 0.05);
+    border-radius: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile_form_info{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -20px;
+}
+
+.profile_form_info_field{
+    width: 542px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    outline: none;
+    font: normal 16px/28px Montserrat;
+    color: #4A525A;
+    resize: none;
+    padding-left: 26px;
+    padding-top: 10px;
+}
+
+.profile_form_info_password{
+    width: 542px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    outline: none;
+    font: normal 20px/30px Montserrat;
+    color: #4A525A;
+    resize: none;
+    padding-left: 26px;
+}
+
+.profile_form_info_about{
+    width: 472px;
+    height: 191px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    margin-right: 32px;
+    outline: none;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    resize: none;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.name{
+    position: absolute;
+    margin-left: 26px;
+    font: normal 12px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+}
+
+.login{
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 26px;
+    font: normal 12px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+}
+
+.show_password{
+    position: absolute;
+    margin-left: 500px;
+    margin-top: 156px;
+    cursor: pointer;
+}
+
+.profile_stat{
+    display: flex;
+}
+
+.profile_recipes{
+    width: 177px;
+    height: 30px;
+    font: bold 24px/30px Montserrat;
+    color: #25292D;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}

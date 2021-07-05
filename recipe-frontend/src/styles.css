@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { width: 100%; display: flex; margin: 0; justify-content: center;}
+body {
+    width: 100%;
+    display: flex; 
+    margin: 0;
+    justify-content: center; 
+    background-image: url("/assets/images/wave1.png");
+}

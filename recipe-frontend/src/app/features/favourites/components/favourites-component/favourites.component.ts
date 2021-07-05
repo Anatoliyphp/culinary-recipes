@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RecipeService } from 'src/app/core/services/recipe_service';
 import { Recipe } from '../../../../core/models/recipe';
 
 @Component({
@@ -6,19 +7,26 @@ import { Recipe } from '../../../../core/models/recipe';
   templateUrl: './favourites.component.html',
   styleUrls: ['../../../../../styles/favourites.component.css']
 })
-export class FavouritesComponent {
+export class FavouritesComponent implements OnInit {
 
-  hasFavourites = true;
-  recipes: Recipe[] = [
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    },
-    {img: "/assets/images/panna.png", tags: ["десерты", "клубника", "сливки"], 
-      likes: 8, favourites: 10, name: "Клубничная панна-котта",
-      desc: "Десерт, который невероятно легко и быстро готовится. Советую подавать его порционно в красивых бокалах,украсив взбитыми сливками, свежими ягодами и мятой.", 
-      time: 35, persons: 5
-    },
-  ]
+  constructor(private recipeServ: RecipeService){}
+
+  ngOnInit(): void {
+    this.recipeServ.getFavourites()
+      .subscribe(value => {
+        this.recipes = value;
+         if (this.recipes.length < 1)
+         {
+           this.hasFavourites = false
+          }
+         else{
+           this.hasFavourites = true
+          }
+        })
+  }
+
+  recipes!: Recipe[];
+
+  hasFavourites = false;
+  
 }

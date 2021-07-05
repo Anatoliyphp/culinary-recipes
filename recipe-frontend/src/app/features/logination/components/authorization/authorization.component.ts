@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { toLogIn, toRegister } from '../../services/logination_routing';
+import { toLogIn, toRegister } from '../../../../core/services/logination_routing';
 
 @Component({
   selector: 'app-authorization',

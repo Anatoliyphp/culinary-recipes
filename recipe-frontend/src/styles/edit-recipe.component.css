@@ -1,0 +1,229 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+textarea.ng-touched.ng-invalid {border:solid red 2px;}
+textarea.ng-touched.ng-valid {border:solid green 2px;}
+
+.back_container{
+    display: flex;
+    align-items: center;
+}
+
+.error{
+    color: red;
+    font: 600 18px/28px Montserrat;
+    position: absolute;
+    margin-bottom: 150px;
+    margin-top: -50px;
+}
+
+.add_info{
+    width: 380px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: white;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+}
+
+.add_step{
+    width: 380px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: white;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+    margin-left: 200px;
+}
+
+.add_recipe_top{
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.arrow{
+    width: 18px;
+    height: 12px;
+    margin-bottom: 15px;
+}
+
+.back{
+    width: 58px;
+    height: 22px;
+    font: 500 18px/22px Montserrat;
+    color: #FDB100;
+    margin-left: 13px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.add_recipe_head{
+    width: 811px;
+    height: 62px;
+    font: bold 42px/62px Montserrat;
+    color: #25292D;
+}
+
+.publish{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    border: none;
+    font: 600 18px/28px Montserrat;
+    color: #FFFFFF;
+    margin-left: 180px;
+}
+
+.up_img{
+    opacity: 0;
+    position: absolute;
+    visibility: hidden;
+}
+
+.up_img_label{
+    width: 430px;
+    height: 430px;
+    border-radius: 72px 0px;
+}
+
+.add_recipe_form{
+    width: 1200px;
+    height: 430px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 72px rgba(34, 39, 47, 0.05);
+    border-radius: 24px;
+    display: flex;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.add_recipe_form_name{
+    width: 647px;
+    height: 50px;
+    left: 603px;
+    top: 322px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    outline: none;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    padding-left: 26px;
+}
+
+.add_recipe_form_desc{
+    width: 647px;
+    height: 117px;
+    left: 603px;
+    top: 392px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    outline: none;
+    resize: none;
+    padding-left: 26px;
+    padding-top: 10px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.form_data{
+    margin-left: 53px;
+    margin-top: 50px;
+}
+
+.minutes_and_persons{
+    display: flex;
+    margin-top: 20px;
+}
+
+.minutes{
+    display: flex;
+}
+
+.persons{
+    display: flex;
+}
+
+.choose{
+    width: 220px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    outline: none;
+    text-align: center;
+    margin-right: 11px;
+}
+
+.stat_type{
+    width: 56px;
+    height: 28px;
+    font: normal 16px/28px Montserrat;
+    color: #25292D;
+    margin-right: 64px;
+    margin-top: 12px;
+}
+
+.steps_and_ingr{
+    display: flex;
+}
+
+.ingridients_title{
+    width: 380px;
+    height: 30px;
+    font: bold 20px/30px Montserrat;    
+    text-transform: capitalize;   
+    color: #4A525A;
+    margin-bottom: 30px;
+}
+
+.add_info{
+    width: 380px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: white;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+}
+
+.add_step{
+    width: 380px;
+    height: 60px;
+    border: 1px solid #FDB100;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: white;
+    font: 600 18px/28px Montserrat;
+    color: #FDB100;
+    cursor: pointer;
+    margin-left: 200px;
+}
+
+.y_plus{
+    margin-right: 50px;
+    margin-left: -50px;
+}
+
+.steps{
+    margin-left: 30px;
+}

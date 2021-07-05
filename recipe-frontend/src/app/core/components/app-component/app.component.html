@@ -1,8 +1,4 @@
 <div class="container">
-  <img class="wave_one" src="/assets/images/wave1.png">
-  <div *ngIf="!onFavourites">
-    <img class="wave_two" src="/assets/images/wave2.png">
-  </div>
   <div class="container_header">
     <p class="container_header_title">Recipes</p>
     <a class="container_header_title_link" routerLink="/" routerLinkActive="active"
@@ -11,17 +7,18 @@
       [routerLinkActiveOptions]="{exact:true}" (click)="onFavourites=false">Рецепты</a>
     <a class="container_header_title_link" routerLink="/favourites" routerLinkActive="active" 
       [routerLinkActiveOptions]="{exact:true}" (click)="onFavourites=true">Избранное</a>
-    <div [ngStyle]="{'margin-left': (logged) ? '398px' : '565px'}" class="container_header_login">
+    <div [ngStyle]="{'margin-left': (auth.isAuthenticated()) ? '398px' : '565px'}" class="container_header_login">
       <img class="container_header_login_image" src="/assets/images/login.png">
-      <a *ngIf="!logged; else greet" class="container_header_login_link"
+      <a *ngIf="!auth.isAuthenticated(); else greet" class="container_header_login_link"
       [routerLink]="[{ outlets: { 'auth': ['login'] }}]"
       >Войти</a>
       <ng-template #greet>
         <a class="container_header_login_link"
         routerLink="/profile"
-        >Привет, Анатолий</a>
+        (click)="onFavourites=true"
+        >Привет, {{name}}</a>
         <img class="container_header_login_line" src="../../../../assets/images/line.png"/>
-        <img routerLink="/" class="container_header_logout" src="../../../../assets/images/exit.png"/>
+        <img routerLink="/" (click)="auth.logout()" class="container_header_logout" src="../../../../assets/images/exit.png"/>
       </ng-template>
     </div>
   </div>

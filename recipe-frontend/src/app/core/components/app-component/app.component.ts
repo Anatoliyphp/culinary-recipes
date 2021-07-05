@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from '../../../core/services/auth_service';
+import { nameGetter } from '../../app.module';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
 
+  constructor(public auth: AuthService){}
+
+  name = nameGetter();
+
   logged = true;
 
-  onFavourites = false;
+  onFavourites = true;
 
   onActivate($event: any): void
   {

@@ -1,0 +1,29 @@
+<div class="full_recipe">
+    <div class="back_container">
+        <img class="arrow" src="assets/images/arrow.png"/>
+        <p class="back" (click)="onBack()">Назад</p>
+    </div>
+    <div class="full_recipe_top">
+        <h2 class="full_recipe_head">{{recipe.name}}</h2>
+        <img src="assets/images/bin.png" class="delete" (click)="onDelete()">
+        <button (click)="onEdit()" class="change">
+            <img src="assets/images/edit.png"class="edit_img">
+             Редактировать
+        </button>
+    </div>
+    <app-recipe [recipe]="recipe"></app-recipe>
+    <div class="ingrs_and_steps">
+        <div class="ingrs">
+            <p class="ingrs_head">Ингридиенты</p>
+            <app-change-ingridient
+            *ngFor="let ingr of recipe.ingridients"
+            [ingr]="ingr"></app-change-ingridient>
+        </div>
+        <div class="steps">
+            <app-change-step
+            *ngFor="let step of recipe.steps"
+            [step]="step"></app-change-step>
+            <p class="steps_end">Приятного аппетита!</p>
+        </div>
+    </div>
+</div>

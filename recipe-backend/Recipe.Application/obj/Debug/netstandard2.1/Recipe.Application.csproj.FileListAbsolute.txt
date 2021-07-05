@@ -1,0 +1,12 @@
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.csprojAssemblyReference.cache
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.AssemblyInfoInputs.cache
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.AssemblyInfo.cs
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.csproj.CoreCompileInputs.cache
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Application.deps.json
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Application.dll
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Application.pdb
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Domain.dll
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Domain.pdb
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.csproj.CopyComplete
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.dll
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.pdb

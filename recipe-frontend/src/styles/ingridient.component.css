@@ -1,0 +1,50 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+
+textarea.ng-touched.ng-invalid {border:solid red 2px;}
+textarea.ng-touched.ng-valid {border:solid green 2px;}
+
+.ingridient{
+    width: 380px;
+    height: 371px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 72px rgba(34, 39, 47, 0.05);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ingridient_head{
+    width: 320px;
+    height: 50px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    margin-bottom: 20px;
+    padding-left: 26px;
+    outline: none;
+}
+
+.ingridient_list{
+    width: 320px;
+    height: 229px;    
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    padding-left: 26px;
+    resize: none;
+    outline: none;
+}
+
+.close{
+    margin-left: 300px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}

@@ -1,0 +1,51 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+
+textarea.ng-touched.ng-invalid {border:solid red 2px;}
+textarea.ng-touched.ng-valid {border:solid green 2px;}
+
+.step{
+    width: 790px;
+    height: 329px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 72px rgba(34, 39, 47, 0.05);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close{
+    margin-left: 700px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.step_title{
+    width: 650px;
+    height: 30px;
+    font: 600 18px/30px Montserrat;  
+    color: #4A525A;
+    margin-bottom: 21px;
+    outline: none;
+    border: 1px solid rgba(145, 150, 161, 0.4); 
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 26px;
+}
+
+.step_desc{
+    width: 650px;
+    height: 166px;
+    border: 1px solid rgba(145, 150, 161, 0.4); 
+    box-sizing: border-box;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    color: rgba(37, 41, 45, 0.5);
+    padding-left: 26px;
+    outline: none;
+    resize: none;
+    margin-bottom: 50px;
+}

@@ -1,12 +1,14 @@
 <div class="login">
+    <img routerLink="/" class="back" src="assets/images/krest.png"/>
     <p class="login_title">Войти</p>
-    <form class="login_form">
-        <input class="login_form_name" type="text" placeholder="Логин"/>
-        <input class="login_form_name" type="text" placeholder="Пароль"/>
+    <form class="login_form" #myForm="ngForm" (ngSubmit)="login(myForm)">
+        <input class="login_form_name" name="login" ngModel required pattern="[a-zA-Z0-9]{1,30}" type="text" placeholder="Логин"/>
+        <input class="login_form_name" name="password" ngModel required pattern="[a-zA-ZА-Яа-я0-9]{1,30}" type="password" placeholder="Пароль"/>
         <div class="login_buttons">
-            <button class='login_buttons_login'>Войти</button>
+            <button type="submit" class='login_buttons_login'>Войти</button>
             <button class="login_buttons_cancel" (click)="onClose()">Отмена</button>
         </div>
+        <a *ngIf="Error" class="error_message">Не верный логин или пароль</a>
     </form>
     <a class="login_to_register" (click)="toRegister()">У меня еще нет аккаунта</a>
 </div>

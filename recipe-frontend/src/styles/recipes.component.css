@@ -28,7 +28,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.5s ease;
 }
+
+.recipes_hat_add:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow:0 0 10px #000; 
+    background-color: white;
+    color: #FDB100;
+    border: 3px solid #FDB100;
+    padding-right: 30px;
+  }
 
 .recipes_hat_add_info{
     margin-left: 23px;
@@ -63,8 +77,17 @@
     cursor: pointer;
     margin-top: 65px;
     margin-left: 446px;
+    transition: all 0.5s ease;
 }
 
 .recipes_load:hover{
-    background-color: whitesmoke;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow:0 0 10px #000; 
+    background-color: #FDB100;
+    color: white;
+    border: none;
 }

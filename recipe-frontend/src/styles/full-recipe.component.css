@@ -1,0 +1,84 @@
+.back_container{
+    display: flex;
+    align-items: center;
+}
+
+.arrow{
+    width: 18px;
+    height: 12px;
+    margin-bottom: 15px;
+}
+
+.back{
+    width: 58px;
+    height: 22px;
+    font: 500 18px/22px Montserrat;
+    color: #FDB100;
+    margin-left: 13px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.delete{
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-right: 18px;
+}
+
+.change{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    color: #FFFFFF;
+    border: none;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+.edit_img{
+    margin-right: 21px;
+    margin-left: -20px;
+    margin-bottom: -5px;
+}
+
+.full_recipe_top{
+    display: flex;
+    margin-top: 11px;
+    margin-bottom: 50px;
+}
+
+.ingrs_and_steps{
+    display: flex;
+    margin-top: 40px;
+}
+
+.full_recipe_head{
+    width: 811px;
+    height: 62px;
+    left: 120px;
+    top: 160px;
+    font: bold 42px/62px Montserrat;    
+    color: #25292D;
+}
+
+.ingrs_head{
+    height: 30px;
+    font: bold 20px/30px Montserrat;    
+    text-transform: capitalize;   
+    color: #FDB100;
+}
+
+.steps_end{
+    width: 286px;
+    height: 30px;
+    font: 600 24px/30px Montserrat;   
+    text-transform: capitalize;    
+    color: #FDB100;    
+    opacity: 0.5;
+    margin-left: 280px;
+}

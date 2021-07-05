@@ -1,14 +1,17 @@
 <div class="registration">
+    <img routerLink="/" class="back" src="assets/images/krest.png"/>
     <p class="registration_title">Регистрация</p>
-    <form class="registration_form">
-        <input class="registration_long" type="text" placeholder="Имя"/>
-        <input class="registration_long" type="text" placeholder="Логин"/>
-        <input class="registration_short" type="text" placeholder="Пароль"/>
-        <input class='registration_short' type="text" placeholder="Повторите пароль"/>
+    <form class="registration_form" #myForm="ngForm" (ngSubmit)="registration(myForm)">
+        <input class="registration_long" name="name" ngModel required pattern="[a-zA-ZА-Яа-я0-9]{1,30}" type="text" placeholder="Имя"/>
+        <input class="registration_long" name="login" ngModel required pattern="[a-zA-Z0-9]{1,30}" type="text" placeholder="Логин"/>
+        <input class="registration_short" name="password" ngModel required pattern="[a-zA-ZА-Яа-я0-9]{1,30}" type="password" placeholder="Пароль"/>
+        <input class='registration_short' type="password" name="passwordCheck" ngModel required pattern="[a-zA-ZА-Яа-я0-9]{1,30}" type="password" placeholder="Повторите пароль"/>
         <div class="registration_buttons">
             <button type="submit" class="registration_buttons_register">Зарегистрироваться</button>
             <button class="registration_buttons_cancel" (click)="onClose()">Отмена</button>
         </div>
+        <a *ngIf="Error" class="error_message">Не корректные данные для регистрации</a>
+        <a *ngIf="ConfirmPasswordsError" class="error_message">Пароли не совпадают!</a>
     </form>
     <p class="registration_to_login" (click)="toLogIn()">У меня уже есть аккаунт</p>
 </div>

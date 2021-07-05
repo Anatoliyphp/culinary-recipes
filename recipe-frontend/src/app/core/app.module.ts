@@ -12,10 +12,34 @@ import { FormsModule } from '@angular/forms';
 import { LoginationModule } from '../features/logination/logination.module';
 import { appRoutes } from './constants/routes';
 import { ProfileModule } from '../features/profile/profile.module';
+import { JwtModule} from '@auth0/angular-jwt';
+import { HttpClientModule } from '@angular/common/http';
+import { ACCESS_TOKEN_KEY, USER_ID, USER_NAME } from './services/auth_service';
+import { FullRecipeComponent } from './components/full-recipe/full-recipe.component';
+import { FullStepComponent } from './components/full-step/full-step.component';
+import { FullIngridientComponent } from './components/full-ingridient/full-ingridient.component';
+
+export function tokenGetter()
+{
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
+
+export function nameGetter()
+{
+  return localStorage.getItem(USER_NAME);
+}
+
+export function idGetter()
+{
+    return localStorage.getItem(USER_ID);
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FullRecipeComponent,
+    FullStepComponent,
+    FullIngridientComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +52,14 @@ import { ProfileModule } from '../features/profile/profile.module';
     CommonModule,
     FormsModule,
     LoginationModule,
-    ProfileModule
+    ProfileModule,
+    HttpClientModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter
+      }
+    })
   ],
   exports: [
     HomeModule,

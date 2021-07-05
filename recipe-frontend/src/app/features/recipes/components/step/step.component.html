@@ -1,0 +1,7 @@
+<div class="step">
+    <img class="close" (click)="onDelete()" src="assets/images/krest.png"/>
+    <input class="step_title" name="name" [(ngModel)]="step.name" pattern="[a-zA-ZА-яа-я0-9\s]{1,30}" required/>
+    <textarea class="step_desc" placeholder="Описание шага" name="desc" [(ngModel)]="step.desc"
+    pattern="[a-zA-ZА-Яа-я0-9\s.%-:()!]{5,300}"
+    required></textarea>
+</div>

@@ -1,0 +1,76 @@
+<form class="add_recipe" #myForm="ngForm" (ngSubmit)="onAdd(myForm)">
+    <div class="back_container">
+        <img class="arrow" src="assets/images/arrow.png"/>
+        <p class="back" (click)="onClose()">Назад</p>
+    </div>
+    <div class="add_recipe_top">
+        <h2 class="add_recipe_head">Добавить новый рецепт</h2>
+        <button class="publish">Опубликовать</button>
+    </div>
+    <div class="add_recipe_form">
+        <input  class="up_img" (change)="onAddImage($event)" id="upload_img" name="img" ngModel required type="file"/>
+        <label class="up_img_label" for="upload_img"><img class="up_img_label" src="{{imgPath}}"/>
+        </label>
+        <div class="form_data">
+            <input class="add_recipe_form_name" type="text" placeholder="Название рецепта"
+            pattern="[a-zA-ZА-Яа-я0-9\s-]{5,30}" name="name" ngModel required
+            />
+            <textarea class="add_recipe_form_desc" type="text"
+             placeholder="Краткое описание рецепта(150 символов)"
+             pattern="[a-zA-ZА-Яа-я0-9\s.%-:,]{5,300}"
+             name="description" ngModel required
+             ></textarea>
+            <input class="add_recipe_form_name" type="text" placeholder="Добавить тэги"
+            pattern="[a-zA-ZА-Яа-я\s]{5,100}"
+            name="tags" ngModel required
+            />
+            <div class="minutes_and_persons">
+                <div class="minutes">
+                    <input class="choose" type="number" placeholder="Время готовки" min="1" max="60"
+                    name="time" ngModel required
+                    />
+                    <p class="stat_type">Минут</p>
+                </div>
+                <div class="persons">
+                    <input class="choose" type="number" placeholder="Порций в блюде" min="1" max="10"
+                    name="persons" ngModel required
+                    />
+                    <p class="stat_type">Персон</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="steps_and_ingr">
+        <div class="ingridients">
+            <p class="ingridients_title">Ингридиенты</p>
+            <app-ingridient
+            (childComponentValue)="DeleteIngr($event)"
+            *ngFor="let ingr of recipe.ingridients; let i = index"
+            [ingr]="ingr"
+            [index] = "i"
+            name ="ingridients"
+            [(ngModel)]="recipe.ingridients" required
+            >
+            </app-ingridient>
+            <button type="button" (click)="AddIngr()" class="add_info"><img class="y_plus"
+            src="assets/images/yellow_plus.png"/>
+                Добавить ингридиент
+            </button>
+        </div>
+        <div class="steps">
+            <app-step
+            (childComponentValue)="DeleteStep($event)"
+            *ngFor="let step of recipe.steps; let i = index"
+            [step]="step"
+            [index] = "i"
+            name="steps"
+            [(ngModel)]="recipe.steps" required
+            >
+            </app-step>
+            <button type="button" (click)="AddStep()" class="add_step"><img class="y_plus" 
+            src="assets/images/yellow_plus.png"/>
+                Добавить шаг
+            </button>
+        </div>
+    </div>
+</form>
