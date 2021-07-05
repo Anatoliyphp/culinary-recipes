@@ -26,6 +26,9 @@ export class FullRecipeComponent implements OnInit {
     this.recipeServ.getFullRecipe(this.a_router.snapshot.paramMap.get('id'))
       .subscribe(value => {
         this.recipe = value
+        this.recipe.ingridients.forEach(element => {
+          element.list = element.list.split("\\n").join('\n');
+        })
       })
   }
 

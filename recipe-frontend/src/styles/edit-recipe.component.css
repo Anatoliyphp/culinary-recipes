@@ -14,6 +14,14 @@ textarea.ng-touched.ng-valid {border:solid green 2px;}
     align-items: center;
 }
 
+.error{
+    color: red;
+    font: 600 18px/28px Montserrat;
+    position: absolute;
+    margin-bottom: 150px;
+    margin-top: -50px;
+}
+
 .add_info{
     width: 380px;
     height: 60px;
@@ -82,6 +90,12 @@ textarea.ng-touched.ng-valid {border:solid green 2px;}
     opacity: 0;
     position: absolute;
     visibility: hidden;
+}
+
+.up_img_label{
+    width: 430px;
+    height: 430px;
+    border-radius: 72px 0px;
 }
 
 .add_recipe_form{

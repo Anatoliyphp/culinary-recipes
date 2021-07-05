@@ -9,7 +9,7 @@
     </div>
     <div class="add_recipe_form">
         <input  class="up_img" (change)="onAddImage($event)" id="upload_img" name="img" ngModel required type="file"/>
-        <label class="up_img_label" for="upload_img"><img src="{{imgPath}}"/>
+        <label class="up_img_label" for="upload_img"><img class="up_img_label" src="{{imgPath}}"/>
         </label>
         <div class="form_data">
             <input class="add_recipe_form_name" type="text" placeholder="Название рецепта"
@@ -17,7 +17,7 @@
             />
             <textarea class="add_recipe_form_desc" type="text"
              placeholder="Краткое описание рецепта(150 символов)"
-             pattern="[a-zA-ZА-Яа-я0-9\s.%-,]{5,300}"
+             pattern="[a-zA-ZА-Яа-я0-9\s.%-:,]{5,300}"
              name="description" ngModel required
              ></textarea>
             <input class="add_recipe_form_name" type="text" placeholder="Добавить тэги"
@@ -52,7 +52,7 @@
             [(ngModel)]="recipe.ingridients" required
             >
             </app-ingridient>
-            <button (click)="AddIngr()" class="add_info"><img class="y_plus"
+            <button type="button" (click)="AddIngr()" class="add_info"><img class="y_plus"
             src="assets/images/yellow_plus.png"/>
                 Добавить ингридиент
             </button>
@@ -67,7 +67,7 @@
             [(ngModel)]="recipe.steps" required
             >
             </app-step>
-            <button (click)="AddStep()" class="add_step"><img class="y_plus" 
+            <button type="button" (click)="AddStep()" class="add_step"><img class="y_plus" 
             src="assets/images/yellow_plus.png"/>
                 Добавить шаг
             </button>

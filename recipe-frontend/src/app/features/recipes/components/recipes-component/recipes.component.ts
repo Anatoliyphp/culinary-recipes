@@ -19,34 +19,41 @@ export class RecipesComponent implements OnInit {
   ngOnInit(): void {
     this.rec.getAllRecipes()
       .subscribe(value => {
-        this.recipes = value
+        this.allRecipes = value
         if (this.rec.recipes != null){
-          this.recipes = this.rec.recipes;
+          this.allRecipes = this.rec.recipes;
           this.rec.recipes = [];
         }
-  })
+        this.pushRecipes(0, this.currNumberOfItems);
+    })
   }
 
   @Input()
   categories = SortCategories;
 
   public getRecipes(recipes: any):void {
-    this.recipes = recipes;
+    this.allRecipes = [];
+    this.allRecipes = recipes;
+    console.log(this.allRecipes)
+    this.recipes = [];
+    this.currNumberOfItems = 4;
+    this.pushRecipes(0, this.currNumberOfItems);
   }
 
   currNumberOfItems = 4;
 
   allRecipes!: Recipe[];
 
-  recipes!: Recipe[];
+  recipes: Recipe[] = [];
 
   pushRecipes(start: number, end: number): void
   {
     if (this.allRecipes.length < end)
     {
-      end = this.allRecipes.length - 1;
+      end = this.allRecipes.length;
     }
-    for (let i = start; i <= end; i++)
+    console.log(end);
+    for (let i = start; i < end; i++)
     {
       this.recipes.push(this.allRecipes[i]);
     }

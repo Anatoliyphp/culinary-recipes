@@ -11,6 +11,7 @@ namespace recipe_api.Services
 	{
 		private IRecipeRepository _recipeRepository;
 		IWebHostEnvironment _appEnvironment;
+		private const int MAX_IMAGE_SIZE = 2097152;
 
 		public ImageService(
 			IRecipeRepository recipeRepository,
@@ -25,7 +26,12 @@ namespace recipe_api.Services
 		{
 			if (img == null)
 			{
-				throw new System.ArgumentNullException("Image is empty!");
+				return null;
+			}
+
+			if (img.Length > MAX_IMAGE_SIZE)
+			{
+				throw new ArgumentOutOfRangeException("Превышение размера файла!");
 			}
 
 			string path = "/Images/" + img.FileName;

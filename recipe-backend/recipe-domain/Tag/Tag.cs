@@ -16,9 +16,5 @@ namespace recipe_domain
 
 		public List<RecipeTag> RecipeTags { get; set; }
 
-		public static implicit operator Tag(EntityEntry<Tag> v)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }

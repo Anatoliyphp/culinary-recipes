@@ -7,10 +7,10 @@
         <h2 class="add_recipe_head">Редактировать рецепт</h2>
         <button class="publish" type="submit">Применить</button>
     </div>
-    <a *ngIf="error">Не все поля заполнены!</a>
+    <a class="error" *ngIf="error">Не все поля правильно заполнены!</a>
     <div class="add_recipe_form">
-        <input  class="up_img" id="upload_img" name="img" (change)="onAddImage($event)" ngModel required type="file" />
-        <label class="up_img_label" for="upload_img"><img [src]="'data:image/jpg;base64,' + recipe.img"/>
+        <input  class="up_img" id="upload_img" name="img" (change)="onAddImage($event)" [(ngModel)] = "'data:image/jpg;base64,' + recipe.img" required type="file" />
+        <label class="up_img_label" for="upload_img"><img class="up_img_label" [src]="imgSrc"/>
         </label>
         <div class="form_data">
             <input class="add_recipe_form_name" type="text" 
@@ -20,7 +20,7 @@
             <textarea class="add_recipe_form_desc" type="text"
                 placeholder="Краткое описание рецепта(150 символов)"
                 name="description" [(ngModel)]="recipe.description" required
-                pattern="[a-zA-ZА-Яа-я0-9\s.%-,]{5,300}"
+                pattern="[a-zA-ZА-Яа-я0-9\s.%-!,]{5,300}"
                 >
             </textarea>
             <input class="add_recipe_form_name" type="text"
@@ -56,7 +56,7 @@
             [(ngModel)]="recipe.ingridients" required
             >
             </app-ingridient>
-            <button (click)="AddIngr()" class="add_info"><img class="y_plus"
+            <button type="button" (click)="AddIngr()" class="add_info"><img class="y_plus"
                 src="assets/images/yellow_plus.png"/>
                     Добавить ингридиент
                 </button>
@@ -71,7 +71,7 @@
             [(ngModel)]="recipe.steps" required
             >
             </app-step>
-            <button (click)="AddStep()" class="add_step"><img class="y_plus" 
+            <button type="button" (click)="AddStep()" class="add_step"><img class="y_plus" 
                 src="assets/images/yellow_plus.png"/>
                     Добавить шаг
                 </button>

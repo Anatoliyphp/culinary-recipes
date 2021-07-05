@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using recipe_api.Services;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using recipe_api.Recipes.Builders;
 
 namespace recipe_api.Recipes.Controllers
 {
@@ -21,13 +22,15 @@ namespace recipe_api.Recipes.Controllers
 		private readonly IRecipesDtoBuilder _recipesDtoBuilder;
 		private readonly UnitOfWork _unitOfWork;
 		private readonly IImageService _imageService;
+		private readonly RecipeUpdateBuilder _recipeUpdateBuilder;
 		public RecipesController(
 			IRecipeRepository recipeRepository,
 			IRecipesDtoBuilder recipesDtoBuilder,
 			IRecipeDomainBuilder recipeDomainBuilder,
 			UnitOfWork unitOfWork,
 			IImageService imageService,
-			ILogger<RecipesController> logger
+			ILogger<RecipesController> logger,
+			RecipeUpdateBuilder recipeUpdateBuilder
 			)
 		{
 			_recipeRepository = recipeRepository;
@@ -36,6 +39,7 @@ namespace recipe_api.Recipes.Controllers
 			_unitOfWork = unitOfWork;
 			_imageService = imageService;
 			_logger = logger;
+			_recipeUpdateBuilder = recipeUpdateBuilder;
 		}
 
 		[Route("add")]
@@ -47,13 +51,15 @@ namespace recipe_api.Recipes.Controllers
 			_logger.LogInformation("Creating recipe from request...");
 			string imgPath = await _imageService.AddImage(request.Img);
 			Recipe recipe = _recipeDomainBuilder.CreateRecipe(request, imgPath);
-			if (recipe == null)
+			if (recipe == null || recipe.Img == null)
 			{
 				_logger.LogError($"Recipe with name: {request.Name} failed to created");
 				return BadRequest($"Can't add recipe with name:{request.Name}");
 			}
 
 			await _recipeRepository.AddRecipe(recipe);
+			await _recipeRepository.AddTags(request.Tags);
+			await _unitOfWork.Save();
 			await _recipeRepository.AddRecipeTags(recipe.Id, request.Tags);
 			await _unitOfWork.Save();
 			_logger.LogInformation("Recipe was created");
@@ -88,14 +94,19 @@ namespace recipe_api.Recipes.Controllers
 			_logger.LogInformation($"Requested path: {HttpContext.Request.Path}");
 
 			string imgPath = await _imageService.AddImage(request.Img);
-			Recipe recipe = _recipeDomainBuilder.CreateRecipe(request, imgPath);
+			Recipe recipe = await _recipeRepository.GetRecipeById(recipeId);
+			recipe.Ingridients.Clear();
+			recipe.Steps.Clear();
+			recipe.RecipeTags.Clear();
+			_recipeUpdateBuilder.UpdateRecipe(recipe, request, imgPath);
 			if (recipe == null)
 			{
 				_logger.LogError($"Failed to edit recipe with id: {request.Id}");
 				return BadRequest($"Can't edit recipe with name:{request.Name}");
 			}
 
-			recipe.Id = recipeId;
+			await _recipeRepository.AddTags(request.Tags);
+			await _unitOfWork.Save();
 			await _recipeRepository.AddRecipeTags(recipeId, request.Tags);
 			_recipeRepository.ChangeRecipe(recipe);
 			await _unitOfWork.Save();
@@ -139,7 +150,7 @@ namespace recipe_api.Recipes.Controllers
 			}
 
 			List<RecipeDto> recipeDtos = new List<RecipeDto>();
-			foreach (Recipe recipe in recipes)//
+			foreach (Recipe recipe in recipes)
 			{
 				RecipeDto recipeDto = await _recipesDtoBuilder.CreateRecipeDto(recipe, userId);
 				recipeDtos.Add(recipeDto);

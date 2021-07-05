@@ -15,6 +15,13 @@
     outline: none;
     cursor: pointer;
     padding: 0 20px;
+    transition: all 0.5s ease;
+}
+
+.search_form_input:hover{
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow:0 0 10px #000;
 }
 
 .search_form_button{
@@ -27,7 +34,20 @@
     font: 600 18px/22px Montserrat;
     color: #FFFFFF;
     cursor: pointer;
+    transition: all 0.5s ease;
 }
+
+.search_form_button:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow:0 0 10px #000; 
+    background-color: white;
+    color: #FDB100;
+    border: 3px solid #FDB100;
+  }
 
 .search_tags{
     margin-top: 24px;

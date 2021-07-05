@@ -84,6 +84,7 @@ namespace recipe_infrastructure
 				.Include(r => r.Ingridients)
 				.Include(r => r.RecipeLikes)
 				.Include(r => r.UserFavourites)
+				.Include(r => r.RecipeTags)
 				.SingleOrDefaultAsync(r => r.Id == recipeId);
 		}
 
@@ -96,6 +97,7 @@ namespace recipe_infrastructure
 				|| (EF.Functions.Like(rt.Recipe.Name, $"%{name}%") && name.Any()))
 				.ToListAsync();
 			List<Recipe> recipes = recipeTags.Select(rt => rt.Recipe).ToList();
+			recipes = recipes.GroupBy(r => r.Id).Select(x => x.First()).ToList();
 			return recipes;
 		}
 
@@ -166,25 +168,25 @@ namespace recipe_infrastructure
 			return null;
 		}
 
+		public async Task AddTags(List<string> TagNames)
+		{
+			foreach(string tagName in TagNames)
+			{
+				if (!await db.Tags.AnyAsync(t => t.Name == tagName))
+				{
+					await db.Tags.AddAsync(new Tag(tagName));
+				}
+			}
+		}
+
 		public async Task AddRecipeTags(int recipeId, List<string> TagNames)
 		{
-			foreach (string tagName in TagNames)
+			List<Tag> tags = await db.Tags
+				.Where(t => TagNames.Contains(t.Name))
+				.ToListAsync();
+			foreach (Tag tag in tags)
 			{
-				Tag existingTag = await db.Tags.FirstOrDefaultAsync(t => t.Name == tagName);
-				if (existingTag == null)
-				{
-					Tag tag = await db.Tags.AddAsync(new Tag(tagName));
-					await db.RecipeTags.AddAsync(new RecipeTag(tag.Id, recipeId));
-				}
-				else
-				{
-					RecipeTag existingRecipeTag = await db.RecipeTags
-						.FirstOrDefaultAsync(rt => rt.RecipeId == recipeId && rt.TagId == existingTag.Id);
-					if (existingRecipeTag == null)
-					{
-						await db.RecipeTags.AddAsync(new RecipeTag(existingTag.Id, recipeId));
-					}
-				}
+				await db.RecipeTags.AddAsync(new RecipeTag(tag.Id, recipeId));
 			}
 		}
 

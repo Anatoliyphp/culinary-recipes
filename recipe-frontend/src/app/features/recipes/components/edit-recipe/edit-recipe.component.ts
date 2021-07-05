@@ -18,15 +18,45 @@ export class EditRecipeComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipeServ.getFullRecipe(this.a_router.snapshot.paramMap.get('id'))
-      .subscribe(value => {this.recipe = value, this.recipe.tags.forEach(element => {this.tags += element.name + " "})})
+      .subscribe(value => {
+        this.recipe = value,
+        this.recipe.tags.forEach(element => {this.tags += element.name + " "}),
+        this.tags = this.tags.substr(0, this.tags.length - 1);
+        if (this.splitted == false)
+        {
+          console.log("what")
+          this.recipe.ingridients.forEach(element => {
+            element.list = element.list.split("\\n").join('\n');
+            this.splitted = true;
+        })
+      }
+        this.imgSrc= 'data:image/jpg;base64,' + this.recipe.img;
+         })
   }
 
+  recipe!: FullRecipe;
+  splitted: boolean = false;
+  imgSrc!: string;
+
   img!: File;
-  tags!: string;
+  tags: string = "";
 
   onAddImage($event: any){
     this.img = $event.target.files[0];
-    console.log(this.img, this.img.name);
+    let reader = new FileReader();
+    reader.onload = ($event) => {
+      this.imgSrc= $event.target?.result as string;
+    }
+    reader.readAsDataURL(this.img);
+  }
+
+  getBase64(file: File, src: string) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+     src = reader.result as string;
+    }
+    console.log(src)
   }
 
   onBack(){
@@ -68,9 +98,7 @@ export class EditRecipeComponent implements OnInit {
 		    tags,
 		    form.value.ingridients,
 		    form.value.steps
-      ).subscribe(value => {this.error = false}, error => {this.error = true})
+      ).subscribe(value => {this.error = false; location.reload()}, error => {this.error = true})
   }
-
-  recipe!: FullRecipe;
 
 }

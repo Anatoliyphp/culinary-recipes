@@ -1,5 +1,5 @@
 <div class="recipe">
-    <img (click)="onClick()" class="recipe_img" [src]="'data:image/jpg;base64,' + recipe.img">
+    <img class="recipe_img" [src]="'data:image/jpg;base64,' + recipe.img">
     <div class="recipe_container">
         <div class="recipe_stats">
             <div class="recipe_stats_tags">
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="recipe_desc">
-            <h3 class="recipe_desc_header">{{recipe.name}}</h3>
+            <h3 class="recipe_desc_header" (click)="onClick()">{{recipe.name}}</h3>
             <p class="recipe_desc_info">
                {{recipe.description}}
             </p>

@@ -24,7 +24,7 @@
             </div>
             <textarea rows="8" cols="5" class="profile_form_info_about" type="textarea"
              placeholder="Напишите немного о себе"
-             name="about" [(ngModel)]="user.about" max="150" required pattern="[a-zA-ZА-Яа-я]{0,150}"></textarea>
+             name="about" [(ngModel)]="user.about" max="150" required pattern="[a-zA-ZА-Яа-я\s]{0,150}"></textarea>
             <img class="change" src="assets/images/karandash.png" (click)="onEdit(myForm)">
         </form>
         <div class="profile_stat">
@@ -32,15 +32,18 @@
             *ngFor="let stat of stats"
             [stat]="stat"
             ></app-stat>
-        </div>`
+        </div>
         <div>
             <h3 class="profile_recipes">Мои рецепты</h3>
-            <div>
+            <div *ngIf="hasRecipes; else noRecipes">
                 <app-recipe
                 *ngFor="let recipe of recipes"
                 [recipe]="recipe"
                 ></app-recipe>
             </div>
+            <ng-template #noRecipes>
+                <p class="empty">Ваш список пуст</p>
+              </ng-template>
         </div>
     </div>
 </div>

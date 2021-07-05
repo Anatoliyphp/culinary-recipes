@@ -32,8 +32,8 @@ export class RegistrationComponent {
       this.ConfirmPasswordsError = false;
       this.auth.register(form.value.login, form.value.name, form.value.password)
       .subscribe(res => {
-        location.reload()
-        this.onClose()
+        this.loc.go("/");
+      location.reload();
         this.Error = false;
       }, error => {
         this.Error = true;

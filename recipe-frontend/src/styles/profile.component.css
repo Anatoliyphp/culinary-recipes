@@ -13,6 +13,17 @@ textarea.ng-touched.ng-valid {border:solid green 2px;}
     margin-top: 11px;
 }
 
+.empty{
+    width: 556px;
+    height: 30px;
+    margin-left: 442px;
+    margin-top: 117px;
+    font: 600 24px/30px Montserrat;
+    color: #FDB100;
+    opacity: 0.5;
+    margin-bottom: 200px;
+}
+
 .change{
     width: 18px;
     height: 18px;

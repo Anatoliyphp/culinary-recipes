@@ -24,13 +24,23 @@ export class ProfileComponent implements OnInit {
     onClose(this.loc);
   }
 
+  hasRecipes: boolean = false;
+
   ngOnInit(): void {
     this.auth.getUser()
-      .subscribe( value => { this.user= value}, error => {
+      .subscribe( value => {this.user= value}, error => {
       })
 
     this.rec.getUserRecipes()
-      .subscribe(value => {this.recipes = value});
+      .subscribe(value => {
+        this.recipes = value
+        if (this.recipes.length < 1){
+          this.hasRecipes = false;
+        }
+        else{
+          this.hasRecipes = true;
+        }
+      });
 
     this.rec.getUserRecipesStats()
       .subscribe(value => {

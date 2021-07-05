@@ -43,6 +43,7 @@
     border: none;
     cursor: pointer;
     margin-right: 24px;
+    transition: 0.5s linear;
 }
 
 .home_container_bottons_add_info{
@@ -52,10 +53,24 @@
     margin-top: 10px;
     font: 600 18px/28px Montserrat;
     color: #FFFFFF;
+    transition: 0.5s linear;
 }
 
 .home_container_bottons_add_info:hover{
-    color:whitesmoke;
+    color: #FDB100;
+}
+
+.home_container_bottons_add:hover{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow:0 0 10px #000; 
+    background-color: white;
+    color: #FDB100;
+    border: 3px solid #FDB100;
+    padding-right: 30px;
 }
 
 .home_container_bottons_login{
@@ -69,10 +84,19 @@
     font: 600 18px/28px Montserrat;
     text-align: center;
     cursor: pointer;
+    transition: 0.5s linear;
 }
 
 .home_container_bottons_login:hover{
-    background-color: whitesmoke;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow:0 0 10px #000; 
+    background-color: #FDB100;
+    color: white;
+    border: none;
 }
 
 .search{

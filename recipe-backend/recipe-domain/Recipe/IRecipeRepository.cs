@@ -29,6 +29,8 @@ namespace recipe_domain
 
 		void ChangeRecipe(Recipe recipe);
 
+		Task AddTags(List<string> TagNames);
+
 		Task<bool> IsLikedForCurrentUser(int userID, int recipeId);
 
 		Task<bool> IsFavouriteForCurrentUser(int userId, int recipeId);

@@ -57,7 +57,11 @@ export class AddRecipeComponent {
 
   onAddImage($event: any){
     this.img = $event.target.files[0];
-    console.log(this.img, this.img.name);
+    let reader = new FileReader();
+    reader.onload = ($event) => {
+      this.imgPath = $event.target?.result as string;
+    }
+    reader.readAsDataURL(this.img); 
   }
 
   onClose(){
@@ -82,7 +86,7 @@ export class AddRecipeComponent {
       tags,
       form.value.ingridients,
       form.value.steps
-    ).subscribe(value => {})
+    ).subscribe(value => {this.router.navigate(["/recipes"])})
   }
 
 }

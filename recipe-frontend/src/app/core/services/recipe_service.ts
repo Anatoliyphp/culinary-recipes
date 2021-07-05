@@ -4,6 +4,7 @@ import { from, Observable } from "rxjs";
 import { BestRecipe } from "src/app/features/home/models/best-recipe";
 import { UserStats } from "src/app/features/profile/models/stat";
 import { idGetter } from "../app.module";
+import { RecipeFormDataBuilder } from "../builders/RecipeFormDataBuilder";
 import { FullRecipe } from "../models/fullrecipe";
 import { RIngridient } from "../models/ingridient";
 import { Recipe } from "../models/recipe";
@@ -85,34 +86,21 @@ export class RecipeService{
             element.list = element.list.split("\n").join("\\n");
         }));
 
-        let formData: FormData = new FormData();
-         formData.append("img", img, img.name);
-         formData.append("name", name);
-         formData.append("description", description);
-         formData.append("time", JSON.stringify(time));
-         formData.append("persons", JSON.stringify(persons));
-         formData.append("likes", JSON.stringify(likes));
-         formData.append("isLike", JSON.stringify(isLike));
-         formData.append("favourites", JSON.stringify(favourites));
-         formData.append("isFavourite", JSON.stringify(isFavourite));
-         formData.append("userId", JSON.stringify(userId));
-         let i: number = 0;
-         tags.forEach(element => {
-             formData.append("tags[" + i + "]", element);
-             i++;
-         });
-         i = 0;
-         steps.forEach(element => {
-             formData.append("steps[" + i + "].name", JSON.stringify(element.name));
-             formData.append("steps[" + i + "].desc", JSON.stringify(element.desc));
-             i++;
-         })
-         i = 0;
-         ingridients.forEach(element => {
-             formData.append("ingridients[" + i + "].name", JSON.stringify(element.name));
-             formData.append("ingridients[" + i + "].list", JSON.stringify(element.list));
-             i++;
-         })
+        var formData: FormData = RecipeFormDataBuilder(
+            img,
+            name,
+	        description,
+		    time,
+		    persons,
+	        likes,
+		    isLike,
+		    favourites,
+		    isFavourite,
+		    userId,
+		    tags,
+		    ingridients,
+		    steps
+        );
         return this.http.post<Recipe>("api/recipes/edit/" + id, formData);
     }
 
@@ -136,34 +124,21 @@ export class RecipeService{
             element.list = element.list.split("\n").join("\\n");
         }));
 
-        let formData: FormData = new FormData();
-         formData.append("img", img, img.name);
-         formData.append("name", name);
-         formData.append("description", description);
-         formData.append("time", JSON.stringify(time));
-         formData.append("persons", JSON.stringify(persons));
-         formData.append("likes", JSON.stringify(likes));
-         formData.append("isLike", JSON.stringify(isLike));
-         formData.append("favourites", JSON.stringify(favourites));
-         formData.append("isFavourite", JSON.stringify(isFavourite));
-         formData.append("userId", JSON.stringify(userId));//foreach
-         let i: number = 0;
-         tags.forEach(element => {
-             formData.append("tags[" + i + "]", element);
-             i++;
-         });
-         i = 0;
-         steps.forEach(element => {
-             formData.append("steps[" + i + "].name", JSON.stringify(element.name));
-             formData.append("steps[" + i + "].desc", JSON.stringify(element.desc));
-             i++;
-         })
-         i = 0;
-         ingridients.forEach(element => {
-             formData.append("ingridients[" + i + "].name", JSON.stringify(element.name));
-             formData.append("ingridients[" + i + "].list", JSON.stringify(element.list));
-             i++;
-         })
+        var formData: FormData = RecipeFormDataBuilder(
+            img,
+            name,
+	        description,
+		    time,
+		    persons,
+	        likes,
+		    isLike,
+		    favourites,
+		    isFavourite,
+		    userId,
+		    tags,
+		    ingridients,
+		    steps
+        );
         return this.http.post<any>("api/recipes/add", formData);
     }
 
