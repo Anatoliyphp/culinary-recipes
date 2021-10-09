@@ -29,15 +29,19 @@ export class RegistrationComponent {
   {
     if (form.value.password == form.value.passwordCheck)
     {
-      this.ConfirmPasswordsError = false;
-      this.auth.register(form.value.login, form.value.name, form.value.password)
-      .subscribe(res => {
-        this.loc.go("/");
-      location.reload();
-        this.Error = false;
-      }, error => {
+      if (!form.invalid){
+        this.ConfirmPasswordsError = false;
+        this.auth.register(form.value.login, form.value.name, form.value.password)
+        .subscribe(res => {
+          this.loc.go("/");
+          location.reload();
+          this.Error = false;
+        }, error => {
+          this.Error = true;
+        })
+      } else {
         this.Error = true;
-      })
+      }
     }
     else {
       this.ConfirmPasswordsError = true;
