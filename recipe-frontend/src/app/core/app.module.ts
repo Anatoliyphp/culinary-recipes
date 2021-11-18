@@ -51,6 +51,7 @@ export function idGetter()
     RouterModule.forRoot(appRoutes),
     CommonModule,
     FormsModule,
+    RecipesModule,
     LoginationModule,
     ProfileModule,
     HttpClientModule,

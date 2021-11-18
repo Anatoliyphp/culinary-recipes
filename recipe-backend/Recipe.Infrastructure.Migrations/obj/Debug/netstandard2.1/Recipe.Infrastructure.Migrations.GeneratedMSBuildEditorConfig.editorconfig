@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = Recipe.Infrastructure.Migrations
+build_property.ProjectDir = C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Infrastructure.Migrations\

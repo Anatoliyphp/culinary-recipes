@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mJL4ZlCYfbvlr7+Sg2bYtAE/l+Py94vX2cYDTvKlttXqLZR2VSjwOqiiIDk6YHBUVc8vNjVMqHJEjZYIkH5NfA==",
+  "dgSpecHash": "X5C4yG3Oed7OQMbbXRQJD3kafigDCGOsvrbwuRWz4KJ2p6Xw76bp8BgeLNRVumYSnjBQsye1SjGcqrbJ3rCunA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Анатолий\\Documents\\GitHub\\culinary-recipes\\recipe-backend\\Recipe.Infrastructure.Migrations\\Recipe.Infrastructure.Migrations.csproj",
   "expectedPackageFiles": [

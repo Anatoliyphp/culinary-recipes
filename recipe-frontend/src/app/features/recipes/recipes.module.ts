@@ -10,6 +10,7 @@ import { AddRecipeComponent } from './components/add-recipe/add-recipe.component
 import { StepComponent } from './components/step/step.component';
 import { IngridientComponent } from './components/ingridient/ingridient.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
     StepComponent,
     IngridientComponent,
     EditRecipeComponent,
+    CommentComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,9 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
     HomeModule,
     FavouritesModule,
     FormsModule
+  ],
+  exports: [
+    CommentComponent
   ]
 })
 export class RecipesModule { }
