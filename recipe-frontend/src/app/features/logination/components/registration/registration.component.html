@@ -1,5 +1,4 @@
 <div class="registration">
-    <img routerLink="/" class="back" src="assets/images/krest.png"/>
     <p class="registration_title">Регистрация</p>
     <form class="registration_form" #myForm="ngForm" (ngSubmit)="registration(myForm)">
         <input class="registration_long" name="name" ngModel required pattern="[a-zA-ZА-Яа-я0-9]{1,30}" type="text" placeholder="Имя"/>

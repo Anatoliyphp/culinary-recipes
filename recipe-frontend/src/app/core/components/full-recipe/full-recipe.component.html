@@ -26,4 +26,10 @@
             <p class="steps_end">Приятного аппетита!</p>
         </div>
     </div>
+    <div class="comments_container">
+        <app-comment
+        *ngFor="let comment of comments"
+        [comment]="comment">
+        </app-comment>
+    </div>
 </div>

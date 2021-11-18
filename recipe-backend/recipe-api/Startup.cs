@@ -9,8 +9,6 @@ using recipe_infrastructure;
 using Application;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using System;
-using recipe_api.Services;
 
 namespace recipe_api
 {

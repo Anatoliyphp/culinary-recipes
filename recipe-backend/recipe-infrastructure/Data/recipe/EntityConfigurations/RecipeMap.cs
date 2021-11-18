@@ -31,6 +31,8 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 				.WithMany(u => u.Recipes)
 				.HasForeignKey(r => r.UserId);
 
+			//builder.HasIndex()
+
 			builder.HasData(
 				new Recipe(
 						img: "/Images/FirstRecipe.png",

@@ -42,6 +42,8 @@ namespace recipe_domain
 		public List<UserFavourites> UserFavourites { get; set; }
 
 		public List<Step> Steps = new List<Step>();
+		
+		public readonly List<Comment> Comments = new List<Comment>();
 
 		public List<RecipeTag> RecipeTags { get; set; }
 

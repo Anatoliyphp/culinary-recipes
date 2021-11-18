@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IComment } from 'src/app/features/recipes/models/comment';
 import { idGetter } from '../../app.module';
 import { FullRecipe } from '../../models/fullrecipe';
 import { Recipe } from '../../models/recipe';
@@ -50,5 +51,13 @@ export class FullRecipeComponent implements OnInit {
   }
 
   recipe!: FullRecipe;
+
+  comments: IComment[] =
+  [
+    {author: "Анатолий Попов", text: "Очень хороший рецепт", time: "25.10.2001 10:00"},
+    {author: "Анатолий Попов", text: "Очень хороший рецепт", time: "25.10.2001 10:00"},
+    {author: "Анатолий Попов", text: "Очень хороший рецепт", time: "25.10.2001 10:00"},
+    {author: "Анатолий Попов", text: "Очень хороший рецепт", time: "25.10.2001 10:00"}
+  ]
 
 }

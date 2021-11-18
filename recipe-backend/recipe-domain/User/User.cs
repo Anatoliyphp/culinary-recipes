@@ -6,6 +6,11 @@ namespace recipe_domain
 {
     public class User: Entity, IAggregateRoot
     {
+	    
+	    /*
+	     * Добавить аватар и в ui добавить карточку пользователя со статистикой и ссылкой на лучший его рецепт
+	     * Добавить топ пользователей с этими карточками
+	     */
         public User(string login, string password, string name)
 		{
             Login = login;
@@ -22,6 +27,8 @@ namespace recipe_domain
         public string About { get; set; }
 
         public readonly List<Recipe> Recipes = new List<Recipe>();
+
+        public readonly List<Comment> Comments = new List<Comment>();
 
         public List<UserFavourites> UserFavourites { get; set; }
 

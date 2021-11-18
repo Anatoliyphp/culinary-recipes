@@ -33,6 +33,30 @@ namespace recipe_infrastructure
 			return await recipes.ToListAsync();
 		}
 
+		public async Task<List<Recipe>> GetAllRecipesFiltered(RecipeFilter filter)
+		{
+			switch (filter)
+			{
+				case RecipeFilter.ByComments:
+					return await db.Recipes
+						.Include(r => r.RecipeLikes)
+						.OrderByDescending(r => r.Comments.Count)
+						.ToListAsync();
+				case RecipeFilter.ByFavourites:
+					return await db.Recipes
+						.Include(r => r.RecipeLikes)
+						.OrderByDescending(r => r.UserFavourites.Count)
+						.ToListAsync();
+				case RecipeFilter.ByLikes:
+					return await db.Recipes
+						.Include(r => r.RecipeLikes)
+						.OrderByDescending(r => r.RecipeLikes.Count)
+						.ToListAsync();
+				default:
+					throw new ArgumentOutOfRangeException("Incorrect filter type");
+			}
+		}
+
 		public async Task<List<Recipe>> GetAllUsersRecipes(int userId)
 		{
 			IQueryable<Recipe> recipes = db.Recipes
@@ -92,13 +116,18 @@ namespace recipe_infrastructure
 		{
 			List<RecipeTag> recipeTags = await db.RecipeTags
 				.Include(rt => rt.Recipe)
-				.Where(rt => (tagIds.Contains(rt.TagId) && EF.Functions.Like(rt.Recipe.Name, $"%{name}%") && name.Any())
+				.Where(rt => (tagIds.Contains(rt.TagId) && EF.Functions.FreeText(rt.Recipe.Name, name) && name.Any())
 				|| (tagIds.Contains(rt.TagId) && !name.Any())
-				|| (EF.Functions.Like(rt.Recipe.Name, $"%{name}%") && name.Any()))
-				.ToListAsync();
+				|| (EF.Functions.FreeText(rt.Recipe.Name, name) && name.Any()))
+				.ToListAsync();//проверить
 			List<Recipe> recipes = recipeTags.Select(rt => rt.Recipe).ToList();
 			recipes = recipes.GroupBy(r => r.Id).Select(x => x.First()).ToList();
 			return recipes;
+			
+			/*Sql("CREATE FULLTEXT CATALOG ft AS DEFAULT", true);
+			Sql("CREATE FULLTEXT INDEX ON dbo.TableName(ColumnName) KEY INDEX UI_TableName_ColumnName WITH STOPLIST = SYSTEM", true);
+			добавить в миграции для плнотекстового индекса
+			*/
 		}
 
 		public async Task<List<Tag>> GetAllTags()
