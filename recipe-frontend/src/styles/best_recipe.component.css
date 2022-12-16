@@ -7,6 +7,14 @@
     transition: all 0.5s ease;
 }
 
+.best_recipe_img{
+    width: 430px;
+    height: 430px;
+    border-bottom-right-radius: 72px;
+    border-bottom-left-radius: 24px;
+    border-top-left-radius: 24px;
+}
+
 .best_recipe:hover{
     -moz-box-shadow: 0 0 10px #000;
     -webkit-box-shadow: 0 0 10px #000;

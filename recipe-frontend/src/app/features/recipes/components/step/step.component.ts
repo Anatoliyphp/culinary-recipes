@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RStep } from 'src/app/core/models/step';
-import { Step } from '../../models/step';
 
 @Component({
   selector: 'app-step',

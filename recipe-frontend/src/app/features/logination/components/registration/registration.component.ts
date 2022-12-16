@@ -38,13 +38,16 @@ export class RegistrationComponent {
           this.Error = false;
         }, error => {
           this.Error = true;
+          this.ConfirmPasswordsError = false;
         })
       } else {
         this.Error = true;
+        this.ConfirmPasswordsError = false;
       }
     }
     else {
       this.ConfirmPasswordsError = true;
+      this.Error = false;
     }
   }
 

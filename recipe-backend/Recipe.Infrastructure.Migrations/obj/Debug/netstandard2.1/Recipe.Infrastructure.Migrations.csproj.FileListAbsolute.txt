@@ -9,6 +9,6 @@ C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recip
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.AdminApi\bin\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.deps.json
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.AdminApi\bin\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.dll
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.AdminApi\bin\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.pdb
-C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Infrastructure.Migrations\obj\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.csproj.CopyComplete
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Infrastructure.Migrations\obj\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Infrastructure.Migrations\obj\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.csprojAssemblyReference.cache
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Infrastructure.Migrations\obj\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.csproj.CopyComplete
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Infrastructure.Migrations\obj\Debug\netstandard2.1\Recipe.Infrastructure.Migrations.csproj.AssemblyReference.cache

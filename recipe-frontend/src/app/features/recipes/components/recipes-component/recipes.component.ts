@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Filters } from 'src/app/core/constants/filters';
 import { Recipe } from 'src/app/core/models/recipe';
 import { AuthService } from 'src/app/core/services/auth_service';
 import { toAddRecipe, toAuthorize, toRegister } from 'src/app/core/services/logination_routing';
@@ -17,7 +18,7 @@ export class RecipesComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService, private rec: RecipeService){}
 
   ngOnInit(): void {
-    this.rec.getAllRecipes()
+    this.rec.getAllRecipes(Filters.ByLikes)
       .subscribe(value => {
         this.allRecipes = value
         if (this.rec.recipes != null){

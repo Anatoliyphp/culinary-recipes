@@ -17,6 +17,9 @@ namespace Application
 				user.Id = userDto.Id;
 				user.About = userDto.About;
 
+				IValidator<User> validator = new UserValidator();
+				validator.Validate(user);
+
 				return user;
 			}
 

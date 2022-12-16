@@ -196,3 +196,11 @@ textarea.ng-touched.ng-valid {border:solid green 2px;}
 .steps{
     margin-left: 30px;
 }
+
+.error{
+    color: red;
+    font: 600 18px/28px Montserrat;
+    position: absolute;
+    margin-bottom: 150px;
+    margin-top: -50px;
+}

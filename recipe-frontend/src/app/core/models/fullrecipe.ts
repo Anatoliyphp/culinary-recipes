@@ -1,3 +1,4 @@
+import { IComment } from "src/app/features/recipes/models/comment";
 import { RIngridient } from "./ingridient";
 import { RStep } from "./step";
 import { Tag } from "./tag";
@@ -10,6 +11,7 @@ export interface FullRecipe{
     time: number,
     persons: number,
     likes: number,
+    comments: IComment[],
     isLike: boolean,
     favourites: number,
     isFavourite: boolean,

@@ -1,53 +1,68 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace recipe_domain
+namespace recipe_domain;
+
+public interface IRecipeRepository
 {
-	public interface IRecipeRepository
-	{
-		Task<Recipe> GetBestRecipe();
+    Task<Recipe> GetBestRecipe();
 
-		Task<List<Tag>> GetAllTags();
+    Task AddComment(Comment comment);
 
-		Task<List<Recipe>> GetAllRecipes();
+    void UpdateComment(Comment comment);
 
-		Task AddRecipeTags(int recipeId, List<string> TagNames);
+    Task<List<Tag>> GetAllTags();
 
-		int GetUserFavouritesNumber(List<Recipe> recipes);
+    Task<List<Recipe>> GetAllRecipes(Filter filter);
 
-		int GetUserLikesNumber(List<Recipe> recipes);
+    Task AddRecipeTags(int recipeId, List<string> TagNames);
 
-		Task<List<Recipe>> GetAllFavouritesRecipes(int userId);
+    Task<UserStats> GetUserStats(int userId);
 
-		Task<List<Recipe>> GetAllUsersRecipes(int userId);
+    int GetUserFavouritesNumber(List<Recipe> recipes);
 
-		Task<Recipe> GetRecipeById(int recipeId);
+    int GetUserLikesNumber(List<Recipe> recipes);
 
-		Task AddRecipe(Recipe recipe);
+    int GetUserCommentsNumber(List<Recipe> recipes);
 
-		Task<bool> DeleteRecipe(int id);
+    Task<int> GetRecipeCommentsNumber(int recipeId);
 
-		void ChangeRecipe(Recipe recipe);
+    Task<List<Recipe>> GetAllFavouritesRecipes(int userId, Filter filter);
 
-		Task AddTags(List<string> TagNames);
+    Task<List<Recipe>> GetAllUsersRecipes(int userId, Filter filter);
 
-		Task<bool> IsLikedForCurrentUser(int userID, int recipeId);
+    Task<Recipe> GetRecipeById(int recipeId);
 
-		Task<bool> IsFavouriteForCurrentUser(int userId, int recipeId);
+    Task AddRecipe(Recipe recipe);
 
-		Task<bool> DeleteFromFavourites(int userID, int recipeId);
+    Task<bool> DeleteRecipe(int id);
 
-		Task<int> GetFavouritesNumber(int recipeId);
+    void RemoveComment(Comment comment);
 
-		Task<int> GetLikesNumber(int recipeId);
+    void ChangeRecipe(Recipe recipe);
 
-		Task<bool> RemoveLike(int userId, int recipeId);
+    Task AddTags(List<string> TagNames);
 
-		Task<List<Recipe>> SearchRecipes(int[] tagIds, string name);
+    Task<bool> IsLikedForCurrentUser(int userID, int recipeId);
 
-		Task<bool> IsRepeatingImage(string path);
+    Task<bool> IsFavouriteForCurrentUser(int userId, int recipeId);
 
-		Task<List<Tag>> GetRecipeTags(int recipeId);
+    Task<bool> DeleteFromFavourites(int userID, int recipeId);
 
-	}
+    Task<int> GetFavouritesNumber(int recipeId);
+
+    Task<int> GetLikesNumber(int recipeId);
+
+    Task<bool> RemoveLike(int userId, int recipeId);
+
+    Task<List<Recipe>> SearchRecipes(int[] tagIds, string name, Filter filter);
+
+    Task<bool> IsRepeatingImage(string path);
+
+    Task<List<Tag>> GetRecipeTags(int recipeId);
+
+    Task<List<Comment>> GetAllRecipeComments(int recipeId);
+
+    Task<Comment> GetCommentById(int commentId);
+
 }

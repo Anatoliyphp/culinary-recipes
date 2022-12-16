@@ -32,3 +32,7 @@ export function toAuthorize(router: Router): void{
 export function goBack(location: Location): void{
     location.back();
 }
+
+export function toProfile(router: Router, userId: number): void{
+    router.navigate(['profile', userId])
+}

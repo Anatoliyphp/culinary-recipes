@@ -4,6 +4,7 @@
         <button class="search_form_button" (click)="onSearch(myForm)">Поиск</button>
     </form>
     <div class="search_tags">
+        <p class="choose_filter">Выберите тэги: </p>
         <select class="search_select" (change)="onAddTag($event)">
             <option
             (click)="onAddTag(tag)" *ngFor="let tag of tags"
@@ -11,5 +12,14 @@
             >{{tag.name}}</option>
         </select>
         <p class="search_tag" (click)="onDeleteTag(tag)" *ngFor="let tag of addedTags">{{tag}}</p>
+    </div>
+    <div class="filters_container">
+        <p class="choose_filter">Выберите фильтр: </p>
+        <select class="search_select_filter" (change)="onChooseFilter($event)">
+            <option
+             *ngFor="let filter of filters"
+            value="{{filter}}"
+            >{{filter}}</option>
+        </select>
     </div>
 </div>

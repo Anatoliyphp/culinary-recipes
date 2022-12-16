@@ -28,6 +28,7 @@ export class AddRecipeComponent {
     time: 0,
     persons: 0 ,
     likes: 0 ,
+    comments: [],
     isLike: false ,
     favourites: 0 ,
     isFavourite: false ,
@@ -69,8 +70,14 @@ export class AddRecipeComponent {
   }
 
   imgPath: string = "assets/images/section03.png";
+  isError: boolean = false;
+  
 
   onAdd(form: NgForm){
+    if(!form.valid){
+      this.isError = true;
+      return;
+    }
     var tags: string[] = form.value.tags.split(" ");
     this.recipeServ.addRecipe(
       this.img,

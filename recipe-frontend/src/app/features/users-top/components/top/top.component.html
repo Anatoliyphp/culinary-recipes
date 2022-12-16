@@ -1,0 +1,22 @@
+<div class="users_top">
+    <h2 class="users_top_header">Топ пользователей</h2>
+    <form class="search_form" #myForm="ngForm">
+        <input class="search_form_input" name="name" ngModel required type="text" placeholder="Имя пользователя....">
+        <button class="search_form_button" (click)="onSearch(myForm)">Поиск</button>
+    </form>
+    <div class="filters_container">
+        <p class="choose_filter">Выберите фильтр: </p>
+        <select class="search_select_filter" (change)="onChooseFilter($event)">
+            <option
+             *ngFor="let filter of filters"
+            value="{{filter}}"
+            >{{filter}}</option>
+        </select>
+    </div>
+    <div class="users_container">
+        <app-user
+        *ngFor="let user of users"
+        [user]="user"
+        ></app-user>
+    </div>
+</div>

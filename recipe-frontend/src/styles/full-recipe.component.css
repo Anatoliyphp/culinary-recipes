@@ -82,3 +82,65 @@
     opacity: 0.5;
     margin-left: 280px;
 }
+
+.comments_block{
+    height: 300px;
+    width: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 30px;
+    background-color:bisque;
+}
+
+.comments_container{
+    margin-left: 300px;
+}
+
+.show_comments{
+    width: 278px;
+    height: 60px;
+    background: #FDB100;
+    border-radius: 16px;
+    font: 600 18px/28px Montserrat;
+    color: #FFFFFF;
+    border: none;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 5px;
+    cursor: pointer;
+    margin-top: 50px;
+    margin-left: 450px;
+}
+
+.add_comment_container{
+    height: 50px;
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+}
+
+.add_comment{
+    width: 400px;
+    border: 1px solid rgba(145, 150, 161, 0.4);
+    box-sizing: border-box;
+    border-color: #FDB100;
+    outline: none;
+    font: normal 16px/28px Montserrat;
+    color: #4A525A;
+    resize: none;
+    border-bottom-left-radius: 16px;
+}
+
+.send_comment{
+    cursor: pointer;
+    background: #FDB100;
+    font: 600 14px/24px Montserrat;
+    border: none;
+    border-bottom-right-radius: 16px;
+}
+
+.error{
+    color: red;
+    font: 600 18px/28px Montserrat;
+    position: absolute;
+}

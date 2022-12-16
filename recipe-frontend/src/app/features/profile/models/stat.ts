@@ -6,5 +6,6 @@ export interface Stat{
 export interface UserStats{
     recipes: number,
     likes: number,
-    favourites: number
+    favourites: number,
+    comments: number
 }

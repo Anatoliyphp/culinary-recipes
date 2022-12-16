@@ -20,64 +20,52 @@ namespace recipe_infrastructure
 		{
 			List<Recipe> recipes = await db.Recipes
 				.Include(r => r.RecipeLikes)
-				.OrderByDescending(r => r.RecipeLikes.Count)
+				.Include(r => r.Comments)
+				.Include(r => r.UserFavourites)
+				.OrderByDescending(r => r.RecipeLikes.Count + r.UserFavourites.Count + r.Comments.Count)
 				.ToListAsync();
 			Recipe bestRecipe = recipes.FirstOrDefault();
 
 			return bestRecipe;
 		}
 
-		public async Task<List<Recipe>> GetAllRecipes()
+		public async Task<List<Recipe>> GetAllRecipes(Filter filter)
 		{
-			IQueryable<Recipe> recipes = db.Recipes;
-			return await recipes.ToListAsync();
+			List<Recipe> recipes = await db.Recipes
+					.Include(r => r.Comments)
+					.Include(r => r.RecipeLikes)
+					.Include(r => r.UserFavourites)
+					.ToListAsync();
+			return GetAllRecipesFiltered(filter, recipes);
 		}
 
-		public async Task<List<Recipe>> GetAllRecipesFiltered(RecipeFilter filter)
+		public async Task<List<Recipe>> GetAllUsersRecipes(int userId, Filter filter)
 		{
-			switch (filter)
-			{
-				case RecipeFilter.ByComments:
-					return await db.Recipes
-						.Include(r => r.RecipeLikes)
-						.OrderByDescending(r => r.Comments.Count)
-						.ToListAsync();
-				case RecipeFilter.ByFavourites:
-					return await db.Recipes
-						.Include(r => r.RecipeLikes)
-						.OrderByDescending(r => r.UserFavourites.Count)
-						.ToListAsync();
-				case RecipeFilter.ByLikes:
-					return await db.Recipes
-						.Include(r => r.RecipeLikes)
-						.OrderByDescending(r => r.RecipeLikes.Count)
-						.ToListAsync();
-				default:
-					throw new ArgumentOutOfRangeException("Incorrect filter type");
-			}
-		}
-
-		public async Task<List<Recipe>> GetAllUsersRecipes(int userId)
-		{
-			IQueryable<Recipe> recipes = db.Recipes
+			List<Recipe> recipes = await db.Recipes
 				.Include(r => r.RecipeLikes)
 				.Include(r => r.UserFavourites)
-				.Where(r => r.UserId == userId);
-			return await recipes.ToListAsync();
+				.Include(r => r.Comments)
+				.Where(r => r.UserId == userId).ToListAsync();
+			return GetAllRecipesFiltered(filter, recipes);
 		}
 
-		public async Task<List<Recipe>> GetAllFavouritesRecipes(int userId)
+		public async Task<List<Recipe>> GetAllFavouritesRecipes(int userId, Filter filter)
 		{
 			List<UserFavourites> userFavourites = await db.UserFavourites
 				.Include(uf => uf.Recipe)
+				.ThenInclude(r => r.Comments)
+				.Include(uf => uf.Recipe)
+				.ThenInclude(r => r.RecipeLikes)
+				.Include(uf => uf.Recipe)
+				.ThenInclude(r => r.UserFavourites)
 				.Where(uf => uf.UserId == userId)
 				.ToListAsync();
 
-			if (userFavourites != null)
+			if (userFavourites == null)
 			{
-				return userFavourites.ConvertAll(r => r.Recipe);
+				return null;
 			}
-			return null;
+			return GetAllRecipesFiltered(filter, userFavourites.ConvertAll(r => r.Recipe));
 		}
 
 		public async Task AddRecipe(Recipe recipe)
@@ -109,25 +97,37 @@ namespace recipe_infrastructure
 				.Include(r => r.RecipeLikes)
 				.Include(r => r.UserFavourites)
 				.Include(r => r.RecipeTags)
+				.Include(r => r.Comments)
 				.SingleOrDefaultAsync(r => r.Id == recipeId);
 		}
 
-		public async Task<List<Recipe>> SearchRecipes(int[] tagIds, string name)
+		public async Task<List<Recipe>> SearchRecipes(int[] tagIds, string name, Filter filter)
 		{
-			List<RecipeTag> recipeTags = await db.RecipeTags
-				.Include(rt => rt.Recipe)
-				.Where(rt => (tagIds.Contains(rt.TagId) && EF.Functions.FreeText(rt.Recipe.Name, name) && name.Any())
-				|| (tagIds.Contains(rt.TagId) && !name.Any())
-				|| (EF.Functions.FreeText(rt.Recipe.Name, name) && name.Any()))
-				.ToListAsync();//проверить
-			List<Recipe> recipes = recipeTags.Select(rt => rt.Recipe).ToList();
-			recipes = recipes.GroupBy(r => r.Id).Select(x => x.First()).ToList();
-			return recipes;
+			List<int> recipeIds = db.RecipeTags
+				.Where(rt => tagIds.Contains(rt.TagId))
+				.ToList().ConvertAll(rt => rt.RecipeId);
+			List<Recipe> recipes = new List<Recipe>();
 			
-			/*Sql("CREATE FULLTEXT CATALOG ft AS DEFAULT", true);
-			Sql("CREATE FULLTEXT INDEX ON dbo.TableName(ColumnName) KEY INDEX UI_TableName_ColumnName WITH STOPLIST = SYSTEM", true);
-			добавить в миграции для плнотекстового индекса
-			*/
+			if (name.Length < 3)
+			{
+				recipes = await db.Recipes
+					.Include(r => r.Comments)
+					.Include(r => r.RecipeLikes)
+					.Include(r => r.UserFavourites)	
+					.Where(r => EF.Functions.Like(r.Name, $"%{name}%") || recipeIds.Contains(r.Id))
+					.ToListAsync();
+			}
+			else
+			{
+				recipes = await db.Recipes
+					.Include(r => r.Comments)
+					.Include(r => r.RecipeLikes)
+					.Include(r => r.UserFavourites)
+					.Where(r => EF.Functions.FreeText(r.Name, name) || recipeIds.Contains(r.Id))
+					.ToListAsync();
+			}
+
+			return recipes.Count == 1 ? recipes : GetAllRecipesFiltered(filter, recipes);
 		}
 
 		public async Task<List<Tag>> GetAllTags()
@@ -229,9 +229,85 @@ namespace recipe_infrastructure
 			return recipes.Sum(r => r.RecipeLikes.Count);
 		}
 
+		public int GetUserCommentsNumber(List<Recipe> recipes)
+		{
+			return recipes.Sum(r => r.Comments.Count);
+		}
+
 		public Task<int> GetFavouritesNumber(int recipeId)
 		{
 			return db.UserFavourites.CountAsync(uf => uf.RecipeId == recipeId);
 		}
+
+		public Task<int> GetRecipeCommentsNumber(int recipeId)
+		{
+			return db.Comments.CountAsync(c => c.RecipeId == recipeId);
+		}
+
+		public async Task<UserStats> GetUserStats(int userId)
+		{
+			List<User> users = await db.Users
+				.Include(u => u.Recipes)
+				.ThenInclude(r => r.Comments)
+				.Include(u => u.Recipes)
+				.ThenInclude(r => r.UserFavourites)
+				.Include(u => u.Recipes)
+				.ThenInclude(r => r.RecipeLikes).ToListAsync();
+
+			return users
+				.GroupBy(u => new { u.Id, u.Recipes })
+				.Select(g => new UserStats
+				{
+					Id = g.Key.Id,
+					RecipesNumber = g.Key.Recipes.Count,
+					FavouritesNumber = g.Key.Recipes.Sum(r => r.UserFavourites.Count),
+					CommentsNumber = g.Key.Recipes.Sum(r => r.Comments.Count),
+					Likes = g.Key.Recipes.Sum(r => r.RecipeLikes.Count)
+				}).FirstOrDefault(u => u.Id == userId);
+		}
+
+		public async Task AddComment(Comment comment)
+		{
+			await db.Comments.AddAsync(comment);
+		}
+
+		public void UpdateComment(Comment comment)
+		{
+			db.Comments.Update(comment);
+		}
+
+		public void RemoveComment(Comment comment)
+		{
+			db.Comments.Remove(comment);
+		}
+
+		public Task<List<Comment>> GetAllRecipeComments(int recipeId)
+		{
+			return db.Comments.Where(c => c.RecipeId == recipeId).ToListAsync();
+		}
+
+		public Task<Comment> GetCommentById(int commentId)
+		{
+			return db.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+		}
+		
+		private List<Recipe> GetAllRecipesFiltered(Filter filter, List<Recipe> recipes)
+		{
+			switch (filter)
+			{
+				case Filter.ByComments:
+					return recipes
+						.OrderByDescending(r => r.Comments.Count).ToList();
+				case Filter.ByFavourites:
+					return recipes
+						.OrderByDescending(r => r.UserFavourites.Count).ToList();
+				case Filter.ByLikes:
+					return recipes
+						.OrderByDescending(r => r.RecipeLikes.Count).ToList();
+				default:
+					throw new ArgumentOutOfRangeException("Incorrect filter type");
+			}
+		}
+
 	}
 }

@@ -7,6 +7,7 @@ import { toChangeRecipe } from 'src/app/core/services/logination_routing';
 import { AuthService } from 'src/app/core/services/auth_service';
 import { RecipeService } from 'src/app/core/services/recipe_service';
 import { Tag } from 'src/app/core/models/tag';
+import { Filters } from 'src/app/core/constants/filters';
 
 @Component({
   selector: 'app-recipe',
@@ -22,7 +23,7 @@ export class RecipeComponent implements OnInit{
     ){}
 
   onSearch(tag: Tag){
-    this.recipesServ.getSearchingRecipes([tag.id], "")
+    this.recipesServ.getSearchingRecipes([tag.id], "", Filters.ByLikes)
       .subscribe(value => {this.recipesServ.recipes = value});
     this.router.navigate(["/recipes"]);
   }

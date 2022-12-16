@@ -7,6 +7,7 @@
         <h2 class="add_recipe_head">Добавить новый рецепт</h2>
         <button class="publish">Опубликовать</button>
     </div>
+    <a class="error" *ngIf="isError">Не все поля правильно заполнены!</a>
     <div class="add_recipe_form">
         <input  class="up_img" (change)="onAddImage($event)" id="upload_img" name="img" ngModel required type="file"/>
         <label class="up_img_label" for="upload_img"><img class="up_img_label" src="{{imgPath}}"/>

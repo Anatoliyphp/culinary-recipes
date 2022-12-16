@@ -32,8 +32,28 @@ export class SearchComponent implements OnInit {
     this.selectedTags.push(tagid);
   }
 
+  filters: string[] = ["По лайкам", "По избранному", "По комментариям"]
+  currentFilterNumber: number = 1;
+
+  onChooseFilter(event: any){
+      var currentFilter: string = event.target.value;
+      switch (currentFilter){
+        case this.filters[0]:
+          this.currentFilterNumber = 1
+          break;
+        case this.filters[1]:
+          this.currentFilterNumber = 2
+          break;
+        case this.filters[2]:
+          this.currentFilterNumber = 3
+          break;
+        default:
+          this.currentFilterNumber = 1;
+      }
+  }
+
   onSearch(form: NgForm){
-    this.recipeServ.getSearchingRecipes(this.selectedTags, form.value.name)
+    this.recipeServ.getSearchingRecipes(this.selectedTags, form.value.name, this.currentFilterNumber)
       .subscribe(value => {
         this.recipes = value
         this.childComponentValue.emit(this.recipes);

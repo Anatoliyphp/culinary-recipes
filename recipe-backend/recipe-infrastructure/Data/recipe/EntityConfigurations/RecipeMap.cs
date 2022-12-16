@@ -17,7 +17,9 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 				.IsRequired()
 				.HasMaxLength(30);
 
-			builder.Property(r => r.Img).IsRequired();
+			builder.Property(r => r.Img)
+				.IsRequired()
+				.HasMaxLength(100);
 
 			builder.Property(r => r.Description)
 				.IsRequired()
@@ -30,8 +32,6 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 			builder.HasOne(r => r.User)
 				.WithMany(u => u.Recipes)
 				.HasForeignKey(r => r.UserId);
-
-			//builder.HasIndex()
 
 			builder.HasData(
 				new Recipe(

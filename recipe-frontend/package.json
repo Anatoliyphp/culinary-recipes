@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
-    "build": "ng build --prod --output-path ../recipe-backend/recipe-api/wwwroot",
+    "build": "ng build --prod --output-path dist/recipe-frontend",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -12,8 +12,7 @@
   "dependencies": {
     "@angular/animations": "~12.0.1",
     "@angular/cdk": "^12.0.1",
-    "@angular/common": "~12.0.1",
-    "@angular/compiler": "~12.0.1",
+    "@angular/common": "~12.0.1","@angular/compiler": "~12.0.1",
     "@angular/core": "~12.0.1",
     "@angular/forms": "~12.0.1",
     "@angular/material": "^12.0.1",

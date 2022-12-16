@@ -72,7 +72,9 @@ export class EditRecipeComponent implements OnInit {
   }
 
   DeleteIngr(index: number){
+    console.log(index);
     this.recipe.ingridients.splice(index, 1);
+    console.log(this.recipe.ingridients)
   }
 
   DeleteStep(index: number){
@@ -96,8 +98,8 @@ export class EditRecipeComponent implements OnInit {
 		    this.recipe.isFavourite,
 		    this.recipe.userId,
 		    tags,
-		    form.value.ingridients,
-		    form.value.steps
+		    this.recipe.ingridients,
+		    this.recipe.steps
       ).subscribe(value => {this.error = false; location.reload()}, error => {this.error = true})
   }
 

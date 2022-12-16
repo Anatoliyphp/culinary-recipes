@@ -1,7 +1,11 @@
 <div class="comment">
     <div class="comment_header">
-        <p class="comment_author">{{comment.author}}</p>
+        <img class="close" (click)="onDelete()" *ngIf="canDeleteComment" src="assets/images/krest.png"/>
+        <img class="change" src="assets/images/karandash.png" *ngIf="canDeleteComment" (click)="onEdit()">
+        <img class="change_y" src="assets/images/edit_y.png" *ngIf="Editing" (click)="onSave()">
+        <p class="comment_author" *ngIf="!canDeleteComment && !Editing">{{comment.author}}</p>
         <p class="comment_time">{{comment.time}}</p>
     </div>
-    <p class="comment_text">{{comment.text}}</p>
+    <input class="comment_edit" *ngIf="Editing" type="text" name="text" [(ngModel)]="data.text" pattern="[a-zA-ZА-яа-я0-9\s]{1,30}" required>
+    <p *ngIf="!Editing" class="comment_text">{{comment.text}}</p>
 </div>

@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { from, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { BestRecipe } from "src/app/features/home/models/best-recipe";
 import { UserStats } from "src/app/features/profile/models/stat";
+import { IComment } from "src/app/features/recipes/models/comment";
 import { idGetter } from "../app.module";
 import { RecipeFormDataBuilder } from "../builders/RecipeFormDataBuilder";
 import { FullRecipe } from "../models/fullrecipe";
@@ -14,7 +15,6 @@ import { Tag } from "../models/tag";
 @Injectable({
     providedIn: 'root'
 })
-
 export class RecipeService{
 
     constructor(private http: HttpClient){}
@@ -25,16 +25,28 @@ export class RecipeService{
         return this.http.post<BestRecipe>("api/recipes/bestRecipe", {});
     }
 
-    getAllRecipes(): Observable<Recipe[]>{
-        return this.http.get<Recipe[]>("api/recipes/allRecipes/" + idGetter());
+    addComment(recipeId: any, comment: IComment): Observable<IComment>{
+        return this.http.post<IComment>("api/recipes/addComment/" + idGetter() + "/" + recipeId, comment)
     }
 
-    getFavourites(): Observable<Recipe[]>{
-        return this.http.get<Recipe[]>("api/recipes/favourites/" + idGetter());
+    updateComment(comment: IComment): Observable<IComment>{
+        var id = comment.id
+        var author = comment.author
+        var time = comment.time
+        var text = comment.text
+        return this.http.post<IComment>("api/recipes/updateComment", {id, author, text})
     }
 
-    getUserRecipes(): Observable<Recipe[]>{
-        return this.http.get<Recipe[]>("api/recipes/userRecipes/" + idGetter());
+    getAllRecipes(filter: number): Observable<Recipe[]>{
+        return this.http.get<Recipe[]>("api/recipes/allRecipes/" + idGetter() + "/" + filter);
+    }
+
+    getFavourites(filter: number): Observable<Recipe[]>{
+        return this.http.get<Recipe[]>("api/recipes/favourites/" + idGetter() + "/" + filter);
+    }
+
+    getUserRecipes(filter: number, id: number): Observable<Recipe[]>{
+        return this.http.get<Recipe[]>("api/recipes/userRecipes/" + id + "/" + filter);
     }
 
     addToFavourites(recipeId: number): Observable<any>{
@@ -61,8 +73,12 @@ export class RecipeService{
         return this.http.get("api/recipes/delete/" + recipeId);
     }
 
-    getUserRecipesStats(): Observable<UserStats>{
+    getCurrentUserRecipesStats(): Observable<UserStats>{
         return this.http.get<UserStats>("api/recipes/stats/" + idGetter());
+    }
+
+    getUserRecipesStats(userId: number): Observable<UserStats>{
+        return this.http.get<UserStats>("api/recipes/stats/" + userId);
     }
 
     editRecipe(
@@ -82,9 +98,15 @@ export class RecipeService{
 		steps: RStep[]
     ): Observable<Recipe>
     {
-        JSON.stringify(ingridients.forEach(element => {
-            element.list = element.list.split("\n").join("\\n");
-        }));
+        console.log(ingridients)
+        if (ingridients.length == 1){
+            ingridients[0].list = ingridients[0].list.split("\n").join("\\n")
+            JSON.stringify(ingridients);
+        } else {
+            JSON.stringify(ingridients.forEach(element => {
+                element.list = element.list.split("\n").join("\\n");
+            }));
+        }
 
         var formData: FormData = RecipeFormDataBuilder(
             img,
@@ -146,8 +168,12 @@ export class RecipeService{
         return this.http.get<Tag[]>("api/recipes/allTags");
     }
 
-    getSearchingRecipes(tagIds: number[], name: string): Observable<Recipe[]>{
-        return this.http.post<Recipe[]>("api/recipes/search/" + idGetter(), {tagIds, name})
+    getSearchingRecipes(tagIds: number[], name: string, filter: number): Observable<Recipe[]>{
+        return this.http.post<Recipe[]>("api/recipes/search/" + idGetter() + "/" + filter, {tagIds, name})
+    }
+
+    removeComment(commentId: number): Observable<any>{
+        return this.http.get("api/recipes/removeComment/" + commentId);
     }
 
 }

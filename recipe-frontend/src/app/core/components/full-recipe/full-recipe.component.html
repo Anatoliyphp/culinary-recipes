@@ -11,7 +11,7 @@
              Редактировать
         </button>
     </div>
-    <app-recipe [recipe]="recipe"></app-recipe>
+    <app-recipe [recipe]="recipeDemo"></app-recipe>
     <div class="ingrs_and_steps">
         <div class="ingrs">
             <p class="ingrs_head">Ингридиенты</p>
@@ -26,10 +26,22 @@
             <p class="steps_end">Приятного аппетита!</p>
         </div>
     </div>
-    <div class="comments_container">
-        <app-comment
-        *ngFor="let comment of comments"
-        [comment]="comment">
-        </app-comment>
+    <button class="show_comments" (click)="onShowComments()">{{showCommentsValue}}</button>
+    <div class="comments_container" *ngIf="showComments">
+        <div class="comments_block">
+            <app-comment
+            *ngFor="let comment of recipe.comments"
+            [comment]="comment">
+            </app-comment>
+        </div>
+        <div class="add_comment_container">
+            <input class="add_comment"
+                    [(ngModel)]="commentText"
+                  required type="text"
+                 pattern="[a-zA-ZА-Яа-я0-9]{1,20}"
+                 >
+            <button class="send_comment" (click)="addComment()">Отправить комментарий</button>
+        </div>
+        <p class="error" *ngIf="commentError">Неккоректная длина комментария</p>
     </div>
 </div>

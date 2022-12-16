@@ -1,15 +1,12 @@
-﻿using Application;
-using recipe_domain;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace recipe_api
+namespace recipe_api;
+
+public interface IRecipesDtoBuilder
 {
-	public interface IRecipesDtoBuilder
-	{
-		Task<RecipeDto> CreateRecipeDto(Recipe recipe, int userId);
+    Task<RecipeDto> CreateRecipeDto(Recipe recipe, int userId);
 
-		Task<FullRecipeResponseDto> CreateFullRecipeDto(int recipeId, int userId);
+    Task<FullRecipeResponseDto> CreateFullRecipeDto(int recipeId, int userId);
 
-		Task<BestRecipeDto> CreateBestRecipe(Recipe recipe);
-	}
+    Task<BestRecipeDto> CreateBestRecipe(Recipe recipe);
 }

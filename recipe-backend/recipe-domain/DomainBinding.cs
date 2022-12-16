@@ -1,6 +1,6 @@
-﻿namespace recipe_domain
+﻿namespace recipe_domain;
+
+class DomainBinding
 {
-	class DomainBinding
-	{
-	}
 }
+

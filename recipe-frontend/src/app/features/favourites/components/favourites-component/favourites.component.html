@@ -1,5 +1,11 @@
 <div class="favourites">
     <h2 class="favourites_header">Избранное</h2>
+    <select class="search_select_filter" (change)="onChooseFilter($event)">
+        <option
+         *ngFor="let filter of filters"
+        value="{{filter}}"
+        >{{filter}}</option>
+    </select>
     <div *ngIf="hasFavourites; else noFavourites">
         <app-recipe
         *ngFor="let recipe of recipes"

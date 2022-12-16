@@ -25,6 +25,11 @@ namespace recipe_infrastructure.Data.EntityConfigurations
 				.HasMaxLength(50)
 				.IsRequired();
 
+			builder.Property(u => u.About)
+				.HasMaxLength(100);
+
+			builder.HasIndex(u => u.Login).IsUnique();
+
 			builder.HasData
 				(
 					new User(

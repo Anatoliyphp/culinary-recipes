@@ -2,7 +2,7 @@
     <img src="assets/images/arrow.png">
     <a class="back" (click)="onClose()">Назад</a>
     <div class="profile_info">
-        <h2 class="profile_info_head">Мой профиль</h2>
+        <h2 class="profile_info_head">{{profileHead}}</h2>
         <form class="profile_form" #myForm="ngForm" >
             <div class="profile_form_info">
                 <p class="name">имя</p>
@@ -21,6 +21,7 @@
                  >
                 <img class="show_password" (click)="onShowPass()" src="assets/images/show.png"/>
                 <a *ngIf="Error" class="error_message">Не корректные данные для редактирования</a>
+                <a *ngIf="showErrorEdit" class="error_message">Вы не можете изменять чужой профиль!</a>
             </div>
             <textarea rows="8" cols="5" class="profile_form_info_about" type="textarea"
              placeholder="Напишите немного о себе"
@@ -35,6 +36,12 @@
         </div>
         <div>
             <h3 class="profile_recipes">Мои рецепты</h3>
+            <select class="search_select_filter" (change)="onChooseFilter($event)">
+                <option
+                 *ngFor="let filter of filters"
+                value="{{filter}}"
+                >{{filter}}</option>
+            </select>
             <div *ngIf="hasRecipes; else noRecipes">
                 <app-recipe
                 *ngFor="let recipe of recipes"

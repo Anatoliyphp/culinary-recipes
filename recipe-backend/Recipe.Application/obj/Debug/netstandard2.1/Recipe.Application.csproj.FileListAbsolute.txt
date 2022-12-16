@@ -6,8 +6,8 @@ C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recip
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Application.pdb
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Domain.dll
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\bin\Debug\netstandard2.1\Recipe.Domain.pdb
-C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.csproj.CopyComplete
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.dll
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.pdb
 C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.csprojAssemblyReference.cache
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.csproj.CopyComplete
+C:\Users\Анатолий\Documents\GitHub\culinary-recipes\recipe-backend\Recipe.Application\obj\Debug\netstandard2.1\Recipe.Application.csproj.AssemblyReference.cache

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="51f282b1-f2fc-41d9-91cc-cb778ea71421" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/Models/CommentDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastucture.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastucture.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastucture.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.AdminApi/bin/Debug/netstandard2.1/Recipe.Infrastucture.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/IRecipeDomainBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/IRecipeDomainBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/Models/FullRecipeResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/Models/FullRecipeResponseDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/Models/RecipeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/Models/RecipeDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/RecipeDomainBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/DomainBuilders/RecipeDomainBuilders/RecipeDomainBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/bin/Debug/netstandard2.1/Recipe.Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/Debug/netstandard2.1/Recipe.Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Application/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/Debug/netstandard2.1/Recipe.Infrastructure.Migrations.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/Recipe.Infrastructure.Migrations/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-api/Account/Controllers/AccountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-api/Account/Controllers/AccountController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-api/Recipes/Builders/RecipesDtoBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-api/Recipes/Builders/RecipesDtoBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-api/Recipes/Controllers/RecipesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-api/Recipes/Controllers/RecipesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-domain/Recipe/IRecipeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-domain/Recipe/IRecipeRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-domain/Recipe/RecipeFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-domain/Recipe/Filter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-domain/User/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-domain/User/IUserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-infrastructure/Data/recipe/RecipeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-infrastructure/Data/recipe/RecipeRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-backend/recipe-infrastructure/Data/user/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-backend/recipe-infrastructure/Data/user/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/core/components/full-recipe/full-recipe.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/core/components/full-recipe/full-recipe.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/core/components/full-recipe/full-recipe.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/core/components/full-recipe/full-recipe.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/core/models/fullrecipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/core/models/fullrecipe.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/core/services/recipe_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/core/services/recipe_service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/favourites/components/favourites-component/favourites.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/favourites/components/favourites-component/favourites.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/favourites/components/favourites-component/favourites.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/favourites/components/favourites-component/favourites.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/favourites/components/recipe/recipe.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/favourites/components/recipe/recipe.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/home/components/search/search.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/home/components/search/search.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/home/components/search/search.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/home/components/search/search.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/profile/components/profile-component/profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/profile/components/profile-component/profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/profile/components/profile-component/profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/profile/components/profile-component/profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/profile/models/stat.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/profile/models/stat.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/recipes/components/add-recipe/add-recipe.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/recipes/components/add-recipe/add-recipe.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/recipes/components/comment/comment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/recipes/components/comment/comment.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/app/features/recipes/components/recipes-component/recipes.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/app/features/recipes/components/recipes-component/recipes.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/styles/comment.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/styles/comment.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/styles/full-recipe.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/styles/full-recipe.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recipe-frontend/src/styles/stat.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../recipe-frontend/src/styles/stat.component.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="228YWP5Qeijyt1LabALtzrH0Udy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="51f282b1-f2fc-41d9-91cc-cb778ea71421" name="Changes" comment="" />
+      <created>1639220729022</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1639220729022</updated>
+      <workItem from="1639220764738" duration="51000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

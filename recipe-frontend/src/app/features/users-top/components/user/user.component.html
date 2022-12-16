@@ -1,0 +1,17 @@
+<div class="user" (click)="onProfile()">
+    <div class="user_info">
+        <p class="user_info_field"><a class="user_info_name">Имя:</a> {{user.name}}</p>
+        <p class="user_info_field"><a class="user_info_name">Ник на сайте:</a> {{user.login}}</p>
+        <div class="about">
+            <p class="user_info_field"><a class="user_info_name">О себе:</a> </p>
+            <p class="user_info_block">{{user.about}}</p>
+        </div>
+    </div>
+    <div class="user_stats">
+        <p class="user_stats_head">Статистика: </p>
+        <p class="user_info_field" 
+        *ngFor="let stat of stats"
+        value="stat"
+        ><a class="user_info_name">{{stat.title}}:</a> {{stat.number}}</p>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  recipes-frontend:
+    build:
+      context: ./recipe-frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - 80:80
+    container_name: recipe-frontend
+  db:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: "password"
+      ACCEPT_EULA: "Y"
+  recipes-backend:
+    build:
+      context: ./recipe-backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+    container_name: recipe-backend

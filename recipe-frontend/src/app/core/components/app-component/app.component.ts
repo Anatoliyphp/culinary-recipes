@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../core/services/auth_service';
-import { nameGetter } from '../../app.module';
+import { idGetter, nameGetter } from '../../app.module';
 
 @Component({
   selector: 'app-root',
@@ -22,4 +22,5 @@ export class AppComponent {
     window.scroll(0,0);
   }
 
+  userId = idGetter();
 }

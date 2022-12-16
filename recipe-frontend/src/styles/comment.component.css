@@ -1,0 +1,74 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.comment{
+    width: 470px;
+    height: 80px;
+    background-color: white;
+    border-bottom-width: 3px;
+    border-bottom-color: #FDB100;
+    border-bottom-style:solid;
+    margin-left: 57px;
+}
+
+.comment_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding-top: 3px;
+    background-color: ivory;
+}
+
+.comment_author{
+    padding-left: 3px;
+    font: normal 16px/28px Montserrat;
+    color: #FDB100;
+}
+
+.comment_text{
+    padding-left: 3px;
+    font: normal 16px/28px Montserrat;
+    color: #4A525A;
+}
+
+.comment_time{
+    padding-right: 3px;
+    font: normal 16px/28px Montserrat;
+    color: #FDB100;
+}
+
+.close{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.change{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    margin-left: -270px;
+}
+
+.change_y{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.comment_edit{
+    width: 300px;
+    height: 30px;
+    border-radius: 16px;
+    font: normal 16px/28px Montserrat;
+    border: none;
+    margin-top: -20px;
+    outline: none;
+    cursor: pointer;
+}

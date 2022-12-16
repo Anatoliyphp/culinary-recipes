@@ -1,10 +1,8 @@
-﻿using Application;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace recipe_api.Account.Builders
+namespace recipe_api.Account.Builders;
+
+public interface IUserDtoBuilder
 {
-	public interface IUserDtoBuilder
-	{
-		Task<UserDto> CreateUserDto(int userId);
-	}
+    Task<UserDto> CreateUserDto(int userId);
 }

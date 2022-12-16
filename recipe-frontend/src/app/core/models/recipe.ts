@@ -8,6 +8,7 @@ export interface Recipe{
   time: number,
   persons: number,
   likes: number,
+  comments: number,
   isLike: boolean,
   favourites: number,
   isFavourite: boolean,

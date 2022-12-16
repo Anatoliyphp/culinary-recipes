@@ -5,7 +5,6 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from "rxjs";
 import { Token } from "src/app/core/models/token";
 import { tap } from 'rxjs/operators';
-import { idGetter } from "../app.module";
 import { User } from "src/app/features/profile/models/user";
 
 export const ACCESS_TOKEN_KEY = "recipe_access_token";
@@ -63,9 +62,17 @@ export class AuthService {
         this.router.navigate(['']);
     }
 
-    getUser(): Observable<User> {
-        return this.http.get<User>('api/account/getUser/' + idGetter());
+    getUser(id: number): Observable<User> {
+        return this.http.get<User>('api/account/getUser/' + id);
       }
+
+    getAllUsers(): Observable<User[]>{
+        return this.http.get<User[]>('api/account/getAllUsers');
+    }
+
+    searchUsers(filter: number, name: string): Observable<User[]>{
+        return this.http.post<User[]>('api/account/searchUsers/' + filter, {name});
+    }
 
     editUser(id: number, login: string, password: string, name: string, about: string): Observable<User>{
         return this.http.post<User>("api/account/editUser", {

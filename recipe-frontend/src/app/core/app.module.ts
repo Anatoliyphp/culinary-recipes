@@ -18,6 +18,7 @@ import { ACCESS_TOKEN_KEY, USER_ID, USER_NAME } from './services/auth_service';
 import { FullRecipeComponent } from './components/full-recipe/full-recipe.component';
 import { FullStepComponent } from './components/full-step/full-step.component';
 import { FullIngridientComponent } from './components/full-ingridient/full-ingridient.component';
+import { UsersTopModule } from '../features/users-top/users-top.module';
 
 export function tokenGetter()
 {
@@ -48,6 +49,7 @@ export function idGetter()
     HomeModule, 
     RecipesModule,
     FavouritesModule,
+    UsersTopModule,
     RouterModule.forRoot(appRoutes),
     CommonModule,
     FormsModule,
