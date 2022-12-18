@@ -35,11 +35,6 @@ namespace Application
 				exceptions.Add(new ArgumentOutOfRangeException("User login has invalid length"));
 			}
 
-			if (user.About.Length > 100)
-			{
-				exceptions.Add(new ArgumentOutOfRangeException("User about has invalid length"));
-			}
-
 			return exceptions;
 		}
 	}

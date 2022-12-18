@@ -22,11 +22,13 @@ namespace recipe_infrastructure.comment.EntityConfiguration
             
             builder.HasOne(c => c.User)
                 .WithMany(u => u.Comments)
-                .HasForeignKey(c => c.UserId);
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
             
             builder.HasOne(c => c.Recipe)
                 .WithMany(r => r.Comments)
-                .HasForeignKey(c => c.RecipeId);
+                .HasForeignKey(c => c.RecipeId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

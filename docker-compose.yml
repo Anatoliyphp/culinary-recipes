@@ -1,20 +1,30 @@
 version: '3.9'
+
+networks:
+    localdev:
+        name: localdev
+
 services:
   recipes-frontend:
     build:
       context: ./recipe-frontend
       dockerfile: ./Dockerfile
     ports:
-      - 80:80
+      - 4200:4200
     container_name: recipe-frontend
+    networks:
+      - localdev
   db:
     container_name: db
+    restart: always
     image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
-      - 1433:1433
+      - "5438:1433"
     environment:
-      SA_PASSWORD: "password"
-      ACCEPT_EULA: "Y"
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    networks:
+      - localdev
   recipes-backend:
     build:
       context: ./recipe-backend
@@ -22,3 +32,7 @@ services:
     ports:
       - 5000:5000
     container_name: recipe-backend
+    depends_on:
+      - db
+    networks:
+      - localdev
